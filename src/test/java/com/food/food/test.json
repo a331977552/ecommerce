@@ -1,0 +1,292 @@
+{
+  "content": [
+    {
+      "id": 12,
+      "name": "酒酿酸奶0",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 47.00,
+      "hot": null,
+      "description": "湖南卫视天天向上,特别推荐0",
+      "imgs": [
+        {
+          "id": 13,
+          "url": "https://i.picsum.photos/id/0/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 689,
+      "salesVolume": 751,
+      "createDate": 1589613620618,
+      "updateDate": 1589613620618,
+      "categoryIds": [
+        1
+      ]
+    },
+    {
+      "id": 14,
+      "name": "邵三鲜1",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 149.00,
+      "hot": null,
+      "description": "一锅邵三鲜,地道绍兴菜1",
+      "imgs": [
+        {
+          "id": 15,
+          "url": "https://i.picsum.photos/id/1/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 586,
+      "salesVolume": 453,
+      "createDate": 1589613620631,
+      "updateDate": 1589613620631,
+      "categoryIds": [
+        2
+      ]
+    },
+    {
+      "id": 16,
+      "name": "酒酿酸奶2",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 27.00,
+      "hot": null,
+      "description": "湖南卫视天天向上,特别推荐2",
+      "imgs": [
+        {
+          "id": 17,
+          "url": "https://i.picsum.photos/id/2/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 688,
+      "salesVolume": 452,
+      "createDate": 1589613620634,
+      "updateDate": 1589613620634,
+      "categoryIds": [
+        2,
+        9
+      ]
+    },
+    {
+      "id": 18,
+      "name": "黄酒布丁3",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 50.00,
+      "hot": null,
+      "description": "3",
+      "imgs": [
+        {
+          "id": 19,
+          "url": "https://i.picsum.photos/id/3/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 904,
+      "salesVolume": 50,
+      "createDate": 1589613620638,
+      "updateDate": 1589613620638,
+      "categoryIds": [
+        2
+      ]
+    },
+    {
+      "id": 20,
+      "name": "黄酒布丁4",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 32.00,
+      "hot": null,
+      "description": "4",
+      "imgs": [
+        {
+          "id": 21,
+          "url": "https://i.picsum.photos/id/4/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 40,
+      "salesVolume": 644,
+      "createDate": 1589613620641,
+      "updateDate": 1589613620641,
+      "categoryIds": [
+        2
+      ]
+    },
+    {
+      "id": 22,
+      "name": "花雕醉龙虾 (小分)5",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 138.00,
+      "hot": null,
+      "description": "小龙虾醉美味5",
+      "imgs": [
+        {
+          "id": 23,
+          "url": "https://i.picsum.photos/id/5/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 251,
+      "salesVolume": 831,
+      "createDate": 1589613620645,
+      "updateDate": 1589613620645,
+      "categoryIds": [
+        3
+      ]
+    },
+    {
+      "id": 24,
+      "name": "黄酒布丁6",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 71.00,
+      "hot": null,
+      "description": "6",
+      "imgs": [
+        {
+          "id": 25,
+          "url": "https://i.picsum.photos/id/6/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 490,
+      "salesVolume": 776,
+      "createDate": 1589613620647,
+      "updateDate": 1589613620647,
+      "categoryIds": [
+        3,
+        10
+      ]
+    },
+    {
+      "id": 26,
+      "name": "邵三鲜7",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 42.00,
+      "hot": null,
+      "description": "一锅邵三鲜,地道绍兴菜7",
+      "imgs": [
+        {
+          "id": 27,
+          "url": "https://i.picsum.photos/id/7/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 337,
+      "salesVolume": 181,
+      "createDate": 1589613620650,
+      "updateDate": 1589613620650,
+      "categoryIds": [
+        3
+      ]
+    },
+    {
+      "id": 28,
+      "name": "花雕醉龙虾大份8",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 67.00,
+      "hot": null,
+      "description": "国际烹饪大师黄启云先生倾心打造,花雕浸醉,匀指美味8",
+      "imgs": [
+        {
+          "id": 29,
+          "url": "https://i.picsum.photos/id/8/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 727,
+      "salesVolume": 8,
+      "createDate": 1589613620653,
+      "updateDate": 1589613620653,
+      "categoryIds": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": 30,
+      "name": "酒酿酸奶9",
+      "priceprev1": null,
+      "priceprev2": null,
+      "price": 25.00,
+      "hot": null,
+      "description": "湖南卫视天天向上,特别推荐9",
+      "imgs": [
+        {
+          "id": 31,
+          "url": "https://i.picsum.photos/id/9/300/200.jpg",
+          "fileName": null,
+          "fullUrl": null,
+          "size": null
+        }
+      ],
+      "status": "ON_SALE",
+      "quantityRemaining": 100,
+      "salesVolume": 82,
+      "createDate": 1589613620656,
+      "updateDate": 1589613620656,
+      "categoryIds": [
+        4
+      ]
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "unpaged": false,
+    "paged": true
+  },
+  "totalPages": 5,
+  "totalElements": 45,
+  "last": false,
+  "number": 0,
+  "size": 10,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "numberOfElements": 10,
+  "first": true,
+  "empty": false
+}

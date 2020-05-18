@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.food.mappers.OrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.food.model.OrderItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="order_id" jdbcType="INTEGER" property="order_id" />
+    <result column="product_desc" jdbcType="VARCHAR" property="product_desc" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="product_name" jdbcType="VARCHAR" property="product_name" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="sub_total" jdbcType="NUMERIC" property="sub_total" />
+    <result column="uniprice" jdbcType="NUMERIC" property="uniprice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, img, order_id, product_desc, product_id, product_name, quantity, sub_total, uniprice
+  </sql>
+  <select id="selectByExample" parameterType="com.food.model.OrderItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.food.model.OrderItemExample">
+    delete from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.food.model.OrderItem">
+    insert into order_item (id, img, order_id, 
+      product_desc, product_id, product_name, 
+      quantity, sub_total, uniprice
+      )
+    values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{order_id,jdbcType=INTEGER}, 
+      #{product_desc,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, #{product_name,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=INTEGER}, #{sub_total,jdbcType=NUMERIC}, #{uniprice,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.food.model.OrderItem">
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="order_id != null">
+        order_id,
+      </if>
+      <if test="product_desc != null">
+        product_desc,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="product_name != null">
+        product_name,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="sub_total != null">
+        sub_total,
+      </if>
+      <if test="uniprice != null">
+        uniprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="order_id != null">
+        #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_desc != null">
+        #{product_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_name != null">
+        #{product_name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="sub_total != null">
+        #{sub_total,jdbcType=NUMERIC},
+      </if>
+      <if test="uniprice != null">
+        #{uniprice,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.food.model.OrderItemExample" resultType="java.lang.Long">
+    select count(*) from order_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_id != null">
+        order_id = #{record.order_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_desc != null">
+        product_desc = #{record.product_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product_id != null">
+        product_id = #{record.product_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_name != null">
+        product_name = #{record.product_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.sub_total != null">
+        sub_total = #{record.sub_total,jdbcType=NUMERIC},
+      </if>
+      <if test="record.uniprice != null">
+        uniprice = #{record.uniprice,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order_item
+    set id = #{record.id,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      order_id = #{record.order_id,jdbcType=INTEGER},
+      product_desc = #{record.product_desc,jdbcType=VARCHAR},
+      product_id = #{record.product_id,jdbcType=INTEGER},
+      product_name = #{record.product_name,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      sub_total = #{record.sub_total,jdbcType=NUMERIC},
+      uniprice = #{record.uniprice,jdbcType=NUMERIC}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.food.model.OrderItem">
+    update order_item
+    <set>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="order_id != null">
+        order_id = #{order_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_desc != null">
+        product_desc = #{product_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_name != null">
+        product_name = #{product_name,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="sub_total != null">
+        sub_total = #{sub_total,jdbcType=NUMERIC},
+      </if>
+      <if test="uniprice != null">
+        uniprice = #{uniprice,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.food.model.OrderItem">
+    update order_item
+    set img = #{img,jdbcType=VARCHAR},
+      order_id = #{order_id,jdbcType=INTEGER},
+      product_desc = #{product_desc,jdbcType=VARCHAR},
+      product_id = #{product_id,jdbcType=INTEGER},
+      product_name = #{product_name,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      sub_total = #{sub_total,jdbcType=NUMERIC},
+      uniprice = #{uniprice,jdbcType=NUMERIC}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

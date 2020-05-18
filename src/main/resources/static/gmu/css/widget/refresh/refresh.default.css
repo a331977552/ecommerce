@@ -1,0 +1,37 @@
+.ui-refresh .ui-refresh-up, .ui-refresh .ui-refresh-down
+{
+	background: url("http://www.wanqiaolaw.cn/image/line.gif") repeat-x scroll center top rgba(0, 0, 0, 0);
+	font-size: 12px;
+	color: #da251c;
+	text-align: center;
+	margin-top: 30px;
+}
+
+@media all and(min-device-width:768px) and(max-device-width:1024px)
+{
+	.ui-refresh .ui-refresh-up, .ui-refresh .ui-refresh-down
+	{
+		font-size: 16px;
+	}
+}
+
+.ui-refresh .ui-refresh-up .ui-loading, .ui-refresh .ui-refresh-down .ui-loading
+{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	-webkit-background-size: 25px 25px;
+	vertical-align: middle;
+}
+
+.ui-refresh .ui-refresh-up .ui-refresh-label, .ui-refresh .ui-refresh-down .ui-refresh-label
+{
+	cursor: pointer;
+	color:#fff;
+	background: #20254a none repeat scroll 0 0;
+    display: block;
+    font-size: 14px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+}
