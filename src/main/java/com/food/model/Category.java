@@ -1,8 +1,11 @@
 package com.food.model;
 
-import java.io.Serializable;
+import lombok.Data;
 
+import java.io.Serializable;
+@Data
 public class Category implements Serializable {
+
     private Integer id;
 
     private String description;
@@ -15,43 +18,4 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public Integer getMerchant_id() {
-        return merchant_id;
-    }
-
-    public void setMerchant_id(Integer merchant_id) {
-        this.merchant_id = merchant_id;
-    }
 }

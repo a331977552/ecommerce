@@ -100,6 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.Carousel">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('carousel_seq')
+    </selectKey>
+    insert into category
     insert into carousel (id, img, link, 
       title, merchant_id)
     values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, 

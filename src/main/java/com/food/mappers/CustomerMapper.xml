@@ -102,6 +102,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.Customer">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('customer_seq')
+    </selectKey>
     insert into customer (id, avatar, date_of_birth, 
       name, phone, sex, wxid
       )
@@ -110,6 +113,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Customer">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('customer_seq')
+    </selectKey>
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

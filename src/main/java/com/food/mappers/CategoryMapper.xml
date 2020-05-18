@@ -99,16 +99,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.food.model.Category">
-    <selectKey keyProperty="id" resultType="long">
-      select LAST_INSERT_ID()
+  <insert id="insert"  parameterType="com.food.model.Category" >
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('category_seq')
     </selectKey>
     insert into category (id, description, priority, 
       title, merchant_id)
-    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER},
       #{title,jdbcType=VARCHAR}, #{merchant_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Category">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('category_seq')
+    </selectKey>
     insert into category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -114,6 +114,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.OrderForm">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('order_form_seq')
+    </selectKey>
     insert into order_form (id, expired_time, buyer, 
       comment, create_time, order_code, 
       order_number, payment_type, phone, 
@@ -128,6 +131,9 @@
       #{user_id,jdbcType=INTEGER}, #{way_of_eating,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.OrderForm">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('order_form_seq')
+    </selectKey>
     insert into order_form
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

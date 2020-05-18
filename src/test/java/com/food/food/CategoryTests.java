@@ -56,8 +56,11 @@ public class CategoryTests {
         CategoryVO category = new CategoryVO();
         category.setTitle("测试名字");
         category.setPriority(111);
+
         Merchant merchant = new Merchant();
-        merchant.setId(1);
+        merchant.setStatus(Merchant.Status.CLOSED);
+        merchant.setName("必复元");
+        merchant.setId(3);
         category.setMerchant(merchant);
         service.addCategory(category);
 

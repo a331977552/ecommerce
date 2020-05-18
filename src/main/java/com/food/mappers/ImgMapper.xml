@@ -100,12 +100,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.Img">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('img_seq')
+    </selectKey>
     insert into img (id, file_name, full_url, 
       size, url)
     values (#{id,jdbcType=INTEGER}, #{file_name,jdbcType=VARCHAR}, #{full_url,jdbcType=VARCHAR}, 
       #{size,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Img">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('img_seq')
+    </selectKey>
     insert into img
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
