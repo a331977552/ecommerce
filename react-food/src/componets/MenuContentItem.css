@@ -1,0 +1,8 @@
+.menu_item_title {
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    left: 20px;
+    top: 20px;
+    position: absolute;
+    color: black;
+}

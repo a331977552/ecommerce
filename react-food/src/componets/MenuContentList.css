@@ -1,0 +1,15 @@
+.menu_title{
+    text-align: center;
+    padding:10px;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    color: #005bac;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    background-color: #dddddd;
+}
