@@ -1,7 +1,7 @@
 package com.food.food;
 
-import com.food.service.CategoryService;
-import com.food.service.ProductService;
+import com.food.service.ICategoryService;
+import com.food.service.IProductService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +24,14 @@ public class ProductWebTests {
     private MockMvc mockMvc;
 
     @Autowired
-    CategoryService categoryService;
+    ICategoryService categoryService;
 
     static {
 
     }
 
     @Autowired
-    ProductService service;
+    IProductService service;
 
     @BeforeAll
     static void beforeTest() {

@@ -5,7 +5,7 @@ import com.food.model.vo.ImgVO;
 
 import java.util.List;
 
-public interface ImgService {
+public interface IImgService {
 
     ImgVO addImg(ImgVO img);
     ImgVO findImgById(Integer imgId);

@@ -1,64 +1,75 @@
 package com.food.service.impl;
 
-import com.food.entity.Category;
-import com.food.entity.Product;
-import com.food.entity.vo.CategoryVO;
-import com.food.entity.vo.ProductNameVM;
-import com.food.entity.vo.ProductVO;
-import com.food.exception.UnexpectedException;
-import com.food.repository.CategoryRepository;
-import com.food.repository.ProductRepository;
-import com.food.service.CategoryService;
-import com.food.service.ProductService;
-import com.food.utils.CRUDUtils;
+import com.food.mappers.CategoryProductMapper;
+import com.food.model.*;
+import com.food.model.vo.ImgVO;
+import com.food.model.vo.ProductNameVM;
+import com.food.model.vo.ProductVO;
+import com.food.service.ICategoryService;
+import com.food.service.IImgService;
+import com.food.service.IProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements IProductService {
 
 
-    @Autowired
-    private ProductRepository repository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ICategoryService categoryService;
+    private ProductMapper mapper;
+    private CategoryProductMapper categoryProductMapper;
+    private ProductImgsMapper productImgsMapper;
+
     @Autowired
-    private CategoryService categoryService;
+    private IImgService imgService;
 
-
+    public ProductServiceImpl(ProductMapper mapper, CategoryProductMapper categoryProductMapper,ProductImgsMapper productImgsMapper) {
+        this.mapper = mapper;
+        this.categoryProductMapper = categoryProductMapper;
+        this.productImgsMapper = productImgsMapper;
+    }
 
     @Transactional
     @Override
     public ProductVO addProduct(ProductVO productVO) {
+        Product product = convertToDAO(productVO);
+        product.setCreate_date(new Date());
+        product.setUpdate_date(product.getCreate_date());
+        mapper.insert(product);
+        List<Integer> categoryIds = productVO.getCategoryIds();
+        //map product into  categories
+        categoryIds.forEach(id-> categoryProductMapper.insert(new CategoryProduct(product.getId(),id)));
+        List<ImgVO> imgs = productVO.getImgs();
+        //insert img
+        List<ImgVO> imgsWithId= imgs.stream().map(vo-> imgService.addImg(vo)).collect(Collectors.toList());
+        //add mapping for img and product
+        imgsWithId.forEach(vo->productImgsMapper.insert(new ProductImgs(product.getId(),vo.getId())));
 
-        Product save = repository.save(convertToDAO(productVO));
-        return convertToVO(save);
+        return convertToVO(product,categoryIds,imgsWithId);
     }
     Product convertToDAO(ProductVO vo){
         Product product = new Product();
-        BeanUtils.copyProperties(vo,product,"createDate","updateDate");
-        List<Category> categoryByIds = categoryRepository.findAllById(vo.getCategoryIds());
-        product.setCategories(categoryByIds);
+        BeanUtils.copyProperties(vo,product);
         return product;
     }
-    ProductVO convertToVO(Product save){
+    ProductVO convertToVO(Product save,List<Integer> categoriesId,List<ImgVO> imgVOS){
         ProductVO productVO = new ProductVO();
         BeanUtils.copyProperties(save,productVO);
-        productVO.setCategoryIds(save.getCategories().stream().map(Category::getId).collect(Collectors.toList()));
+        productVO.setCategoryIds(categoriesId);
+        productVO.setImgs(imgVOS);
         return productVO;
     }
 
@@ -81,32 +92,42 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProductById(Integer id) {
-        CRUDUtils.deleteById(repository,id);
+        mapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public Optional<ProductVO> getProductById(Integer id) {
-        return CRUDUtils.findEntityById(repository,id);
+    public ProductVO getProductById(Integer id) {
+        Product product = mapper.selectByPrimaryKey(id);
+        //all relevant categoryIds
+        CategoryProductExample example=new CategoryProductExample();
+        example.createCriteria().andProduct_idEqualTo(id);
+        List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example);
+        List<Integer> allCategoryIds = categoryProducts.stream().map(CategoryProduct::getCategory_id).collect(Collectors.toList());
+        //all relevant img Ids
+        ProductImgsExample productImgsExample=new ProductImgsExample();
+        productImgsExample.createCriteria().andProduct_idEqualTo(id);
+        List<ImgVO> imgsByProductId = imgService.findImgsByProductId(id);
+
+        return convertToVO(product,allCategoryIds,imgsByProductId);
     }
 
     @Override
     public long count(ProductVO example) {
 
-        return 0;
-//        return CRUDUtils.count(repository,example);
+        return mapper.countByExample(new ProductExample());
     }
 
     @Override
     public List<ProductVO> getProductByIds(List<Integer> ids) {
-        List<Product> products = repository.findAllById(ids);
-        return getProductVOS(products);
+        return ids.stream().map(this::getProductById).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductVO> getProductsByCategoryId(Integer id) {
-        Optional<CategoryVO> categoryById = categoryService.getCategoryById(id);
-        CategoryVO categoryVO = categoryById.orElseThrow(() -> new UnexpectedException("category " + id + " doesn't exist"));
-        return categoryVO.getProducts();
+        CategoryProductExample example = new CategoryProductExample();
+        example.createCriteria().andCategory_idEqualTo(id);
+        List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example);
+        return categoryProducts.stream().map(cp -> this.getProductById(cp.getProduct_id())).collect(Collectors.toList());
     }
 
     private List<ProductVO> getProductVOS(List<Product> products) {
@@ -115,42 +136,50 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : products) {
             ProductVO vo=new ProductVO();
             BeanUtils.copyProperties(product,vo);
-            vo.setCategoryIds(product.getCategories().stream().map(Category::getId).collect(Collectors.toList()));
-            productVOs.add(vo);
+           productVOs.add(vo);
         }
         return productVOs;
     }
 
     @Override
     public long countProductsByCategoryId(Integer id) {
-        Product product=new Product();
-        Category category = new Category();
-        category.setId(id);
-        product.setCategories(Collections.singletonList(category));
-        return repository.count(Example.of(product));
+        CategoryProductExample example = new CategoryProductExample();
+        example.createCriteria().andCategory_idEqualTo(id);
+        List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example);
+        return categoryProducts.size();
     }
 
     @Override
     public List<ProductVO> getAll() {
-        return getProductVOS(repository.findAll());
+        ProductExample example = new ProductExample();
+        List<Product> products = mapper.selectByExample(example);
+        return products.stream().map(product -> {
+            CategoryProductExample example1 = new CategoryProductExample();
+            example1.createCriteria().andProduct_idEqualTo(product.getId());
+            List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example1);
+            return convertToVO(product, categoryProducts.stream().map(CategoryProduct::getCategory_id).collect(Collectors.toList()), imgService.findImgsByProductId(product.getId()));
+        }).collect(Collectors.toList());
     }
 
+    //TODO pageable
     @Override
     public Page<ProductVO> getAll(Pageable page) {
-        Page<Product> all = repository.findAll(page);
-        List<ProductVO> productVOS = getProductVOS(all.getContent());
+//        Page<Product> all = repository.findAll(page);
+//        List<ProductVO> productVOS = getProductVOS(all.getContent());
 
-        return all.map(this::convertToVO);
+        return  null;
+//        return all.map(this::convertToVO);
     }
 
+    //TODO select by example
     @Override
     public List<ProductVO> getAll(ProductVO productVO) {
-        Product product = convertToDAO(productVO);
-        return getProductVOS(repository.findAll(Example.of(product)));
+        return null;
     }
 
     @Override
     public List<ProductNameVM> getAllProductNames() {
-        return repository.getAllProductNames();
+        ProductExample example = new ProductExample();
+        return  mapper.selectByExample(example).stream().map(product->new ProductNameVM(product.getId(),product.getName())).collect(Collectors.toList());
     }
 }

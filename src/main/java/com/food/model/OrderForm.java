@@ -39,6 +39,8 @@ public class OrderForm implements Serializable {
 
     private Integer way_of_eating;
 
+    private Integer delivery_address_id;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -175,5 +177,13 @@ public class OrderForm implements Serializable {
 
     public void setWay_of_eating(Integer way_of_eating) {
         this.way_of_eating = way_of_eating;
+    }
+
+    public Integer getDelivery_address_id() {
+        return delivery_address_id;
+    }
+
+    public void setDelivery_address_id(Integer delivery_address_id) {
+        this.delivery_address_id = delivery_address_id;
     }
 }

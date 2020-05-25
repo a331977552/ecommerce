@@ -1,4 +1,4 @@
-package com.food.demo.model;
+package com.food.model;
 
 import java.io.Serializable;
 
@@ -12,6 +12,8 @@ public class Merchant implements Serializable {
     private String status;
 
     private String address;
+
+    private String availability;
 
     private static final long serialVersionUID = 1L;
 
@@ -53,5 +55,13 @@ public class Merchant implements Serializable {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability == null ? null : availability.trim();
     }
 }

@@ -1,14 +1,14 @@
 package com.food.service.impl;
 
-import com.food.entity.OrderForm;
-import com.food.service.OrderFormService;
+import com.food.model.OrderForm;
+import com.food.service.IOrderFormService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderFormServiceImpl implements OrderFormService {
+public class OrderFormServiceImpl implements IOrderFormService {
 
 
     @Override

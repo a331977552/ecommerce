@@ -13,21 +13,21 @@ class StageProductItem extends React.Component {
     }
 
     onIncreaseClick = (e) => {
-        const {product, count} = this.props;
+        const {product, quantity} = this.props;
         console.log(this.props);
-        const result = count + 1;
+        const result = quantity + 1;
 
         this.props.updateItemInCar({
             id: product.id,
-            count: result > product.quantityRemaining ? count : result,
+            quantity: result > product.quantityRemaining ? quantity : result,
             product
         });
     }
 
     onDecreaseClick = (e) => {
-        const {product, count} = this.props;
+        const {product, quantity} = this.props;
 
-        const result = count - 1 < 0 ? 0 : count - 1;
+        const result = quantity - 1 < 0 ? 0 : quantity - 1;
         let canDelete = true;
         if(result === 0)
         {
@@ -35,7 +35,7 @@ class StageProductItem extends React.Component {
         }
         canDelete && this.props.updateItemInCar({
             id: product.id,
-            count: result,
+            quantity: result,
             product
         });
     }
@@ -43,10 +43,10 @@ class StageProductItem extends React.Component {
 
     render() {
         const {props} = this;
-        const {product,count,subPrice} = this.props;
+        const {product,quantity,subPrice} = this.props;
         // const {product, cartItem} = this.props;
         /**
-         * count: 3
+         * quantity: 3
          id: 159
          subPrice:324
          product: {id: 159, name: "花雕醉龙虾 (小分)1", priceprev1: null, priceprev2: null, price: 118, …}
@@ -54,14 +54,14 @@ class StageProductItem extends React.Component {
          *
          */
         return (
-            <div  style={{display:'flex',flexDirection:'row',padding:'10px',width:'100%',height:'60px',marginBottom:'2px',backgroundColor:'white'}}>
+            <div  style={{display:'flex',flexDirection:'row',padding:'10px 15px',width:'100%',height:'65px',marginTop:'1px',backgroundColor:'white'}}>
                 <div style={{flex:'none',width:'75%',display:'flex',flexDirection:'column',justifyContent:'space-between',height:'100%',overflow:'auto'}}>
                     <p className='cart_item_title'>{product.name}</p>
                     <p className='cart_item_price'>￥{product.price}</p>
                 </div>
                 <div style={{flex:'none',width:'25%',justifyContent:'flex-end',display:'flex',flexDirection:'row',alignItems:'center'}} >
                     <span className={'cart_item_count_change'} onClick={this.onDecreaseClick}>-</span>
-                    <p style={{marginLeft:'5px',marginRight:'5px'}}>{count}</p>
+                    <p style={{marginLeft:'5px',marginRight:'5px'}}>{quantity}</p>
                     <span className={'cart_item_count_change'} onClick={this.onIncreaseClick}>+</span>
                 </div>
 

@@ -4,52 +4,61 @@ import MenuPage from "./MenuPage";
 import StagePage from "./StagePage";
 
 import {
-    BrowserRouter,
-    HashRouter,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
+import {bindActionCreators} from "redux";
+import {initAppFromNetwork} from "../data/actions/httpActionCreators";
+import {connect} from "react-redux";
+import {withRouter} from "react-router";
 
-function App() {
-  return (
-      <BrowserRouter>
 
-          <Switch>
-              <Route path="/menu">
-                  <MenuPage/>
+class  App extends React.Component{
 
-              </Route>
-              <Route path="/stage">
-                  <StagePage/>
-              </Route>
-              <Route path="/">
-                  <div className="App">
-                      <header className="App-header">
-                          欢迎光临
-                      </header>
-                      <div style={{minHeight:'90vh',width:'100%',display:'flex',flexDirection:'column'}}>
-                          <div style={{flexGrow:1}}></div>
-                          <div style={{flexGrow:1,display:'flex',flexDirection:'row'}}>
-                              <div style={{flexGrow:1}}></div>
-                              <button style={{width:'100px', height:'50px'}}>
-                                  <Link to="/menu?eating=1">打包带走</Link>
-                              </button>
-                              <div style={{flexGrow:1}}></div>
-                              <button style={{width:'100px', height:'50px'}}>
-                                  <Link to="/menu?takeway=1">堂吃</Link>
-                              </button>
-                              <div style={{flexGrow:1}}></div>
-                          </div>
-                          <div style={{flexGrow:1}}></div>
 
-                      </div>
-                  </div>
-              </Route>
-          </Switch>
+    componentDidMount() {
+        if(this.success)
+            return;
+        const query = new URLSearchParams(this.props.location.search);
+        const merchantId = query.get('mid');
+        if(!merchantId){
+            //init all merchant and let user select
+            this.props.history.push("/errorMid");
+            return;
+        }
+        //TODO get merchant id from url
+        this.props.initAppFromNetwork(merchantId);
+    }
+    render() {
+        return (
+                <Switch>
+                    <Route path="/menu">
+                        <MenuPage/>
+                    </Route>
+                    <Route path="/stage">
+                        <StagePage/>
+                    </Route>
+                    <Route path={"/errorMid"}>
+                        <div>请选择正确的商家!</div>
+                    </Route>
+                    <Route path="/">
+                        <MenuPage/>
+                    </Route>
 
-      </BrowserRouter>
-  );
+                </Switch>
+        );
+    }
 }
 
-export default App;
+const mapState=(state) =>{
+    const {loading, success} = state.menuReducer;
+    return {loading, success}
+}
+const mapDispatch = (dispatch, ownProps) => {
+    return bindActionCreators({
+        initAppFromNetwork
+    }, dispatch);
+}
+
+
+export default withRouter(connect(mapState,mapDispatch)(App));

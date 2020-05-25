@@ -1,6 +1,6 @@
 package com.food.food;
 
-import com.food.service.ProductService;
+import com.food.service.IProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class FoodApplicationTests {
 
     @Autowired
-    ProductService service;
+    IProductService service;
 
 
     @Test

@@ -7,6 +7,7 @@
     <result column="priority" jdbcType="INTEGER" property="priority" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="merchant_id" jdbcType="INTEGER" property="merchant_id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parent_id" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, description, priority, title, merchant_id
+    id, description, priority, title, merchant_id, parent_id
   </sql>
   <select id="selectByExample" parameterType="com.food.model.CategoryExample" resultMap="BaseResultMap">
     select
@@ -99,14 +100,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert"  parameterType="com.food.model.Category" >
+  <insert id="insert" parameterType="com.food.model.Category">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
       select nextval('category_seq')
     </selectKey>
     insert into category (id, description, priority, 
-      title, merchant_id)
-    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER},
-      #{title,jdbcType=VARCHAR}, #{merchant_id,jdbcType=INTEGER})
+      title, merchant_id, parent_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{merchant_id,jdbcType=INTEGER}, #{parent_id,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Category">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
@@ -129,6 +132,9 @@
       <if test="merchant_id != null">
         merchant_id,
       </if>
+      <if test="parent_id != null">
+        parent_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -145,6 +151,9 @@
       </if>
       <if test="merchant_id != null">
         #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="parent_id != null">
+        #{parent_id,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -172,6 +181,9 @@
       <if test="record.merchant_id != null">
         merchant_id = #{record.merchant_id,jdbcType=INTEGER},
       </if>
+      <if test="record.parent_id != null">
+        parent_id = #{record.parent_id,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -183,7 +195,8 @@
       description = #{record.description,jdbcType=VARCHAR},
       priority = #{record.priority,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      merchant_id = #{record.merchant_id,jdbcType=INTEGER}
+      merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      parent_id = #{record.parent_id,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -203,6 +216,9 @@
       <if test="merchant_id != null">
         merchant_id = #{merchant_id,jdbcType=INTEGER},
       </if>
+      <if test="parent_id != null">
+        parent_id = #{parent_id,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -211,7 +227,8 @@
     set description = #{description,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
-      merchant_id = #{merchant_id,jdbcType=INTEGER}
+      merchant_id = #{merchant_id,jdbcType=INTEGER},
+      parent_id = #{parent_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -3,7 +3,7 @@ import menuReducer from './reducers/menuReducer'
 import stageReducer from './reducers/stageReducer'
 const foodAppReducer = combineReducers({
     menuReducer: menuReducer,
-    stageReducer: stageReducer
+    stageReducer: stageReducer,
 })
 
 export default foodAppReducer

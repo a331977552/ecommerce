@@ -1,14 +1,14 @@
 package com.food.service.impl;
 
-import com.food.entity.Carousel;
-import com.food.service.CarouselService;
+import com.food.model.Carousel;
+import com.food.service.ICarouselService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarouselServiceImpl implements CarouselService {
+public class CarouselServiceImpl implements ICarouselService {
 
 
     @Override

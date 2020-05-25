@@ -1,9 +1,10 @@
-package com.food.demo.dao;
+package com.food.mappers;
 
-import com.food.demo.model.Merchant;
-import com.food.demo.model.MerchantExample;
-import java.util.List;
+import com.food.model.Merchant;
+import com.food.model.MerchantExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface MerchantMapper {
     long countByExample(MerchantExample example);

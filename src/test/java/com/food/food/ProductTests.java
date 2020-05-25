@@ -1,13 +1,11 @@
 package com.food.food;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.entity.Img;
-import com.food.entity.Merchant;
-import com.food.entity.Product;
-import com.food.entity.vo.CategoryVO;
-import com.food.entity.vo.ProductVO;
-import com.food.service.CategoryService;
-import com.food.service.ProductService;
+import com.food.model.Merchant;
+import com.food.model.vo.CategoryVO;
+import com.food.model.vo.ProductVO;
+import com.food.service.ICategoryService;
+import com.food.service.IProductService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -27,7 +24,7 @@ public class ProductTests {
 
 
     @Autowired
-    CategoryService categoryService;
+    ICategoryService categoryService;
 
 
     static {
@@ -35,7 +32,7 @@ public class ProductTests {
     }
 
     @Autowired
-    ProductService service;
+    IProductService service;
 
     @BeforeAll
     static void beforeTest() {
@@ -81,18 +78,18 @@ public class ProductTests {
                 ProductVO product=new ProductVO();
                 int nameIndex = random.nextInt(str.length);
                 product.setDescription(str[nameIndex]+ index);
-                product.setQuantityRemaining(random.nextInt(999));
+                product.setQuantity_remaining(random.nextInt(999));
                 product.setPrice(new BigDecimal(random.nextInt(150)));
-                product.setSalesVolume(random.nextInt(999));
+                product.setSales_volume(random.nextInt(999));
                 Merchant merchant=new Merchant();
-                merchant.setId(1);
-
-                product.setMerchant(merchant);
-                product.setName(names[nameIndex]+ index);
-                product.setStatus(Product.Status.ON_SALE);
-                Img img = new Img();
-                img.setUrl("https://i.picsum.photos/id/"+index+"/300/200.jpg");
-                product.setImgs(Arrays.asList(img));
+//                merchant.setId(category);
+//
+//                product.setName(names[nameIndex]+ index);
+//                product.setm(merchant);
+//                product.setStatus(Product.Status.ON_SALE);
+//                Img img = new Img();
+//                img.setUrl("https://i.picsum.photos/id/"+index+"/300/200.jpg");
+//                product.setImgs(Arrays.asList(img));
                 List<Integer> lists=new ArrayList<>();
                 lists.add(category.getId());
                 int i2 = random.nextInt(2);

@@ -15,6 +15,9 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="update_date" jdbcType="TIMESTAMP" property="update_date" />
     <result column="merchant_id" jdbcType="INTEGER" property="merchant_id" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="discount" jdbcType="INTEGER" property="discount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, create_date, description, hot, name, price, priceprev1, priceprev2, quantity_remaining, 
-    sales_volume, status, update_date, merchant_id
+    sales_volume, status, update_date, merchant_id, weight, priority, discount
   </sql>
   <select id="selectByExample" parameterType="com.food.model.ProductExample" resultMap="BaseResultMap">
     select
@@ -115,12 +118,14 @@
     insert into product (id, create_date, description, 
       hot, name, price, priceprev1, 
       priceprev2, quantity_remaining, sales_volume, 
-      status, update_date, merchant_id
+      status, update_date, merchant_id, 
+      weight, priority, discount
       )
     values (#{id,jdbcType=INTEGER}, #{create_date,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
       #{hot,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, #{priceprev1,jdbcType=NUMERIC}, 
       #{priceprev2,jdbcType=NUMERIC}, #{quantity_remaining,jdbcType=INTEGER}, #{sales_volume,jdbcType=INTEGER}, 
-      #{status,jdbcType=VARCHAR}, #{update_date,jdbcType=TIMESTAMP}, #{merchant_id,jdbcType=INTEGER}
+      #{status,jdbcType=VARCHAR}, #{update_date,jdbcType=TIMESTAMP}, #{merchant_id,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, #{discount,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Product">
@@ -168,6 +173,15 @@
       <if test="merchant_id != null">
         merchant_id,
       </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -208,6 +222,15 @@
       </if>
       <if test="merchant_id != null">
         #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -259,6 +282,15 @@
       <if test="record.merchant_id != null">
         merchant_id = #{record.merchant_id,jdbcType=INTEGER},
       </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.discount != null">
+        discount = #{record.discount,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -278,7 +310,10 @@
       sales_volume = #{record.sales_volume,jdbcType=INTEGER},
       status = #{record.status,jdbcType=VARCHAR},
       update_date = #{record.update_date,jdbcType=TIMESTAMP},
-      merchant_id = #{record.merchant_id,jdbcType=INTEGER}
+      merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=INTEGER},
+      priority = #{record.priority,jdbcType=INTEGER},
+      discount = #{record.discount,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -322,6 +357,15 @@
       <if test="merchant_id != null">
         merchant_id = #{merchant_id,jdbcType=INTEGER},
       </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -338,7 +382,10 @@
       sales_volume = #{sales_volume,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
       update_date = #{update_date,jdbcType=TIMESTAMP},
-      merchant_id = #{merchant_id,jdbcType=INTEGER}
+      merchant_id = #{merchant_id,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

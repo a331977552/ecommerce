@@ -1,4 +1,4 @@
-package com.food.entity.vo;
+package com.food.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,33 +1,44 @@
-package com.food.entity.vo;
+package com.food.model.vo;
 
-import com.food.entity.Img;
-import com.food.entity.Merchant;
-import com.food.entity.Product;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * status:  OPENING
+ *          CLOSED
+ */
 @Data
 public class ProductVO {
     private Integer id;
-    private String name;
-    private BigDecimal priceprev1;
-    private BigDecimal priceprev2;
-    private BigDecimal price;
-    private String hot;
-    private Merchant merchant;
+
+    private Date create_date;
+
     private String description;
-    private List<Img> imgs;
-    private Product.Status status;
-    private Integer quantityRemaining;
-    private Integer salesVolume;
-    public enum Status{
-        ON_SALE,
-        OUT_OF_ORDER
-    }
-    private Date createDate;
-    private Date updateDate;
+
+    private String hot;
+
+    private String name;
+
+    private BigDecimal price;
+
+    private BigDecimal priceprev1;
+
+    private BigDecimal priceprev2;
+
+    private Integer quantity_remaining;
+
+    private Integer sales_volume;
+
+    private String status;
+
+    private Date update_date;
+
+    private Integer merchant_id;
+    private List<ImgVO> imgs;
     private List<Integer> categoryIds;
+
+
 }

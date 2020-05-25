@@ -5,7 +5,7 @@ import com.food.model.vo.CategoryVO;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface ICategoryService {
 
     CategoryVO addCategory(CategoryVO categoryVO);
     void updateCategorySelective(CategoryVO categoryVO);
@@ -18,4 +18,5 @@ public interface CategoryService {
     List<CategoryVO> getAll();
     List<CategoryVO> getAll(CategoryVO example);
 
+    List<CategoryVO> getAllByMerchantId(Integer merchantId);
 }

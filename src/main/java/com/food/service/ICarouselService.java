@@ -6,7 +6,7 @@ import com.food.model.Carousel;
 import java.util.List;
 import java.util.Optional;
 
-public interface CarouselService {
+public interface ICarouselService {
 
     Carousel addCarousel(Carousel Carousel);
     void updateCarouselSelective(Carousel Carousel);

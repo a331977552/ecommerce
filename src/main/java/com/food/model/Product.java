@@ -31,6 +31,12 @@ public class Product implements Serializable {
 
     private Integer merchant_id;
 
+    private Integer weight;
+
+    private Integer priority;
+
+    private Integer discount;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -135,5 +141,29 @@ public class Product implements Serializable {
 
     public void setMerchant_id(Integer merchant_id) {
         this.merchant_id = merchant_id;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
     }
 }

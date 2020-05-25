@@ -1,9 +1,8 @@
 package com.food.controller;
 
-import com.food.entity.vo.ProductNameVM;
-import com.food.entity.vo.ProductVO;
-import com.food.exception.NoSuchEntityException;
-import com.food.service.ProductService;
+import com.food.model.vo.ProductNameVM;
+import com.food.model.vo.ProductVO;
+import com.food.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,7 @@ public class ProductController {
     @Value("${product.list.page.size}")
     Integer pageSize;
     @Autowired
-   ProductService service;
+    IProductService service;
 
 //    public ProductController(ProductService service) {
 //        this.service = service;
@@ -44,7 +43,7 @@ public class ProductController {
     }
     @PostMapping("/get/{id}")
     public ProductVO getProduct(@PathVariable("id") Integer id){
-        return service.getProductById(id).orElseThrow(()->new NoSuchEntityException("common.null.exist","product "+id));
+        return service.getProductById(id);
     }
     @PostMapping("/findAll")
     public List<ProductVO> getAllProduct(){

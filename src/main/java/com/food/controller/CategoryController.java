@@ -1,8 +1,8 @@
 package com.food.controller;
 
-import com.food.entity.vo.CategoryVO;
-import com.food.exception.NoSuchEntityException;
-import com.food.service.CategoryService;
+import com.food.model.vo.CategoryVO;
+import com.food.service.ICategoryService;
+import com.food.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,10 @@ public class CategoryController {
 
 
     @Autowired
-   CategoryService service;
+    ICategoryService service;
+
+    @Autowired
+    IProductService productService;
 
 //    public CategoryController(CategoryService service) {
 //        this.service = service;
@@ -46,16 +49,14 @@ public class CategoryController {
     @PostMapping("/get/{id}")
     public ResponseEntity<CategoryVO> getCategory(@PathVariable("id") Integer id){
 
-        return ResponseEntity.ok(service.getCategoryById(id).orElseThrow(()->new NoSuchEntityException("common.null.exist","Category "+id)));
+        return ResponseEntity.ok(service.getCategoryById(id));
     }
     @PostMapping("/findAll")
     public ResponseEntity<List<CategoryVO>> getAllCategory(){
-        return ResponseEntity.ok(service.getAll());
+        List<CategoryVO> all = service.getAll();
+        return ResponseEntity.ok(all);
     }
-    @PostMapping("/findAllwithAllProducts")
-    public ResponseEntity<List<CategoryVO>> findAllwithAllProducts(){
-        return ResponseEntity.ok(service.getAllWithAllProducts());
-    }
+
     @PostMapping("/findByExample")
     public ResponseEntity<List<CategoryVO>> getAllCategory(@RequestBody CategoryVO category){
         return ResponseEntity.ok(service.getAll(category));

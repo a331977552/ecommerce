@@ -1,7 +1,7 @@
 package com.food.controller;
 
-import com.food.entity.Img;
-import com.food.service.ImgService;
+import com.food.model.vo.ImgVO;
+import com.food.service.IImgService;
 import com.food.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,10 +24,10 @@ public class ImgController {
     @Value("${img.root.directory}")
     String rootDic;
 @Autowired
-    ImgService service;
+IImgService service;
 
     @PostMapping("/add")
-    public ResponseEntity<Img> uploadImg(@RequestParam(value="img",required=true) MultipartFile file) throws IOException {
+    public ResponseEntity<ImgVO> uploadImg(@RequestParam(value="img",required=true) MultipartFile file) throws IOException {
         //todo upload file
         String originalFilename = file.getOriginalFilename();
         int dot = originalFilename.lastIndexOf('.');
@@ -42,11 +42,11 @@ public class ImgController {
         File dic = FileUtils.createFolder(rootDic+folder);
         String fileName = UUID.randomUUID().toString().replace("-", "") + suffix;
         file.transferTo(new File(dic,fileName));
-        Img img = new Img();
-        img.setFileName(fileName);
+        ImgVO img = new ImgVO();
+        img.setFile_name(fileName);
         img.setUrl(folder+"/"+fileName);
 //        img.setFullUrl(dic+"/"+fileName);
-        Img addedImg = service.addImg(img);
+        ImgVO addedImg = service.addImg(img);
         return ResponseEntity.ok(addedImg);
     }
 

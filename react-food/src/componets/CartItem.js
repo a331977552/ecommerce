@@ -6,29 +6,27 @@ import HorizontalLine from "./HorizontalLine";
 import    "./CartItem.css";
 
 class CartItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     onIncreaseClick = (e) => {
-        const {product, count} = this.props;
+        const {product, quantity} = this.props;
         console.log(this.props);
-        const result = count + 1;
+        const result = quantity + 1;
 
         this.props.updateItemInCar({
             id: product.id,
-            count: result > product.quantityRemaining ? count : result,
+            quantity: result > product.quantityRemaining ? quantity : result,
             product
         });
     }
 
     onDecreaseClick = (e) => {
-        const {product, count} = this.props;
-        const result = count - 1;
+        const {product, quantity} = this.props;
+        const result = quantity - 1;
 
         this.props.updateItemInCar({
             id: product.id,
-            count: result < 0 ? 0 : result,
+            quantity: result < 0 ? 0 : result,
             product
         });
     }
@@ -36,10 +34,10 @@ class CartItem extends React.Component {
 
     render() {
         const {props} = this;
-        const {product,count,subPrice} = this.props;
+        const {product,quantity,subPrice} = this.props;
         // const {product, cartItem} = this.props;
         /**
-         * count: 3
+         * quantity: 3
          id: 159
          subPrice:324
          product: {id: 159, name: "花雕醉龙虾 (小分)1", priceprev1: null, priceprev2: null, price: 118, …}
@@ -59,7 +57,7 @@ class CartItem extends React.Component {
 
                 <div style={{flex:'none',width:'25%',justifyContent:'flex-end',display:'flex',flexDirection:'row',alignItems:'center'}} >
                     <span className={'cart_item_count_change'} onClick={this.onDecreaseClick}>-</span>
-                    <p style={{marginLeft:'5px',marginRight:'5px'}}>{count}</p>
+                    <p style={{marginLeft:'5px',marginRight:'5px'}}>{quantity}</p>
                     <span className={'cart_item_count_change'} onClick={this.onIncreaseClick}>+</span>
                 </div>
 

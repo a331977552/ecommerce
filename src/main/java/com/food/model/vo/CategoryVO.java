@@ -1,8 +1,8 @@
-package com.food.entity.vo;
+package com.food.model.vo;
 
-import com.food.entity.Merchant;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +11,9 @@ public class CategoryVO {
     private Integer id;
     private String title;
     private String description;
+    private Integer merchant_id;
     private int priority;
-    private Merchant merchant;
+    @NotNull(message="商户不能为空!")
+    private MerchantVO merchant;
     private List<ProductVO> products=new ArrayList<>();
 }

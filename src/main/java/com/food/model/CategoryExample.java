@@ -423,6 +423,66 @@ public class CategoryExample {
             addCriterion("merchant_id not between", value1, value2, "merchant_id");
             return (Criteria) this;
         }
+
+        public Criteria andParent_idIsNull() {
+            addCriterion("parent_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idIsNotNull() {
+            addCriterion("parent_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idEqualTo(Integer value) {
+            addCriterion("parent_id =", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idNotEqualTo(Integer value) {
+            addCriterion("parent_id <>", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idGreaterThan(Integer value) {
+            addCriterion("parent_id >", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("parent_id >=", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idLessThan(Integer value) {
+            addCriterion("parent_id <", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idLessThanOrEqualTo(Integer value) {
+            addCriterion("parent_id <=", value, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idIn(List<Integer> values) {
+            addCriterion("parent_id in", values, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idNotIn(List<Integer> values) {
+            addCriterion("parent_id not in", values, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idBetween(Integer value1, Integer value2) {
+            addCriterion("parent_id between", value1, value2, "parent_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andParent_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("parent_id not between", value1, value2, "parent_id");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

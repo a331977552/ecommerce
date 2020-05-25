@@ -1,4 +1,4 @@
-package com.food.demo.model;
+package com.food.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -441,6 +441,76 @@ public class MerchantExample {
 
         public Criteria andAddressNotBetween(String value1, String value2) {
             addCriterion("address not between", value1, value2, "address");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityIsNull() {
+            addCriterion("availability is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityIsNotNull() {
+            addCriterion("availability is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityEqualTo(String value) {
+            addCriterion("availability =", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityNotEqualTo(String value) {
+            addCriterion("availability <>", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityGreaterThan(String value) {
+            addCriterion("availability >", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityGreaterThanOrEqualTo(String value) {
+            addCriterion("availability >=", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityLessThan(String value) {
+            addCriterion("availability <", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityLessThanOrEqualTo(String value) {
+            addCriterion("availability <=", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityLike(String value) {
+            addCriterion("availability like", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityNotLike(String value) {
+            addCriterion("availability not like", value, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityIn(List<String> values) {
+            addCriterion("availability in", values, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityNotIn(List<String> values) {
+            addCriterion("availability not in", values, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityBetween(String value1, String value2) {
+            addCriterion("availability between", value1, value2, "availability");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvailabilityNotBetween(String value1, String value2) {
+            addCriterion("availability not between", value1, value2, "availability");
             return (Criteria) this;
         }
     }

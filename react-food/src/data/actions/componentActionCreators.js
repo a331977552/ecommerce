@@ -1,13 +1,14 @@
-
 export  const MenuItemConstraints= {
     UPDATE_MENU_ITEM:'UPDATE_MENU_ITEM',
-    INIT_MENU:'INIT_MENU',
     EMPTY_CART:'EMPTY_CART',
     CATE_LEFT_SELECTED:'CATE_RIGHT_SELECTED',
     CATE_RIGHT_SELECTED:'CATE_LEFT_SELECTED',
     CATEGORY_SELECTED:'CATEGORY_SELECTED',
-
+    INIT_APP:'INIT_APP'
 }
+
+
+
 export  const StageConstraints= {
     STAGE_SHOW:'STAGE_SHOW'
 
@@ -34,16 +35,14 @@ export function emptyCartAction() {
         payload:null
     }
 }
-/**
- * @param data
- * @returns {{item: *, type: string}}
- */
-export function initMenuAction(data) {
+
+export function initApp(data) {
     return {
-        type: MenuItemConstraints.INIT_MENU,
+        type: MenuItemConstraints.INIT_APP,
         payload:data
     }
 }
+
 /**
  * @param data
  * @returns {{item: *, type: string}}

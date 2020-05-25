@@ -1,14 +1,14 @@
 package com.food.service.impl;
 
-import com.food.entity.Customer;
-import com.food.service.UserService;
+import com.food.model.Customer;
+import com.food.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements IUserService {
 
 
     @Override

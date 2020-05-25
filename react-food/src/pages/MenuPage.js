@@ -6,10 +6,6 @@ import MenuContent from "../componets/MenuContentList";
 import Cart from "../componets/Cart";
 
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {initMenuAction} from "../data/actions/componentActionCreators";
-import axios from "axios";
-
 
 class MenuPage extends React.Component {
 
@@ -22,19 +18,6 @@ class MenuPage extends React.Component {
         this.scrollParentListRef = React.createRef();
         this.carouselRef = React.createRef();
     }
-
-    componentDidMount() {
-        if (!this.props.loading && this.props.success)
-            return;
-        axios.post("/cate/findAll", {}).then((response) => {
-            if (response.status >= 200 && response.status < 300) {
-                this.props.initMenu(response.data);
-            }
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
-
 
 
     onScrollCapture = (e) =>{
@@ -99,10 +82,6 @@ const mapState = (state, props) => {
     const {loading, success, categories, cart} = state.menuReducer;
     return {loading, success, categories, cart}
 }
-const mapDispatch = (dispatch, ownProps) => {
-    return bindActionCreators({
-        initMenu: initMenuAction
-    }, dispatch);
-}
 
-export default connect(mapState, mapDispatch)(MenuPage);
+
+export default connect(mapState, null)(MenuPage);

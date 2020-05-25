@@ -7,21 +7,21 @@ class MenuContentItem extends React.Component {
 
     onIncreaseClick = (e) => {
         const {product, cartItem} = this.props;
-        const result = cartItem.count + 1;
+        const result = cartItem.quantity + 1;
         this.props.updateItemInCar({
             id: cartItem.id,
-            count: result > product.quantityRemaining ? cartItem.count : result,
+            quantity: result > product.quantityRemaining ? cartItem.quantity : result,
             product
         });
     }
 
     onDecreaseClick = (e) => {
         const {product, cartItem} = this.props;
-        const result = cartItem.count - 1;
+        const result = cartItem.quantity - 1;
 
         this.props.updateItemInCar({
             id: cartItem.id,
-            count: result < 0 ? 0 : result,
+            quantity: result < 0 ? 0 : result,
             product
         });
     }
@@ -47,7 +47,7 @@ class MenuContentItem extends React.Component {
                         <button style={{width: '35px', height: '35px', fontSize: '14px', fontWeight: '1000'}}
                                 onClick={this.onDecreaseClick}>—
                         </button>
-                        <div style={{margin: '0px 10px'}}>{cartItem.count}</div>
+                        <div style={{margin: '0px 10px'}}>{cartItem.quantity}</div>
                         <button style={{width: '40px', height: '35px', fontSize: '20px'}}
                                 onClick={this.onIncreaseClick}>+
                         </button>

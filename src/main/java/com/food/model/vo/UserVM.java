@@ -1,7 +1,7 @@
-package com.food.entity.vo;
+package com.food.model.vo;
 
-import com.food.entity.Customer;
-import com.food.entity.OrderForm;
+import com.food.model.Customer;
+import com.food.model.OrderForm;
 import lombok.Data;
 import lombok.ToString;
 

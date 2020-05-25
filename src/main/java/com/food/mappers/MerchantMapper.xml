@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.food.demo.dao.MerchantMapper">
-  <resultMap id="BaseResultMap" type="com.food.demo.model.Merchant">
+<mapper namespace="com.food.mappers.MerchantMapper">
+  <resultMap id="BaseResultMap" type="com.food.model.Merchant">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="notice" jdbcType="VARCHAR" property="notice" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="availability" jdbcType="VARCHAR" property="availability" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,9 +68,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, notice, status, address
+    id, name, notice, status, address, availability
   </sql>
-  <select id="selectByExample" parameterType="com.food.demo.model.MerchantExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.food.model.MerchantExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -93,19 +94,27 @@
     delete from merchant
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.food.demo.model.MerchantExample">
+  <delete id="deleteByExample" parameterType="com.food.model.MerchantExample">
     delete from merchant
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.food.demo.model.Merchant">
+  <insert id="insert" parameterType="com.food.model.Merchant">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('merchant_seq')
+    </selectKey>
     insert into merchant (id, name, notice, 
-      status, address)
+      status, address, availability
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{notice,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{availability,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.food.demo.model.Merchant">
+  <insert id="insertSelective" parameterType="com.food.model.Merchant">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
+      select nextval('merchant_seq')
+    </selectKey>
     insert into merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -122,6 +131,9 @@
       </if>
       <if test="address != null">
         address,
+      </if>
+      <if test="availability != null">
+        availability,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -140,9 +152,12 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="availability != null">
+        #{availability,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.food.demo.model.MerchantExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.food.model.MerchantExample" resultType="java.lang.Long">
     select count(*) from merchant
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -166,6 +181,9 @@
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
+      <if test="record.availability != null">
+        availability = #{record.availability,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,12 +195,13 @@
       name = #{record.name,jdbcType=VARCHAR},
       notice = #{record.notice,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      address = #{record.address,jdbcType=VARCHAR},
+      availability = #{record.availability,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.food.demo.model.Merchant">
+  <update id="updateByPrimaryKeySelective" parameterType="com.food.model.Merchant">
     update merchant
     <set>
       <if test="name != null">
@@ -197,15 +216,19 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="availability != null">
+        availability = #{availability,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.food.demo.model.Merchant">
+  <update id="updateByPrimaryKey" parameterType="com.food.model.Merchant">
     update merchant
     set name = #{name,jdbcType=VARCHAR},
       notice = #{notice,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      availability = #{availability,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -6,7 +6,7 @@ import com.food.model.OrderForm;
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderFormService {
+public interface IOrderFormService {
     OrderForm createOrder(OrderForm orderForm);
     void updateOrderSelective(OrderForm orderForm);
     void updateAllOrders(Iterable<OrderForm> orderForms);

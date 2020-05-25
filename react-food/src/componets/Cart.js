@@ -41,7 +41,7 @@ class Cart extends React.Component {
         })
     }
     render() {
-        const cartItems=Object.values(this.props.cartItems).filter(item => item.count > 0);
+        const cartItems=Object.values(this.props.cartItems).filter(item => item.quantity > 0);
         return <div style={{
             backgroundColor: '#FFFFFF',
             width: '100%',

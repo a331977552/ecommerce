@@ -1185,6 +1185,66 @@ public class OrderFormExample {
             addCriterion("way_of_eating not between", value1, value2, "way_of_eating");
             return (Criteria) this;
         }
+
+        public Criteria andDelivery_address_idIsNull() {
+            addCriterion("delivery_address_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idIsNotNull() {
+            addCriterion("delivery_address_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idEqualTo(Integer value) {
+            addCriterion("delivery_address_id =", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idNotEqualTo(Integer value) {
+            addCriterion("delivery_address_id <>", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idGreaterThan(Integer value) {
+            addCriterion("delivery_address_id >", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("delivery_address_id >=", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idLessThan(Integer value) {
+            addCriterion("delivery_address_id <", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idLessThanOrEqualTo(Integer value) {
+            addCriterion("delivery_address_id <=", value, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idIn(List<Integer> values) {
+            addCriterion("delivery_address_id in", values, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idNotIn(List<Integer> values) {
+            addCriterion("delivery_address_id not in", values, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idBetween(Integer value1, Integer value2) {
+            addCriterion("delivery_address_id between", value1, value2, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andDelivery_address_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("delivery_address_id not between", value1, value2, "delivery_address_id");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

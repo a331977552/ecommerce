@@ -2,6 +2,7 @@ package com.food.controller.advicer;
 
 import com.food.utils.BaseEntityException;
 import com.food.utils.ErrorDetails;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 @RestControllerAdvice
+@Log4j2
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
   @Autowired
   private  MessageSource messageSource;
@@ -40,6 +42,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
        message = messageSource.getMessage(objectError.getDefaultMessage(), null, LocaleContextHolder.getLocale());
     } catch (NoSuchMessageException e) {
       message="fix me:  no localized message:  "+ objectError.getDefaultMessage();
+
     }
       builder.append(message).append(", ");
     }

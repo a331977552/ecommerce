@@ -5,7 +5,7 @@ import com.food.model.Customer;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface IUserService {
 
     Customer addUser(Customer Customer);
     void updateUserSelective(Customer Customer);
