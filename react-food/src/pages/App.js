@@ -22,6 +22,10 @@ class  App extends React.Component{
         const query = new URLSearchParams(this.props.location.search);
         const merchantId = query.get('mid');
         if(!merchantId){
+
+            //TODO delete this default id
+            this.props.initAppFromNetwork(1);
+            return;
             //init all merchant and let user select
             this.props.history.push("/errorMid");
             return;

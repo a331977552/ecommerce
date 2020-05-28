@@ -18,6 +18,11 @@ export function httpInitData(merchantId,success,failed) {
 export function httpOrdering(orderData,success,failed) {
 
     console.log(orderData);
+    const {customerName,totalPrice, phoneNumber, address, cartItems,paymentMethod, diningMethod,merchant_id,comment } = orderData;
+
+    const orderItems = cartItems.map(item=>({product_id: item.id,...item}));
+
+    const postData = {totalPrice,merchant_id,address,paymentMethod,diningMethod, customer: { name:customerName,phone:phoneNumber}, orderItems,comment};
     /**
      *
      * address: ""
@@ -28,12 +33,7 @@ export function httpOrdering(orderData,success,failed) {
      phoneNumber: "213213213213213"
      *
      */
-
-
-
-
-    return;
-    axios.post("/api/user/home/", {}).then((response) => {
+    axios.post("/api/user/order", postData).then((response) => {
         if (response.status >= 200 && response.status < 300) {
             success(response.data);
         }else{
@@ -43,5 +43,6 @@ export function httpOrdering(orderData,success,failed) {
         failed(error);
         console.log(error);
     })
+
 
 }

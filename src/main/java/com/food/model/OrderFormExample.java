@@ -566,63 +566,73 @@ public class OrderFormExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeIsNull() {
-            addCriterion("payment_type is null");
+        public Criteria andPayment_methodIsNull() {
+            addCriterion("payment_method is null");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeIsNotNull() {
-            addCriterion("payment_type is not null");
+        public Criteria andPayment_methodIsNotNull() {
+            addCriterion("payment_method is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeEqualTo(Integer value) {
-            addCriterion("payment_type =", value, "payment_type");
+        public Criteria andPayment_methodEqualTo(String value) {
+            addCriterion("payment_method =", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeNotEqualTo(Integer value) {
-            addCriterion("payment_type <>", value, "payment_type");
+        public Criteria andPayment_methodNotEqualTo(String value) {
+            addCriterion("payment_method <>", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeGreaterThan(Integer value) {
-            addCriterion("payment_type >", value, "payment_type");
+        public Criteria andPayment_methodGreaterThan(String value) {
+            addCriterion("payment_method >", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("payment_type >=", value, "payment_type");
+        public Criteria andPayment_methodGreaterThanOrEqualTo(String value) {
+            addCriterion("payment_method >=", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeLessThan(Integer value) {
-            addCriterion("payment_type <", value, "payment_type");
+        public Criteria andPayment_methodLessThan(String value) {
+            addCriterion("payment_method <", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeLessThanOrEqualTo(Integer value) {
-            addCriterion("payment_type <=", value, "payment_type");
+        public Criteria andPayment_methodLessThanOrEqualTo(String value) {
+            addCriterion("payment_method <=", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeIn(List<Integer> values) {
-            addCriterion("payment_type in", values, "payment_type");
+        public Criteria andPayment_methodLike(String value) {
+            addCriterion("payment_method like", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeNotIn(List<Integer> values) {
-            addCriterion("payment_type not in", values, "payment_type");
+        public Criteria andPayment_methodNotLike(String value) {
+            addCriterion("payment_method not like", value, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeBetween(Integer value1, Integer value2) {
-            addCriterion("payment_type between", value1, value2, "payment_type");
+        public Criteria andPayment_methodIn(List<String> values) {
+            addCriterion("payment_method in", values, "payment_method");
             return (Criteria) this;
         }
 
-        public Criteria andPayment_typeNotBetween(Integer value1, Integer value2) {
-            addCriterion("payment_type not between", value1, value2, "payment_type");
+        public Criteria andPayment_methodNotIn(List<String> values) {
+            addCriterion("payment_method not in", values, "payment_method");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayment_methodBetween(String value1, String value2) {
+            addCriterion("payment_method between", value1, value2, "payment_method");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayment_methodNotBetween(String value1, String value2) {
+            addCriterion("payment_method not between", value1, value2, "payment_method");
             return (Criteria) this;
         }
 
@@ -693,66 +703,6 @@ public class OrderFormExample {
 
         public Criteria andPhoneNotBetween(String value1, String value2) {
             addCriterion("phone not between", value1, value2, "phone");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeIsNull() {
-            addCriterion("reservation_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeIsNotNull() {
-            addCriterion("reservation_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeEqualTo(Integer value) {
-            addCriterion("reservation_type =", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeNotEqualTo(Integer value) {
-            addCriterion("reservation_type <>", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeGreaterThan(Integer value) {
-            addCriterion("reservation_type >", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("reservation_type >=", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeLessThan(Integer value) {
-            addCriterion("reservation_type <", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeLessThanOrEqualTo(Integer value) {
-            addCriterion("reservation_type <=", value, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeIn(List<Integer> values) {
-            addCriterion("reservation_type in", values, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeNotIn(List<Integer> values) {
-            addCriterion("reservation_type not in", values, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeBetween(Integer value1, Integer value2) {
-            addCriterion("reservation_type between", value1, value2, "reservation_type");
-            return (Criteria) this;
-        }
-
-        public Criteria andReservation_typeNotBetween(Integer value1, Integer value2) {
-            addCriterion("reservation_type not between", value1, value2, "reservation_type");
             return (Criteria) this;
         }
 
@@ -1126,63 +1076,73 @@ public class OrderFormExample {
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingIsNull() {
-            addCriterion("way_of_eating is null");
+        public Criteria andDining_methodIsNull() {
+            addCriterion("dining_method is null");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingIsNotNull() {
-            addCriterion("way_of_eating is not null");
+        public Criteria andDining_methodIsNotNull() {
+            addCriterion("dining_method is not null");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingEqualTo(Integer value) {
-            addCriterion("way_of_eating =", value, "way_of_eating");
+        public Criteria andDining_methodEqualTo(String value) {
+            addCriterion("dining_method =", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingNotEqualTo(Integer value) {
-            addCriterion("way_of_eating <>", value, "way_of_eating");
+        public Criteria andDining_methodNotEqualTo(String value) {
+            addCriterion("dining_method <>", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingGreaterThan(Integer value) {
-            addCriterion("way_of_eating >", value, "way_of_eating");
+        public Criteria andDining_methodGreaterThan(String value) {
+            addCriterion("dining_method >", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingGreaterThanOrEqualTo(Integer value) {
-            addCriterion("way_of_eating >=", value, "way_of_eating");
+        public Criteria andDining_methodGreaterThanOrEqualTo(String value) {
+            addCriterion("dining_method >=", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingLessThan(Integer value) {
-            addCriterion("way_of_eating <", value, "way_of_eating");
+        public Criteria andDining_methodLessThan(String value) {
+            addCriterion("dining_method <", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingLessThanOrEqualTo(Integer value) {
-            addCriterion("way_of_eating <=", value, "way_of_eating");
+        public Criteria andDining_methodLessThanOrEqualTo(String value) {
+            addCriterion("dining_method <=", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingIn(List<Integer> values) {
-            addCriterion("way_of_eating in", values, "way_of_eating");
+        public Criteria andDining_methodLike(String value) {
+            addCriterion("dining_method like", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingNotIn(List<Integer> values) {
-            addCriterion("way_of_eating not in", values, "way_of_eating");
+        public Criteria andDining_methodNotLike(String value) {
+            addCriterion("dining_method not like", value, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingBetween(Integer value1, Integer value2) {
-            addCriterion("way_of_eating between", value1, value2, "way_of_eating");
+        public Criteria andDining_methodIn(List<String> values) {
+            addCriterion("dining_method in", values, "dining_method");
             return (Criteria) this;
         }
 
-        public Criteria andWay_of_eatingNotBetween(Integer value1, Integer value2) {
-            addCriterion("way_of_eating not between", value1, value2, "way_of_eating");
+        public Criteria andDining_methodNotIn(List<String> values) {
+            addCriterion("dining_method not in", values, "dining_method");
+            return (Criteria) this;
+        }
+
+        public Criteria andDining_methodBetween(String value1, String value2) {
+            addCriterion("dining_method between", value1, value2, "dining_method");
+            return (Criteria) this;
+        }
+
+        public Criteria andDining_methodNotBetween(String value1, String value2) {
+            addCriterion("dining_method not between", value1, value2, "dining_method");
             return (Criteria) this;
         }
 

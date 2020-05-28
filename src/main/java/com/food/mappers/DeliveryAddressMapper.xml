@@ -101,6 +101,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.DeliveryAddress">
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int"> select nextval('delivery_address_seq') </selectKey>
     insert into delivery_address (id, address, phone, 
       name, postcode, user_id
       )

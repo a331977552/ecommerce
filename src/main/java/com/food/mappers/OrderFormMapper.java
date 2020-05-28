@@ -20,6 +20,8 @@ public interface OrderFormMapper {
     int insertSelective(OrderForm record);
 
     List<OrderForm> selectByExample(OrderFormExample example);
+    long selectOrderCode();
+
 
     OrderForm selectByPrimaryKey(Integer id);
 

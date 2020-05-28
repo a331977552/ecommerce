@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.exception.UnexpectedException;
+import com.food.mappers.MerchantMapper;
 import com.food.model.Merchant;
 import com.food.model.vo.MerchantVO;
 import com.food.service.IMerchantService;

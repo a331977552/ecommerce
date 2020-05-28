@@ -1,10 +1,13 @@
 package com.food.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Data
+@ToString
 public class CustomerVO {
     private Integer id;
 
@@ -19,4 +22,6 @@ public class CustomerVO {
     private String sex;
 
     private String wxid;
+    @JsonIgnore
+    private Boolean auto_generated;
 }

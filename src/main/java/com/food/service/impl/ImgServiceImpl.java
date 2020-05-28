@@ -1,8 +1,11 @@
 package com.food.service.impl;
 
 import com.food.mappers.ImgMapper;
+import com.food.mappers.ProductImgMapper;
 import com.food.model.Img;
 import com.food.model.ImgExample;
+import com.food.model.ProductImg;
+import com.food.model.ProductImgExample;
 import com.food.model.vo.ImgVO;
 import com.food.service.IImgService;
 import org.springframework.beans.BeanUtils;
@@ -15,9 +18,9 @@ import java.util.stream.Collectors;
 public class ImgServiceImpl implements IImgService {
 
     private ImgMapper mapper;
-    private ProductImgsMapper productImgsMapper;
+    private ProductImgMapper productImgsMapper;
 
-    public ImgServiceImpl(ImgMapper mapper, ProductImgsMapper productImgsMapper) {
+    public ImgServiceImpl(ImgMapper mapper, ProductImgMapper productImgsMapper) {
         this.mapper = mapper;
         this.productImgsMapper = productImgsMapper;
     }
@@ -47,10 +50,10 @@ public class ImgServiceImpl implements IImgService {
 
     @Override
     public List<ImgVO> findImgsByProductId(Integer productId) {
-        ProductImgsExample productImgs=new ProductImgsExample();
+        ProductImgExample productImgs=new ProductImgExample();
         productImgs.createCriteria().andProduct_idEqualTo(productId);
-        List<ProductImgs> productImgs1 = productImgsMapper.selectByExample(productImgs);
-        List<Integer> ids = productImgs1.stream().map(ProductImgs::getImgs_id).collect(Collectors.toList());
+        List<ProductImg> productImgs1 = productImgsMapper.selectByExample(productImgs);
+        List<Integer> ids = productImgs1.stream().map(ProductImg::getImg_id).collect(Collectors.toList());
         ImgExample example=new ImgExample();
         example.createCriteria().andIdIn(ids);
         List<Img> imgs = mapper.selectByExample(example);

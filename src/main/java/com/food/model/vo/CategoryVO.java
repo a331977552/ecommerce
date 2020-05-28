@@ -12,6 +12,7 @@ public class CategoryVO {
     private String title;
     private String description;
     private Integer merchant_id;
+    private Integer parent_id;
     private int priority;
     @NotNull(message="商户不能为空!")
     private MerchantVO merchant;

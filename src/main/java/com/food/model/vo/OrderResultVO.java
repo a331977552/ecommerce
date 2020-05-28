@@ -1,15 +1,16 @@
-package com.food.model;
+package com.food.model.vo;
 
 import lombok.Data;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ToString
-public class OrderForm implements Serializable {
+public class OrderResultVO {
+
     private Integer id;
 
     private Date expired_time;
@@ -44,6 +45,10 @@ public class OrderForm implements Serializable {
 
     private Integer delivery_address_id;
 
-    private static final long serialVersionUID = 1L;
+    private CustomerVO customer;
+    private List<OrderItemVO> orderItems;
+
+
+
 
 }

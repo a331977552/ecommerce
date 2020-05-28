@@ -1,6 +1,9 @@
 package com.food.service.impl;
 
+import com.food.exception.UnexpectedException;
 import com.food.mappers.CategoryProductMapper;
+import com.food.mappers.ProductImgMapper;
+import com.food.mappers.ProductMapper;
 import com.food.model.*;
 import com.food.model.vo.ImgVO;
 import com.food.model.vo.ProductNameVM;
@@ -31,12 +34,12 @@ public class ProductServiceImpl implements IProductService {
     private ICategoryService categoryService;
     private ProductMapper mapper;
     private CategoryProductMapper categoryProductMapper;
-    private ProductImgsMapper productImgsMapper;
+    private ProductImgMapper productImgsMapper;
 
     @Autowired
     private IImgService imgService;
 
-    public ProductServiceImpl(ProductMapper mapper, CategoryProductMapper categoryProductMapper,ProductImgsMapper productImgsMapper) {
+    public ProductServiceImpl(ProductMapper mapper, CategoryProductMapper categoryProductMapper,ProductImgMapper productImgsMapper) {
         this.mapper = mapper;
         this.categoryProductMapper = categoryProductMapper;
         this.productImgsMapper = productImgsMapper;
@@ -56,7 +59,7 @@ public class ProductServiceImpl implements IProductService {
         //insert img
         List<ImgVO> imgsWithId= imgs.stream().map(vo-> imgService.addImg(vo)).collect(Collectors.toList());
         //add mapping for img and product
-        imgsWithId.forEach(vo->productImgsMapper.insert(new ProductImgs(product.getId(),vo.getId())));
+        imgsWithId.forEach(vo->productImgsMapper.insert(new ProductImg(product.getId(),vo.getId())));
 
         return convertToVO(product,categoryIds,imgsWithId);
     }
@@ -98,13 +101,15 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductVO getProductById(Integer id) {
         Product product = mapper.selectByPrimaryKey(id);
+        if(product == null)
+            throw new UnexpectedException("product with id "+id +" doesn't exist");
         //all relevant categoryIds
         CategoryProductExample example=new CategoryProductExample();
         example.createCriteria().andProduct_idEqualTo(id);
         List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example);
         List<Integer> allCategoryIds = categoryProducts.stream().map(CategoryProduct::getCategory_id).collect(Collectors.toList());
         //all relevant img Ids
-        ProductImgsExample productImgsExample=new ProductImgsExample();
+        ProductImgExample productImgsExample=new ProductImgExample();
         productImgsExample.createCriteria().andProduct_idEqualTo(id);
         List<ImgVO> imgsByProductId = imgService.findImgsByProductId(id);
 

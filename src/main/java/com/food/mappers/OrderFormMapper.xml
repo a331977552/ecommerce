@@ -9,16 +9,16 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
     <result column="order_code" jdbcType="VARCHAR" property="order_code" />
     <result column="order_number" jdbcType="VARCHAR" property="order_number" />
-    <result column="payment_type" jdbcType="INTEGER" property="payment_type" />
+    <result column="payment_method" jdbcType="VARCHAR" property="payment_method" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="reservation_type" jdbcType="INTEGER" property="reservation_type" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="takeaway_time" jdbcType="TIMESTAMP" property="takeaway_time" />
     <result column="total_count" jdbcType="INTEGER" property="total_count" />
     <result column="total_price" jdbcType="NUMERIC" property="total_price" />
     <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
     <result column="user_id" jdbcType="INTEGER" property="user_id" />
-    <result column="way_of_eating" jdbcType="INTEGER" property="way_of_eating" />
+    <result column="dining_method" jdbcType="VARCHAR" property="dining_method" />
+    <result column="delivery_address_id" jdbcType="INTEGER" property="delivery_address_id" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -79,10 +79,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, expired_time, buyer, comment, create_time, order_code, order_number, payment_type, 
-    phone, reservation_type, status, takeaway_time, total_count, total_price, update_time, 
-    user_id, way_of_eating
+    id, expired_time, buyer, comment, create_time, order_code, order_number, payment_method, 
+    phone, status, takeaway_time, total_count, total_price, update_time, user_id, dining_method, 
+    delivery_address_id
   </sql>
+
+
+  <select id="selectOrderCode" resultType="long">
+    select nextval('order_code_seq')
+  </select>
+
   <select id="selectByExample" parameterType="com.food.model.OrderFormExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -119,16 +125,16 @@
     </selectKey>
     insert into order_form (id, expired_time, buyer, 
       comment, create_time, order_code, 
-      order_number, payment_type, phone, 
-      reservation_type, status, takeaway_time, 
-      total_count, total_price, update_time, 
-      user_id, way_of_eating)
+      order_number, payment_method, phone, 
+      status, takeaway_time, total_count, 
+      total_price, update_time, user_id, 
+      dining_method, delivery_address_id)
     values (#{id,jdbcType=INTEGER}, #{expired_time,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
       #{comment,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{order_code,jdbcType=VARCHAR}, 
-      #{order_number,jdbcType=VARCHAR}, #{payment_type,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
-      #{reservation_type,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{takeaway_time,jdbcType=TIMESTAMP}, 
-      #{total_count,jdbcType=INTEGER}, #{total_price,jdbcType=NUMERIC}, #{update_time,jdbcType=TIMESTAMP}, 
-      #{user_id,jdbcType=INTEGER}, #{way_of_eating,jdbcType=INTEGER})
+      #{order_number,jdbcType=VARCHAR}, #{payment_method,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{takeaway_time,jdbcType=TIMESTAMP}, #{total_count,jdbcType=INTEGER}, 
+      #{total_price,jdbcType=NUMERIC}, #{update_time,jdbcType=TIMESTAMP}, #{user_id,jdbcType=INTEGER}, 
+      #{dining_method,jdbcType=VARCHAR}, #{delivery_address_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.OrderForm">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
@@ -157,14 +163,11 @@
       <if test="order_number != null">
         order_number,
       </if>
-      <if test="payment_type != null">
-        payment_type,
+      <if test="payment_method != null">
+        payment_method,
       </if>
       <if test="phone != null">
         phone,
-      </if>
-      <if test="reservation_type != null">
-        reservation_type,
       </if>
       <if test="status != null">
         status,
@@ -184,8 +187,11 @@
       <if test="user_id != null">
         user_id,
       </if>
-      <if test="way_of_eating != null">
-        way_of_eating,
+      <if test="dining_method != null">
+        dining_method,
+      </if>
+      <if test="delivery_address_id != null">
+        delivery_address_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -210,14 +216,11 @@
       <if test="order_number != null">
         #{order_number,jdbcType=VARCHAR},
       </if>
-      <if test="payment_type != null">
-        #{payment_type,jdbcType=INTEGER},
+      <if test="payment_method != null">
+        #{payment_method,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="reservation_type != null">
-        #{reservation_type,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=VARCHAR},
@@ -237,8 +240,11 @@
       <if test="user_id != null">
         #{user_id,jdbcType=INTEGER},
       </if>
-      <if test="way_of_eating != null">
-        #{way_of_eating,jdbcType=INTEGER},
+      <if test="dining_method != null">
+        #{dining_method,jdbcType=VARCHAR},
+      </if>
+      <if test="delivery_address_id != null">
+        #{delivery_address_id,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -272,14 +278,11 @@
       <if test="record.order_number != null">
         order_number = #{record.order_number,jdbcType=VARCHAR},
       </if>
-      <if test="record.payment_type != null">
-        payment_type = #{record.payment_type,jdbcType=INTEGER},
+      <if test="record.payment_method != null">
+        payment_method = #{record.payment_method,jdbcType=VARCHAR},
       </if>
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.reservation_type != null">
-        reservation_type = #{record.reservation_type,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=VARCHAR},
@@ -299,8 +302,11 @@
       <if test="record.user_id != null">
         user_id = #{record.user_id,jdbcType=INTEGER},
       </if>
-      <if test="record.way_of_eating != null">
-        way_of_eating = #{record.way_of_eating,jdbcType=INTEGER},
+      <if test="record.dining_method != null">
+        dining_method = #{record.dining_method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delivery_address_id != null">
+        delivery_address_id = #{record.delivery_address_id,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -316,16 +322,16 @@
       create_time = #{record.create_time,jdbcType=TIMESTAMP},
       order_code = #{record.order_code,jdbcType=VARCHAR},
       order_number = #{record.order_number,jdbcType=VARCHAR},
-      payment_type = #{record.payment_type,jdbcType=INTEGER},
+      payment_method = #{record.payment_method,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      reservation_type = #{record.reservation_type,jdbcType=INTEGER},
       status = #{record.status,jdbcType=VARCHAR},
       takeaway_time = #{record.takeaway_time,jdbcType=TIMESTAMP},
       total_count = #{record.total_count,jdbcType=INTEGER},
       total_price = #{record.total_price,jdbcType=NUMERIC},
       update_time = #{record.update_time,jdbcType=TIMESTAMP},
       user_id = #{record.user_id,jdbcType=INTEGER},
-      way_of_eating = #{record.way_of_eating,jdbcType=INTEGER}
+      dining_method = #{record.dining_method,jdbcType=VARCHAR},
+      delivery_address_id = #{record.delivery_address_id,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -351,14 +357,11 @@
       <if test="order_number != null">
         order_number = #{order_number,jdbcType=VARCHAR},
       </if>
-      <if test="payment_type != null">
-        payment_type = #{payment_type,jdbcType=INTEGER},
+      <if test="payment_method != null">
+        payment_method = #{payment_method,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="reservation_type != null">
-        reservation_type = #{reservation_type,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
@@ -378,8 +381,11 @@
       <if test="user_id != null">
         user_id = #{user_id,jdbcType=INTEGER},
       </if>
-      <if test="way_of_eating != null">
-        way_of_eating = #{way_of_eating,jdbcType=INTEGER},
+      <if test="dining_method != null">
+        dining_method = #{dining_method,jdbcType=VARCHAR},
+      </if>
+      <if test="delivery_address_id != null">
+        delivery_address_id = #{delivery_address_id,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -392,16 +398,16 @@
       create_time = #{create_time,jdbcType=TIMESTAMP},
       order_code = #{order_code,jdbcType=VARCHAR},
       order_number = #{order_number,jdbcType=VARCHAR},
-      payment_type = #{payment_type,jdbcType=INTEGER},
+      payment_method = #{payment_method,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      reservation_type = #{reservation_type,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
       takeaway_time = #{takeaway_time,jdbcType=TIMESTAMP},
       total_count = #{total_count,jdbcType=INTEGER},
       total_price = #{total_price,jdbcType=NUMERIC},
       update_time = #{update_time,jdbcType=TIMESTAMP},
       user_id = #{user_id,jdbcType=INTEGER},
-      way_of_eating = #{way_of_eating,jdbcType=INTEGER}
+      dining_method = #{dining_method,jdbcType=VARCHAR},
+      delivery_address_id = #{delivery_address_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

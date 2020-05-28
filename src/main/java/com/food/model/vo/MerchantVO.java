@@ -16,5 +16,6 @@ public class MerchantVO {
 
     private String address;
 
+    private String availability;
 
 }

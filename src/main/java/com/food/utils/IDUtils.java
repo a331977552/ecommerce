@@ -12,6 +12,8 @@ import java.util.UUID;
  */
 public class IDUtils {
 
+	static SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmssSSS");
+
 	/**
 	 * generate picture id
 	 */
@@ -41,20 +43,15 @@ public class IDUtils {
 		int end2 = random.nextInt(99);
 		//如果不足两位前面补0
 		String str = millis + String.format("%02d", end2);
-		long id = new Long(str);
-		return id;
+		return Long.parseLong(str);
 	}
 
-	public  synchronized static String getOrderId() {
-		SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	public  synchronized static String getOrderId(long orderCode) {
 		String format = dateFormat.format(new Date());
-		Random random = new Random();
-		int end2 = random.nextInt(99);
 		//如果不足两位前面补0
-		String str = format + String.format("%02d", end2);
-		return str;
-
+		return format + orderCode;
 	}
+
 	public static String getUUID() {
 
 		return UUID.randomUUID().toString().replaceAll("-", "");

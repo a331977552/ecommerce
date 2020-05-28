@@ -9,6 +9,7 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="wxid" jdbcType="VARCHAR" property="wxid" />
+    <result column="auto_generated" jdbcType="BIT" property="auto_generated" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, avatar, date_of_birth, name, phone, sex, wxid
+    id, avatar, date_of_birth, name, phone, sex, wxid, auto_generated
   </sql>
   <select id="selectByExample" parameterType="com.food.model.CustomerExample" resultMap="BaseResultMap">
     select
@@ -102,20 +103,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.food.model.Customer">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
-      select nextval('customer_seq')
-    </selectKey>
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int"> select nextval('customer_seq') </selectKey>
     insert into customer (id, avatar, date_of_birth, 
-      name, phone, sex, wxid
-      )
+      name, phone, sex, wxid, 
+      auto_generated)
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{date_of_birth,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{wxid,jdbcType=VARCHAR}
-      )
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{wxid,jdbcType=VARCHAR}, 
+      #{auto_generated,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Customer">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
-      select nextval('customer_seq')
-    </selectKey>
+    <selectKey  order="BEFORE" keyProperty="id" resultType="int"> select nextval('customer_seq') </selectKey>
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -138,6 +135,9 @@
       </if>
       <if test="wxid != null">
         wxid,
+      </if>
+      <if test="auto_generated != null">
+        auto_generated,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -162,6 +162,9 @@
       <if test="wxid != null">
         #{wxid,jdbcType=VARCHAR},
       </if>
+      <if test="auto_generated != null">
+        #{auto_generated,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.food.model.CustomerExample" resultType="java.lang.Long">
@@ -170,6 +173,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+
   <update id="updateByExampleSelective" parameterType="map">
     update customer
     <set>
@@ -194,6 +199,9 @@
       <if test="record.wxid != null">
         wxid = #{record.wxid,jdbcType=VARCHAR},
       </if>
+      <if test="record.auto_generated != null">
+        auto_generated = #{record.auto_generated,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -207,7 +215,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
-      wxid = #{record.wxid,jdbcType=VARCHAR}
+      wxid = #{record.wxid,jdbcType=VARCHAR},
+      auto_generated = #{record.auto_generated,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,6 +242,9 @@
       <if test="wxid != null">
         wxid = #{wxid,jdbcType=VARCHAR},
       </if>
+      <if test="auto_generated != null">
+        auto_generated = #{auto_generated,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -243,7 +255,8 @@
       name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      wxid = #{wxid,jdbcType=VARCHAR}
+      wxid = #{wxid,jdbcType=VARCHAR},
+      auto_generated = #{auto_generated,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

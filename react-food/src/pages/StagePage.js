@@ -6,13 +6,17 @@ import {ordering} from "../data/actions/httpActionCreators";
 import {Link} from "react-router-dom";
 import StageProductItem from "../componets/StageProductItem";
 import Modal from 'react-modal';
-
+// import { css } from "@emotion/core";
+import MoonLoader from "react-spinners/MoonLoader";
 import { withRouter } from 'react-router-dom'
 import RadioButton from "../componets/form/RadioButton";
 import Input from "../componets/form/Input";
 import TextArea from "../componets/form/TextArea";
 import './Modal.css'
 Modal.setAppElement('#root')
+
+
+
 class StagePage extends React.Component {
     EAT_IN = 'eatIn';
     TAKE_AWAY = 'takeaway';
@@ -31,7 +35,8 @@ class StagePage extends React.Component {
             customerNameValid:true,
             addressValid:true,
             comment:'',
-            modalIsOpen:false
+            modalIsOpen:false,
+            showOrderLoading:false
         }
     }
 
@@ -65,21 +70,23 @@ class StagePage extends React.Component {
     }
     onOrderClicked = (e) =>{
         const {loading, success, cart,merchant} = this.props;
-        const {diningMethod, customerName, phoneNumber, address,paymentMethod} = this.state;
+        const {diningMethod, customerName, phoneNumber, address,paymentMethod,comment} = this.state;
         const phoneNumberValid = this.onPhoneChanged({target: {value: phoneNumber}});
         const addressValid = this.onAddressChanged({target: {value: address}});
         const customerNameValid = this.onCustomerNameChanged({target: {value: customerName}});
         const cartItems = Object.values(cart.cartItems).filter(item => item.quantity > 0);
         if ( phoneNumberValid && customerNameValid && ( diningMethod === this.TAKE_AWAY ? addressValid : true)) {
-           this.processOrder(paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,cart.totalPrice,merchant.id)
+           this.processOrder(paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,cart.totalPrice,merchant.id,comment)
         } else {
             alert("请完善订单信息!");
         }
     }
 
-    processOrder = (paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id)=>{
-        this.props.ordering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id})
-        this.setState({modalIsOpen:true})
+    processOrder = (paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment)=>{
+        this.props.ordering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment})
+        this.setState({
+            showOrderLoading:true,
+            modalIsOpen:true})
     }
 
     onPhoneChanged = (e) => {
@@ -130,7 +137,7 @@ class StagePage extends React.Component {
      */
     render() {
         const {loading, success,cart} = this.props;
-        const {diningMethod,customerName,phoneNumber,address,phoneNumberValid,customerNameValid,addressValid,modalIsOpen} = this.state;
+        const {diningMethod,customerName,phoneNumber,address,phoneNumberValid,customerNameValid,addressValid,modalIsOpen,showOrderLoading} = this.state;
         const cartItems=Object.values(cart.cartItems).filter(item => item.quantity > 0);
         if (!success) {
             if (loading)
@@ -149,7 +156,15 @@ class StagePage extends React.Component {
                         overlayClassName="Overlay"
                         contentLabel="Example Modal"
                     >
-                        <div style={{height:'100px'}}></div>
+                        {showOrderLoading&&<div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+                            <div style={{marginBottom:'20px',fontSize:'14px'}}>正在为您下单,请稍候</div>
+                            <MoonLoader
+                                size={40}
+                                color={"#36D7B7"}
+                                loading={this.state.loading}
+                            />
+                        </div>
+                            }
                     </Modal>
 
                     <div style={{

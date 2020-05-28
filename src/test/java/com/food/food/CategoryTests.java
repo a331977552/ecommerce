@@ -3,7 +3,7 @@ package com.food.food;
 
 import com.food.controller.CategoryController;
 import com.food.exception.UnexpectedException;
-import com.food.model.Merchant;
+import com.food.model.constants.MerchantConstants;
 import com.food.model.vo.CategoryVO;
 import com.food.model.vo.MerchantVO;
 import com.food.service.ICategoryService;
@@ -124,7 +124,7 @@ public class CategoryTests {
         category.setTitle("测试名字");
         category.setPriority(111);
         MerchantVO merchant = new MerchantVO();
-        merchant.setStatus(Merchant.STATUS_CLOSED);
+        merchant.setStatus(MerchantConstants.CLOSED);
         merchant.setName("必复元");
         merchant.setId(3);
         category.setMerchant(merchant);

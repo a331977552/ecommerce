@@ -11,4 +11,5 @@ public class HomeVO {
 
     List<CategoryVO>  categories;
     MerchantVO merchant;
+
 }

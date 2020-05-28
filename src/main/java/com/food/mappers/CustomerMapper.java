@@ -2,12 +2,10 @@ package com.food.mappers;
 
 import com.food.model.Customer;
 import com.food.model.CustomerExample;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
 public interface CustomerMapper {
     long countByExample(CustomerExample example);
 

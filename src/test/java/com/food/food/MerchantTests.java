@@ -1,7 +1,7 @@
 package com.food.food;
 
 import com.food.exception.UnexpectedException;
-import com.food.model.Merchant;
+import com.food.model.constants.MerchantConstants;
 import com.food.model.vo.MerchantVO;
 import com.food.service.IMerchantService;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,7 +42,7 @@ public class MerchantTests {
         MerchantVO vo=new MerchantVO();
         vo.setId(1);
         vo.setAddress("中国城 102号 红火火餐厅");
-        vo.setStatus(Merchant.STATUS_OPENING);
+        vo.setStatus(MerchantConstants.OPENING);
         vo.setName("红火火 *新");
         vo.setNotice("最近有打折哦");
         service.updateMerchant(vo);
@@ -53,7 +53,7 @@ public class MerchantTests {
         MerchantVO vo=new MerchantVO();
 
         vo.setAddress("中国城 103号 老师傅餐厅");
-        vo.setStatus(Merchant.STATUS_OPENING);
+        vo.setStatus(MerchantConstants.OPENING);
         vo.setName("老师傅开车");
         vo.setNotice("最近有打折哦22");
 

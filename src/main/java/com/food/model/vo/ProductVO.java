@@ -40,5 +40,10 @@ public class ProductVO {
     private List<ImgVO> imgs;
     private List<Integer> categoryIds;
 
+    private Integer weight;
+
+    private Integer priority;
+
+    private Integer discount;
 
 }
