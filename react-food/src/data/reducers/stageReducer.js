@@ -1,4 +1,4 @@
-import {StageConstraints} from "../actions/componentActionCreators";
+import {StageConstraints,OrderConstraints} from "../actions/componentActionCreators";
 
 const initialState = {
     loading: true,
@@ -8,9 +8,8 @@ const initialState = {
 export default function stageReducer(state = initialState, action) {
     const payload = action.payload;
     switch (action.type) {
-        case StageConstraints.STAGE_SHOW:
+        case OrderConstraints.ORDER_COMPLETE:
             return {...state};
-
     }
     return {
         ...state

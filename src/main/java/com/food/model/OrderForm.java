@@ -44,6 +44,10 @@ public class OrderForm implements Serializable {
 
     private Integer delivery_address_id;
 
+
+    private Integer merchant_id;
+
+
     private static final long serialVersionUID = 1L;
 
 }

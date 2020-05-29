@@ -18,6 +18,7 @@ public class OrderItemVO {
     private String product_name;
     private BigDecimal sub_total;
     private BigDecimal uniprice;
-
+    //TODO 带货币的值
+    private String displayPrice;
 
 }

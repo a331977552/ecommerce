@@ -31,7 +31,8 @@ class StageProductItem extends React.Component {
         let canDelete = true;
         if(result === 0)
         {
-            canDelete =this.props.onDecreaseClick(product,result);
+            if(this.props.onDecreaseClick)
+                canDelete =this.props.onDecreaseClick(product,result);
         }
         canDelete && this.props.updateItemInCar({
             id: product.id,

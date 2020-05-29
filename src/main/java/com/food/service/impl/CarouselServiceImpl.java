@@ -1,7 +1,9 @@
 package com.food.service.impl;
 
+import com.food.mappers.CarouselMapper;
 import com.food.model.Carousel;
 import com.food.service.ICarouselService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +12,12 @@ import java.util.Optional;
 @Service
 public class CarouselServiceImpl implements ICarouselService {
 
-
+@Autowired
+    CarouselMapper mapper;
     @Override
-    public Carousel addCarousel(Carousel Carousel) {
-        return null;
+    public Carousel addCarousel(Carousel carousel) {
+         mapper.insert(carousel);
+        return carousel;
     }
 
     @Override

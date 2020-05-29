@@ -9,11 +9,13 @@ export  const MenuItemConstraints= {
 
 
 
-export  const StageConstraints= {
-    STAGE_SHOW:'STAGE_SHOW'
 
+export  const OrderConstraints= {
+    ORDER_COMPLETE: 'ORDER_COMPLETE',
+    ORDER_FAILED: 'ORDER_FAILED',
 
 }
+
 
 /**
  * @param data
@@ -43,16 +45,14 @@ export function initApp(data) {
     }
 }
 
-/**
- * @param data
- * @returns {{item: *, type: string}}
- */
-export function showStage(data) {
+export function orderComplete(data) {
     return {
-        type: StageConstraints.STAGE_SHOW,
+        type: OrderConstraints.ORDER_COMPLETE,
         payload:data
     }
 }
+
+
 
 /**
  * @param data

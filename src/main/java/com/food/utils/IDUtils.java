@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class IDUtils {
 
-	static SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	static SimpleDateFormat dateFormat=new SimpleDateFormat("yyyyMMddHHmm");
 
 	/**
 	 * generate picture id

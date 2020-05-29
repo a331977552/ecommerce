@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {showStage} from "../data/actions/componentActionCreators";
+import {orderComplete,emptyCartAction} from "../data/actions/componentActionCreators";
 import {ordering} from "../data/actions/httpActionCreators";
 import {Link} from "react-router-dom";
 import StageProductItem from "../componets/StageProductItem";
@@ -13,20 +13,21 @@ import RadioButton from "../componets/form/RadioButton";
 import Input from "../componets/form/Input";
 import TextArea from "../componets/form/TextArea";
 import './Modal.css'
+import {httpOrdering} from '../data/http/HttpRequest'
 Modal.setAppElement('#root')
 
 
-
+export const EAT_IN = 'eatIn';
+export const TAKE_AWAY = 'takeaway';
 class StagePage extends React.Component {
-    EAT_IN = 'eatIn';
-    TAKE_AWAY = 'takeaway';
+
     WECHAT = 'wechat';
     CASH_ON_DELIVERY = 'cashOnDelivery';
     titleFontSize = '14px'
     constructor(props) {
         super(props)
         this.state={
-            diningMethod:this.EAT_IN,
+            diningMethod:EAT_IN,
             paymentMethod:this.WECHAT,
             phoneNumber:'',
             customerName:'',
@@ -40,6 +41,11 @@ class StagePage extends React.Component {
         }
     }
 
+    /**
+     *
+     * @param item
+     * @returns {boolean} true to delete item. false to keep
+     */
     onDecreaseClick = (item) => {
         const remainingCount = Object.values(this.props.cart.cartItems).reduce((total,item) => total+item.quantity,0);
         if(remainingCount === 1){
@@ -75,7 +81,7 @@ class StagePage extends React.Component {
         const addressValid = this.onAddressChanged({target: {value: address}});
         const customerNameValid = this.onCustomerNameChanged({target: {value: customerName}});
         const cartItems = Object.values(cart.cartItems).filter(item => item.quantity > 0);
-        if ( phoneNumberValid && customerNameValid && ( diningMethod === this.TAKE_AWAY ? addressValid : true)) {
+        if ( phoneNumberValid && customerNameValid && ( diningMethod === TAKE_AWAY ? addressValid : true)) {
            this.processOrder(paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,cart.totalPrice,merchant.id,comment)
         } else {
             alert("请完善订单信息!");
@@ -83,10 +89,30 @@ class StagePage extends React.Component {
     }
 
     processOrder = (paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment)=>{
-        this.props.ordering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment})
         this.setState({
             showOrderLoading:true,
             modalIsOpen:true})
+        // this.props.ordering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment})
+        httpOrdering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment},(orderResult)=>{
+            console.log(orderResult);
+            if(orderResult.id !== null && orderResult.id !== undefined && orderResult.order_code){
+                this.setState({
+                    showOrderLoading:false,
+                    modalIsOpen:false})
+                    this.props.emptyCartAction();
+                    setTimeout(()=>{
+                    this.props.history.replace("/orderComplete",{orderResult});
+                    },10);
+            }else{
+                alert("订单异常");
+            }
+
+        },(error)=>{
+
+            alert(error);
+
+        });
+
     }
 
     onPhoneChanged = (e) => {
@@ -184,21 +210,21 @@ class StagePage extends React.Component {
                             <div  style={{fontSize:this.titleFontSize}}>请选择取餐方式</div>
                             <div style={{display:'flex'}}>
                                 <div style={{flex:'1 1 0',marginTop:'15px'}}>
-                                    <RadioButton name="diningMethod"  checked={diningMethod === this.EAT_IN} value={this.EAT_IN} onChange={this.onDiningMethodChanged}  >堂吃</RadioButton>
+                                    <RadioButton name="diningMethod"  checked={diningMethod === EAT_IN} value={EAT_IN} onChange={this.onDiningMethodChanged}  >堂吃</RadioButton>
                                 </div>
                                 <div  style={{flex:'1 1 0',marginTop:'15px'}}>
-                                    <RadioButton name="diningMethod"  checked={diningMethod === this.TAKE_AWAY} value={this.TAKE_AWAY} onChange={this.onDiningMethodChanged}  >外卖</RadioButton>
+                                    <RadioButton name="diningMethod"  checked={diningMethod === TAKE_AWAY} value={TAKE_AWAY} onChange={this.onDiningMethodChanged}  >外卖</RadioButton>
                                 </div>
                             </div>
                         </div>
 
                         <div debug={"delivery address"}  style={{backgroundColor:'white',marginTop:'5px',padding:'15px'}}>
                             <div style={{fontSize:this.titleFontSize,marginBottom:'15px'}}>
-                                { this.state.diningMethod === this.TAKE_AWAY ? '请填写送货地址' : '顾客信息'}</div>
+                                { this.state.diningMethod === TAKE_AWAY ? '请填写送货地址' : '顾客信息'}</div>
                             <div style={{marginTop:'5px'}}>
                                 <Input valid={customerNameValid} errorMsg={'用户名不能为空'}  labelStyle={{fontSize:this.titleFontSize}}   required={true}  label={"姓名"}     placeholder={''} type={'text'}   name={'customerName'} maxLength={20} onChange={this.onCustomerNameChanged} />
                                 <Input valid={phoneNumberValid} errorMsg={'电话号码不能为空或少于6位'}  labelStyle={{fontSize:this.titleFontSize}}   required={true}  label={"电话号码"} placeholder={''} type={'number'} name={'phoneNumber'} size={16} maxLength={16} onChange={this.onPhoneChanged} />
-                                { this.state.diningMethod === this.TAKE_AWAY &&<TextArea valid={addressValid} errorMsg={'送货地址不能为空'} labelStyle={{fontSize:this.titleFontSize}} required={true}  label={'配送地址'} placeholder={''}                 name={'address'} maxLength={200}  rows={'3'} onChange={this.onAddressChanged}/>}
+                                { this.state.diningMethod === TAKE_AWAY &&<TextArea valid={addressValid} errorMsg={'送货地址不能为空'} labelStyle={{fontSize:this.titleFontSize}} required={true}  label={'配送地址'} placeholder={''}                 name={'address'} maxLength={200}  rows={'3'} onChange={this.onAddressChanged}/>}
                             </div>
                         </div>
 
@@ -262,8 +288,9 @@ const mapState = (state, props) => {
 }
 const mapDispatch = (dispatch, ownProps) => {
     return bindActionCreators({
-        showStage,
-        ordering
+        ordering,
+        orderComplete,
+        emptyCartAction
     }, dispatch);
 }
 

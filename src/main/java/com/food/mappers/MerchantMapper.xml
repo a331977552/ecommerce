@@ -8,6 +8,14 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="availability" jdbcType="VARCHAR" property="availability" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="wechat_payment_code_url" jdbcType="VARCHAR" property="wechat_payment_code_url" />
+    <result column="wechat_url" jdbcType="VARCHAR" property="wechat_url" />
+    <result column="alipay_url" jdbcType="VARCHAR" property="alipay_url" />
+    <result column="alipay_payment_code_url" jdbcType="VARCHAR" property="alipay_payment_code_url" />
+    <result column="bank_card_number" jdbcType="VARCHAR" property="bank_card_number" />
+    <result column="bank_card_name" jdbcType="VARCHAR" property="bank_card_name" />
+    <result column="bank_card_date" jdbcType="VARCHAR" property="bank_card_date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, notice, status, address, availability
+    id, name, notice, status, address, availability, phone, wechat_payment_code_url, 
+    wechat_url, alipay_url, alipay_payment_code_url, bank_card_number, bank_card_name, 
+    bank_card_date
   </sql>
   <select id="selectByExample" parameterType="com.food.model.MerchantExample" resultMap="BaseResultMap">
     select
@@ -105,16 +115,21 @@
       select nextval('merchant_seq')
     </selectKey>
     insert into merchant (id, name, notice, 
-      status, address, availability
-      )
+      status, address, availability, 
+      phone, wechat_payment_code_url, wechat_url, 
+      alipay_url, alipay_payment_code_url, bank_card_number, 
+      bank_card_name, bank_card_date)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{notice,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{availability,jdbcType=VARCHAR}
-      )
+      #{status,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{availability,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{wechat_payment_code_url,jdbcType=VARCHAR}, #{wechat_url,jdbcType=VARCHAR}, 
+      #{alipay_url,jdbcType=VARCHAR}, #{alipay_payment_code_url,jdbcType=VARCHAR}, #{bank_card_number,jdbcType=VARCHAR}, 
+      #{bank_card_name,jdbcType=VARCHAR}, #{bank_card_date,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Merchant">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
       select nextval('merchant_seq')
     </selectKey>
+
     insert into merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,6 +150,30 @@
       <if test="availability != null">
         availability,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="wechat_payment_code_url != null">
+        wechat_payment_code_url,
+      </if>
+      <if test="wechat_url != null">
+        wechat_url,
+      </if>
+      <if test="alipay_url != null">
+        alipay_url,
+      </if>
+      <if test="alipay_payment_code_url != null">
+        alipay_payment_code_url,
+      </if>
+      <if test="bank_card_number != null">
+        bank_card_number,
+      </if>
+      <if test="bank_card_name != null">
+        bank_card_name,
+      </if>
+      <if test="bank_card_date != null">
+        bank_card_date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -154,6 +193,30 @@
       </if>
       <if test="availability != null">
         #{availability,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat_payment_code_url != null">
+        #{wechat_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat_url != null">
+        #{wechat_url,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay_url != null">
+        #{alipay_url,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay_payment_code_url != null">
+        #{alipay_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_number != null">
+        #{bank_card_number,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_name != null">
+        #{bank_card_name,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_date != null">
+        #{bank_card_date,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -184,6 +247,30 @@
       <if test="record.availability != null">
         availability = #{record.availability,jdbcType=VARCHAR},
       </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat_payment_code_url != null">
+        wechat_payment_code_url = #{record.wechat_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat_url != null">
+        wechat_url = #{record.wechat_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipay_url != null">
+        alipay_url = #{record.alipay_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipay_payment_code_url != null">
+        alipay_payment_code_url = #{record.alipay_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank_card_number != null">
+        bank_card_number = #{record.bank_card_number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank_card_name != null">
+        bank_card_name = #{record.bank_card_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bank_card_date != null">
+        bank_card_date = #{record.bank_card_date,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -196,7 +283,15 @@
       notice = #{record.notice,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      availability = #{record.availability,jdbcType=VARCHAR}
+      availability = #{record.availability,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      wechat_payment_code_url = #{record.wechat_payment_code_url,jdbcType=VARCHAR},
+      wechat_url = #{record.wechat_url,jdbcType=VARCHAR},
+      alipay_url = #{record.alipay_url,jdbcType=VARCHAR},
+      alipay_payment_code_url = #{record.alipay_payment_code_url,jdbcType=VARCHAR},
+      bank_card_number = #{record.bank_card_number,jdbcType=VARCHAR},
+      bank_card_name = #{record.bank_card_name,jdbcType=VARCHAR},
+      bank_card_date = #{record.bank_card_date,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,6 +314,30 @@
       <if test="availability != null">
         availability = #{availability,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat_payment_code_url != null">
+        wechat_payment_code_url = #{wechat_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat_url != null">
+        wechat_url = #{wechat_url,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay_url != null">
+        alipay_url = #{alipay_url,jdbcType=VARCHAR},
+      </if>
+      <if test="alipay_payment_code_url != null">
+        alipay_payment_code_url = #{alipay_payment_code_url,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_number != null">
+        bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_name != null">
+        bank_card_name = #{bank_card_name,jdbcType=VARCHAR},
+      </if>
+      <if test="bank_card_date != null">
+        bank_card_date = #{bank_card_date,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -228,7 +347,15 @@
       notice = #{notice,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      availability = #{availability,jdbcType=VARCHAR}
+      availability = #{availability,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      wechat_payment_code_url = #{wechat_payment_code_url,jdbcType=VARCHAR},
+      wechat_url = #{wechat_url,jdbcType=VARCHAR},
+      alipay_url = #{alipay_url,jdbcType=VARCHAR},
+      alipay_payment_code_url = #{alipay_payment_code_url,jdbcType=VARCHAR},
+      bank_card_number = #{bank_card_number,jdbcType=VARCHAR},
+      bank_card_name = #{bank_card_name,jdbcType=VARCHAR},
+      bank_card_date = #{bank_card_date,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

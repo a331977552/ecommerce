@@ -21,8 +21,6 @@ public interface OrderFormMapper {
 
     List<OrderForm> selectByExample(OrderFormExample example);
     long selectOrderCode();
-
-
     OrderForm selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") OrderForm record, @Param("example") OrderFormExample example);

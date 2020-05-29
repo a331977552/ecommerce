@@ -11,6 +11,7 @@ import {bindActionCreators} from "redux";
 import {initAppFromNetwork} from "../data/actions/httpActionCreators";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
+import OrderComplete from "./OrderComplete";
 
 
 class  App extends React.Component{
@@ -42,6 +43,10 @@ class  App extends React.Component{
                     <Route path="/stage">
                         <StagePage/>
                     </Route>
+
+                    <Route path={"/orderComplete"}>
+                       <OrderComplete/>
+                    </Route>
                     <Route path={"/errorMid"}>
                         <div>请选择正确的商家!</div>
                     </Route>
@@ -56,6 +61,7 @@ class  App extends React.Component{
 
 const mapState=(state) =>{
     const {loading, success} = state.menuReducer;
+    // const {loading, success} = state.stageReducer;
     return {loading, success}
 }
 const mapDispatch = (dispatch, ownProps) => {

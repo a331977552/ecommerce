@@ -1,5 +1,6 @@
 package com.food.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -18,7 +19,7 @@ public class OrderResultVO {
     private String buyer;
 
     private String comment;
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date create_time;
 
     private String order_code;
@@ -27,26 +28,30 @@ public class OrderResultVO {
 
     private String payment_method;
 
+
     private String phone;
 
     private String status;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date takeaway_time;
 
     private Integer total_count;
 
     private BigDecimal total_price;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date update_time;
 
     private Integer user_id;
 
     private String dining_method;
 
-    private Integer delivery_address_id;
 
+    private DeliveryAddressVO address;
     private CustomerVO customer;
     private List<OrderItemVO> orderItems;
+    private MerchantVO merchant;
 
 
 

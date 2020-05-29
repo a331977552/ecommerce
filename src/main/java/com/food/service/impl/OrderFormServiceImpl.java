@@ -10,6 +10,7 @@ import com.food.model.OrderItem;
 import com.food.model.constants.OrderConstants;
 import com.food.model.vo.*;
 import com.food.service.ICustomerService;
+import com.food.service.IMerchantService;
 import com.food.service.IOrderFormService;
 import com.food.service.IProductService;
 import com.food.utils.IDUtils;
@@ -31,6 +32,8 @@ public class OrderFormServiceImpl implements IOrderFormService {
     private OrderItemMapper orderItemMapper;
     private DeliveryAddressMapper deliveryAddressMapper;
     private IProductService productService;
+    @Autowired
+    private IMerchantService merchantService;
     @Autowired
     private ICustomerService customerService;
 
@@ -65,6 +68,8 @@ public class OrderFormServiceImpl implements IOrderFormService {
         {
             throw new UnexpectedException("无法识别的订餐方式！");
         }
+        MerchantVO merchant = merchantService.findMerchantById(vo.getMerchant_id());
+
 
         CustomerVO existingCustomer = customerService.findUserByPhoneOrId(vo.getCustomer());
         if(existingCustomer == null){
@@ -89,17 +94,6 @@ public class OrderFormServiceImpl implements IOrderFormService {
 
         long orderCode = orderFormMapper.selectOrderCode();
 
-        String orderNumber = IDUtils.getOrderId(orderCode);
-        order.setPayment_method(vo.getPaymentMethod());
-        order.setDining_method(vo.getDiningMethod());
-        order.setDelivery_address_id(address.getId());
-        order.setOrder_code(orderCode+"");
-        order.setOrder_number(orderNumber);
-        order.setCreate_time(new Date());
-        order.setUpdate_time(order.getCreate_time());
-        order.setPhone(vo.getCustomer().getPhone());
-        order.setStatus(OrderConstants.STATUS_UNPAID);
-        order.setUser_id(customerId);
         BigDecimal totalPrice =new BigDecimal(0);
         int quantity=0;
         for (OrderItemVO item : orderItems) {
@@ -114,10 +108,20 @@ public class OrderFormServiceImpl implements IOrderFormService {
             totalPrice = totalPrice.add(subTotal);
         }
 
-
+        String orderNumber = IDUtils.getOrderId(orderCode);
+        order.setPayment_method(vo.getPaymentMethod());
+        order.setDining_method(vo.getDiningMethod());
+        order.setDelivery_address_id(address.getId());
+        order.setOrder_code(orderCode+"");
+        order.setOrder_number(orderNumber);
+        order.setCreate_time(new Date());
+        order.setUpdate_time(order.getCreate_time());
+        order.setPhone(vo.getCustomer().getPhone());
+        order.setStatus(OrderConstants.STATUS_UNPAID);
+        order.setUser_id(customerId);
+        order.setMerchant_id(merchant.getId());
         order.setTotal_price(totalPrice);
         order.setTotal_count(quantity);
-
         int result = orderFormMapper.insert(order);
         if(result != 1)
             throw new UnexpectedException("订单创建异常! 10001");
@@ -135,11 +139,16 @@ public class OrderFormServiceImpl implements IOrderFormService {
 
 
         //
-//        orderItemMapper.insert();
+
+        DeliveryAddressVO addressVO =new DeliveryAddressVO();
+        BeanUtils.copyProperties(address,addressVO);
+
         OrderResultVO orderResultVO = new OrderResultVO();
         BeanUtils.copyProperties(order,orderResultVO);
         orderResultVO.setOrderItems(orderItems);
         orderResultVO.setCustomer(existingCustomer);
+        orderResultVO.setAddress(addressVO);
+        orderResultVO.setMerchant(merchant);
         return orderResultVO;
     }
 

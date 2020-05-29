@@ -1,413 +1,431 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.food.mappers.OrderFormMapper">
-  <resultMap id="BaseResultMap" type="com.food.model.OrderForm">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="expired_time" jdbcType="TIMESTAMP" property="expired_time" />
-    <result column="buyer" jdbcType="VARCHAR" property="buyer" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
-    <result column="order_code" jdbcType="VARCHAR" property="order_code" />
-    <result column="order_number" jdbcType="VARCHAR" property="order_number" />
-    <result column="payment_method" jdbcType="VARCHAR" property="payment_method" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="takeaway_time" jdbcType="TIMESTAMP" property="takeaway_time" />
-    <result column="total_count" jdbcType="INTEGER" property="total_count" />
-    <result column="total_price" jdbcType="NUMERIC" property="total_price" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
-    <result column="user_id" jdbcType="INTEGER" property="user_id" />
-    <result column="dining_method" jdbcType="VARCHAR" property="dining_method" />
-    <result column="delivery_address_id" jdbcType="INTEGER" property="delivery_address_id" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.food.model.OrderForm">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="expired_time" jdbcType="TIMESTAMP" property="expired_time"/>
+        <result column="buyer" jdbcType="VARCHAR" property="buyer"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="order_code" jdbcType="VARCHAR" property="order_code"/>
+        <result column="order_number" jdbcType="VARCHAR" property="order_number"/>
+        <result column="payment_method" jdbcType="VARCHAR" property="payment_method"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="takeaway_time" jdbcType="TIMESTAMP" property="takeaway_time"/>
+        <result column="total_count" jdbcType="INTEGER" property="total_count"/>
+        <result column="total_price" jdbcType="NUMERIC" property="total_price"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <result column="user_id" jdbcType="INTEGER" property="user_id"/>
+        <result column="dining_method" jdbcType="VARCHAR" property="dining_method"/>
+        <result column="delivery_address_id" jdbcType="INTEGER" property="delivery_address_id"/>
+        <result column="merchant_id" jdbcType="INTEGER" property="merchant_id"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, expired_time, buyer, comment, create_time, order_code, order_number, payment_method, 
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, expired_time, buyer, comment
+        , create_time, order_code, order_number, payment_method,
     phone, status, takeaway_time, total_count, total_price, update_time, user_id, dining_method, 
-    delivery_address_id
-  </sql>
-
-
-  <select id="selectOrderCode" resultType="long">
-    select nextval('order_code_seq')
-  </select>
-
-  <select id="selectByExample" parameterType="com.food.model.OrderFormExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from order_form
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order_form
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order_form
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.food.model.OrderFormExample">
-    delete from order_form
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.food.model.OrderForm">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
-      select nextval('order_form_seq')
-    </selectKey>
-    insert into order_form (id, expired_time, buyer, 
-      comment, create_time, order_code, 
-      order_number, payment_method, phone, 
-      status, takeaway_time, total_count, 
-      total_price, update_time, user_id, 
-      dining_method, delivery_address_id)
-    values (#{id,jdbcType=INTEGER}, #{expired_time,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR}, 
-      #{comment,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{order_code,jdbcType=VARCHAR}, 
-      #{order_number,jdbcType=VARCHAR}, #{payment_method,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{takeaway_time,jdbcType=TIMESTAMP}, #{total_count,jdbcType=INTEGER}, 
-      #{total_price,jdbcType=NUMERIC}, #{update_time,jdbcType=TIMESTAMP}, #{user_id,jdbcType=INTEGER}, 
-      #{dining_method,jdbcType=VARCHAR}, #{delivery_address_id,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.food.model.OrderForm">
-    <selectKey  order="BEFORE" keyProperty="id" resultType="int">
-      select nextval('order_form_seq')
-    </selectKey>
-    insert into order_form
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="expired_time != null">
-        expired_time,
-      </if>
-      <if test="buyer != null">
-        buyer,
-      </if>
-      <if test="comment != null">
-        comment,
-      </if>
-      <if test="create_time != null">
-        create_time,
-      </if>
-      <if test="order_code != null">
-        order_code,
-      </if>
-      <if test="order_number != null">
-        order_number,
-      </if>
-      <if test="payment_method != null">
-        payment_method,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="takeaway_time != null">
-        takeaway_time,
-      </if>
-      <if test="total_count != null">
-        total_count,
-      </if>
-      <if test="total_price != null">
-        total_price,
-      </if>
-      <if test="update_time != null">
-        update_time,
-      </if>
-      <if test="user_id != null">
-        user_id,
-      </if>
-      <if test="dining_method != null">
-        dining_method,
-      </if>
-      <if test="delivery_address_id != null">
-        delivery_address_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="expired_time != null">
-        #{expired_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="buyer != null">
-        #{buyer,jdbcType=VARCHAR},
-      </if>
-      <if test="comment != null">
-        #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="create_time != null">
-        #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="order_code != null">
-        #{order_code,jdbcType=VARCHAR},
-      </if>
-      <if test="order_number != null">
-        #{order_number,jdbcType=VARCHAR},
-      </if>
-      <if test="payment_method != null">
-        #{payment_method,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="takeaway_time != null">
-        #{takeaway_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="total_count != null">
-        #{total_count,jdbcType=INTEGER},
-      </if>
-      <if test="total_price != null">
-        #{total_price,jdbcType=NUMERIC},
-      </if>
-      <if test="update_time != null">
-        #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="user_id != null">
-        #{user_id,jdbcType=INTEGER},
-      </if>
-      <if test="dining_method != null">
-        #{dining_method,jdbcType=VARCHAR},
-      </if>
-      <if test="delivery_address_id != null">
-        #{delivery_address_id,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.food.model.OrderFormExample" resultType="java.lang.Long">
-    select count(*) from order_form
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update order_form
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.expired_time != null">
+    delivery_address_id, merchant_id
+    </sql>
+    <select id="selectByExample" parameterType="com.food.model.OrderFormExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from order_form
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_form
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from order_form
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.food.model.OrderFormExample">
+        delete from order_form
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <select id="selectOrderCode" resultType="long">
+        select nextval('order_code_seq')
+    </select>
+    <insert id="insert" parameterType="com.food.model.OrderForm">
+        <selectKey order="BEFORE" keyProperty="id" resultType="int">
+            select nextval('order_form_seq')
+        </selectKey>
+        insert into order_form (id, expired_time, buyer,
+        comment, create_time, order_code,
+        order_number, payment_method, phone,
+        status, takeaway_time, total_count,
+        total_price, update_time, user_id,
+        dining_method, delivery_address_id, merchant_id
+        )
+        values (#{id,jdbcType=INTEGER}, #{expired_time,jdbcType=TIMESTAMP}, #{buyer,jdbcType=VARCHAR},
+        #{comment,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{order_code,jdbcType=VARCHAR},
+        #{order_number,jdbcType=VARCHAR}, #{payment_method,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{takeaway_time,jdbcType=TIMESTAMP}, #{total_count,jdbcType=INTEGER},
+        #{total_price,jdbcType=NUMERIC}, #{update_time,jdbcType=TIMESTAMP}, #{user_id,jdbcType=INTEGER},
+        #{dining_method,jdbcType=VARCHAR}, #{delivery_address_id,jdbcType=INTEGER}, #{merchant_id,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.food.model.OrderForm">
+        <selectKey order="BEFORE" keyProperty="id" resultType="int">
+            select nextval('order_form_seq')
+        </selectKey>
+        insert into order_form
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="expired_time != null">
+                expired_time,
+            </if>
+            <if test="buyer != null">
+                buyer,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="order_code != null">
+                order_code,
+            </if>
+            <if test="order_number != null">
+                order_number,
+            </if>
+            <if test="payment_method != null">
+                payment_method,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="takeaway_time != null">
+                takeaway_time,
+            </if>
+            <if test="total_count != null">
+                total_count,
+            </if>
+            <if test="total_price != null">
+                total_price,
+            </if>
+            <if test="update_time != null">
+                update_time,
+            </if>
+            <if test="user_id != null">
+                user_id,
+            </if>
+            <if test="dining_method != null">
+                dining_method,
+            </if>
+            <if test="delivery_address_id != null">
+                delivery_address_id,
+            </if>
+            <if test="merchant_id != null">
+                merchant_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="expired_time != null">
+                #{expired_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buyer != null">
+                #{buyer,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null">
+                #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="order_code != null">
+                #{order_code,jdbcType=VARCHAR},
+            </if>
+            <if test="order_number != null">
+                #{order_number,jdbcType=VARCHAR},
+            </if>
+            <if test="payment_method != null">
+                #{payment_method,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="takeaway_time != null">
+                #{takeaway_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="total_count != null">
+                #{total_count,jdbcType=INTEGER},
+            </if>
+            <if test="total_price != null">
+                #{total_price,jdbcType=NUMERIC},
+            </if>
+            <if test="update_time != null">
+                #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="user_id != null">
+                #{user_id,jdbcType=INTEGER},
+            </if>
+            <if test="dining_method != null">
+                #{dining_method,jdbcType=VARCHAR},
+            </if>
+            <if test="delivery_address_id != null">
+                #{delivery_address_id,jdbcType=INTEGER},
+            </if>
+            <if test="merchant_id != null">
+                #{merchant_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.food.model.OrderFormExample" resultType="java.lang.Long">
+        select count(*) from order_form
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update order_form
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.expired_time != null">
+                expired_time = #{record.expired_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.buyer != null">
+                buyer = #{record.buyer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.comment != null">
+                comment = #{record.comment,jdbcType=VARCHAR},
+            </if>
+            <if test="record.create_time != null">
+                create_time = #{record.create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.order_code != null">
+                order_code = #{record.order_code,jdbcType=VARCHAR},
+            </if>
+            <if test="record.order_number != null">
+                order_number = #{record.order_number,jdbcType=VARCHAR},
+            </if>
+            <if test="record.payment_method != null">
+                payment_method = #{record.payment_method,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null">
+                phone = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.takeaway_time != null">
+                takeaway_time = #{record.takeaway_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.total_count != null">
+                total_count = #{record.total_count,jdbcType=INTEGER},
+            </if>
+            <if test="record.total_price != null">
+                total_price = #{record.total_price,jdbcType=NUMERIC},
+            </if>
+            <if test="record.update_time != null">
+                update_time = #{record.update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.user_id != null">
+                user_id = #{record.user_id,jdbcType=INTEGER},
+            </if>
+            <if test="record.dining_method != null">
+                dining_method = #{record.dining_method,jdbcType=VARCHAR},
+            </if>
+            <if test="record.delivery_address_id != null">
+                delivery_address_id = #{record.delivery_address_id,jdbcType=INTEGER},
+            </if>
+            <if test="record.merchant_id != null">
+                merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update order_form
+        set id = #{record.id,jdbcType=INTEGER},
         expired_time = #{record.expired_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.buyer != null">
         buyer = #{record.buyer,jdbcType=VARCHAR},
-      </if>
-      <if test="record.comment != null">
         comment = #{record.comment,jdbcType=VARCHAR},
-      </if>
-      <if test="record.create_time != null">
         create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.order_code != null">
         order_code = #{record.order_code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.order_number != null">
         order_number = #{record.order_number,jdbcType=VARCHAR},
-      </if>
-      <if test="record.payment_method != null">
         payment_method = #{record.payment_method,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
         status = #{record.status,jdbcType=VARCHAR},
-      </if>
-      <if test="record.takeaway_time != null">
         takeaway_time = #{record.takeaway_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.total_count != null">
         total_count = #{record.total_count,jdbcType=INTEGER},
-      </if>
-      <if test="record.total_price != null">
         total_price = #{record.total_price,jdbcType=NUMERIC},
-      </if>
-      <if test="record.update_time != null">
         update_time = #{record.update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.user_id != null">
         user_id = #{record.user_id,jdbcType=INTEGER},
-      </if>
-      <if test="record.dining_method != null">
         dining_method = #{record.dining_method,jdbcType=VARCHAR},
-      </if>
-      <if test="record.delivery_address_id != null">
         delivery_address_id = #{record.delivery_address_id,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update order_form
-    set id = #{record.id,jdbcType=INTEGER},
-      expired_time = #{record.expired_time,jdbcType=TIMESTAMP},
-      buyer = #{record.buyer,jdbcType=VARCHAR},
-      comment = #{record.comment,jdbcType=VARCHAR},
-      create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      order_code = #{record.order_code,jdbcType=VARCHAR},
-      order_number = #{record.order_number,jdbcType=VARCHAR},
-      payment_method = #{record.payment_method,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR},
-      takeaway_time = #{record.takeaway_time,jdbcType=TIMESTAMP},
-      total_count = #{record.total_count,jdbcType=INTEGER},
-      total_price = #{record.total_price,jdbcType=NUMERIC},
-      update_time = #{record.update_time,jdbcType=TIMESTAMP},
-      user_id = #{record.user_id,jdbcType=INTEGER},
-      dining_method = #{record.dining_method,jdbcType=VARCHAR},
-      delivery_address_id = #{record.delivery_address_id,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.food.model.OrderForm">
-    update order_form
-    <set>
-      <if test="expired_time != null">
-        expired_time = #{expired_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="buyer != null">
-        buyer = #{buyer,jdbcType=VARCHAR},
-      </if>
-      <if test="comment != null">
-        comment = #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="create_time != null">
-        create_time = #{create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="order_code != null">
-        order_code = #{order_code,jdbcType=VARCHAR},
-      </if>
-      <if test="order_number != null">
-        order_number = #{order_number,jdbcType=VARCHAR},
-      </if>
-      <if test="payment_method != null">
-        payment_method = #{payment_method,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="takeaway_time != null">
-        takeaway_time = #{takeaway_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="total_count != null">
-        total_count = #{total_count,jdbcType=INTEGER},
-      </if>
-      <if test="total_price != null">
-        total_price = #{total_price,jdbcType=NUMERIC},
-      </if>
-      <if test="update_time != null">
-        update_time = #{update_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="user_id != null">
-        user_id = #{user_id,jdbcType=INTEGER},
-      </if>
-      <if test="dining_method != null">
-        dining_method = #{dining_method,jdbcType=VARCHAR},
-      </if>
-      <if test="delivery_address_id != null">
-        delivery_address_id = #{delivery_address_id,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.food.model.OrderForm">
-    update order_form
-    set expired_time = #{expired_time,jdbcType=TIMESTAMP},
-      buyer = #{buyer,jdbcType=VARCHAR},
-      comment = #{comment,jdbcType=VARCHAR},
-      create_time = #{create_time,jdbcType=TIMESTAMP},
-      order_code = #{order_code,jdbcType=VARCHAR},
-      order_number = #{order_number,jdbcType=VARCHAR},
-      payment_method = #{payment_method,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      takeaway_time = #{takeaway_time,jdbcType=TIMESTAMP},
-      total_count = #{total_count,jdbcType=INTEGER},
-      total_price = #{total_price,jdbcType=NUMERIC},
-      update_time = #{update_time,jdbcType=TIMESTAMP},
-      user_id = #{user_id,jdbcType=INTEGER},
-      dining_method = #{dining_method,jdbcType=VARCHAR},
-      delivery_address_id = #{delivery_address_id,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        merchant_id = #{record.merchant_id,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.food.model.OrderForm">
+        update order_form
+        <set>
+            <if test="expired_time != null">
+                expired_time = #{expired_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buyer != null">
+                buyer = #{buyer,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="order_code != null">
+                order_code = #{order_code,jdbcType=VARCHAR},
+            </if>
+            <if test="order_number != null">
+                order_number = #{order_number,jdbcType=VARCHAR},
+            </if>
+            <if test="payment_method != null">
+                payment_method = #{payment_method,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="takeaway_time != null">
+                takeaway_time = #{takeaway_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="total_count != null">
+                total_count = #{total_count,jdbcType=INTEGER},
+            </if>
+            <if test="total_price != null">
+                total_price = #{total_price,jdbcType=NUMERIC},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="user_id != null">
+                user_id = #{user_id,jdbcType=INTEGER},
+            </if>
+            <if test="dining_method != null">
+                dining_method = #{dining_method,jdbcType=VARCHAR},
+            </if>
+            <if test="delivery_address_id != null">
+                delivery_address_id = #{delivery_address_id,jdbcType=INTEGER},
+            </if>
+            <if test="merchant_id != null">
+                merchant_id = #{merchant_id,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.food.model.OrderForm">
+        update order_form
+        set expired_time        = #{expired_time,jdbcType=TIMESTAMP},
+            buyer               = #{buyer,jdbcType=VARCHAR},
+            comment             = #{comment,jdbcType=VARCHAR},
+            create_time         = #{create_time,jdbcType=TIMESTAMP},
+            order_code          = #{order_code,jdbcType=VARCHAR},
+            order_number        = #{order_number,jdbcType=VARCHAR},
+            payment_method      = #{payment_method,jdbcType=VARCHAR},
+            phone               = #{phone,jdbcType=VARCHAR},
+            status              = #{status,jdbcType=VARCHAR},
+            takeaway_time       = #{takeaway_time,jdbcType=TIMESTAMP},
+            total_count         = #{total_count,jdbcType=INTEGER},
+            total_price         = #{total_price,jdbcType=NUMERIC},
+            update_time         = #{update_time,jdbcType=TIMESTAMP},
+            user_id             = #{user_id,jdbcType=INTEGER},
+            dining_method       = #{dining_method,jdbcType=VARCHAR},
+            delivery_address_id = #{delivery_address_id,jdbcType=INTEGER},
+            merchant_id         = #{merchant_id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

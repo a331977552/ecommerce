@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 public class OrderFormExample {
     protected String orderByClause;
 
@@ -1203,6 +1205,66 @@ public class OrderFormExample {
 
         public Criteria andDelivery_address_idNotBetween(Integer value1, Integer value2) {
             addCriterion("delivery_address_id not between", value1, value2, "delivery_address_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idIsNull() {
+            addCriterion("merchant_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idIsNotNull() {
+            addCriterion("merchant_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idEqualTo(Integer value) {
+            addCriterion("merchant_id =", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idNotEqualTo(Integer value) {
+            addCriterion("merchant_id <>", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idGreaterThan(Integer value) {
+            addCriterion("merchant_id >", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("merchant_id >=", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idLessThan(Integer value) {
+            addCriterion("merchant_id <", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idLessThanOrEqualTo(Integer value) {
+            addCriterion("merchant_id <=", value, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idIn(List<Integer> values) {
+            addCriterion("merchant_id in", values, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idNotIn(List<Integer> values) {
+            addCriterion("merchant_id not in", values, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idBetween(Integer value1, Integer value2) {
+            addCriterion("merchant_id between", value1, value2, "merchant_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("merchant_id not between", value1, value2, "merchant_id");
             return (Criteria) this;
         }
     }
