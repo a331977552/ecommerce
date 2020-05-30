@@ -3,6 +3,7 @@
     display: block;
     position: relative;
     padding-left: 30px;
+    height:20px;
     cursor: pointer;
     font-size: 14px;
     -webkit-user-select: none;

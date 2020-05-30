@@ -19,16 +19,26 @@ Modal.setAppElement('#root')
 
 export const EAT_IN = 'eatIn';
 export const TAKE_AWAY = 'takeaway';
+
+export const WECHAT = 'wechat';
+export const ALIPAY = 'alipay';
+export const BANK_CARD = 'bankCard';
+export const CASH_ON_DELIVERY = 'cashOnDelivery';
+
+export const paymentMap ={
+    'wechat':'微信支付',
+    'alipay':'支付宝支付',
+    'bankCard':'银行卡支付',
+    'cashOnDelivery':'货到付款',
+}
 class StagePage extends React.Component {
 
-    WECHAT = 'wechat';
-    CASH_ON_DELIVERY = 'cashOnDelivery';
     titleFontSize = '14px'
     constructor(props) {
         super(props)
         this.state={
             diningMethod:EAT_IN,
-            paymentMethod:this.WECHAT,
+            paymentMethod:WECHAT,
             phoneNumber:'',
             customerName:'',
             address:'',
@@ -45,6 +55,7 @@ class StagePage extends React.Component {
      *
      * @param item
      * @returns {boolean} true to delete item. false to keep
+     * item will call this method
      */
     onDecreaseClick = (item) => {
         const remainingCount = Object.values(this.props.cart.cartItems).reduce((total,item) => total+item.quantity,0);
@@ -60,6 +71,10 @@ class StagePage extends React.Component {
         return true;
     }
     componentDidMount() {
+        const remainingCount = Object.values(this.props.cart.cartItems).reduce((total,item) => total+item.quantity,0);
+
+        if(remainingCount === 0)
+            this.props.history.replace("/");
 
     }
 
@@ -162,7 +177,7 @@ class StagePage extends React.Component {
      *
      */
     render() {
-        const {loading, success,cart} = this.props;
+        const {loading, success,cart,merchant} = this.props;
         const {diningMethod,customerName,phoneNumber,address,phoneNumberValid,customerNameValid,addressValid,modalIsOpen,showOrderLoading} = this.state;
         const cartItems=Object.values(cart.cartItems).filter(item => item.quantity > 0);
         if (!success) {
@@ -201,12 +216,14 @@ class StagePage extends React.Component {
                         backgroundColor: '#EEEEEE',
 
                     }}>
-                        <div debug={"商家名称"} style={{backgroundColor:'white',marginTop:'1px',padding:'15px'}}>
-                          <div style={{fontSize:this.titleFontSize}}>商家名称</div>
-                            <div style={{fontSize:'12px'}}>商家地址</div>
+                        <div debug={"商家名称"} >
+                            <div style={{fontSize:this.titleFontSize,backgroundColor:'white',marginTop:'1px',padding:'10px 15px'}}>{merchant.name}</div>
+
+                            <div style={{fontSize:'12px',backgroundColor:'white',marginTop:'1px',padding:'10px 15px'}}>地址:{merchant.address}</div>
+                            <div style={{fontSize:'12px',backgroundColor:'white',padding:'10px 15px'}}>电话: {merchant.phone}</div>
                         </div>
 
-                        <div debug={"取餐方式"} style={{backgroundColor:'white',marginTop:'5px',padding:'15px'}}>
+                        <div debug={"取餐方式"} style={{backgroundColor:'white',marginTop:'5px',padding:'10px 15px'}}>
                             <div  style={{fontSize:this.titleFontSize}}>请选择取餐方式</div>
                             <div style={{display:'flex'}}>
                                 <div style={{flex:'1 1 0',marginTop:'15px'}}>
@@ -218,7 +235,7 @@ class StagePage extends React.Component {
                             </div>
                         </div>
 
-                        <div debug={"delivery address"}  style={{backgroundColor:'white',marginTop:'5px',padding:'15px'}}>
+                        <div debug={"delivery address"}  style={{backgroundColor:'white',marginTop:'5px',padding:'10px 15px'}}>
                             <div style={{fontSize:this.titleFontSize,marginBottom:'15px'}}>
                                 { this.state.diningMethod === TAKE_AWAY ? '请填写送货地址' : '顾客信息'}</div>
                             <div style={{marginTop:'5px'}}>
@@ -230,13 +247,20 @@ class StagePage extends React.Component {
 
                         <div>
                             <div style={{fontSize:this.titleFontSize,backgroundColor:'white',marginTop:'5px',padding:'15px'}}>支付方式</div>
-                            <div debug={"支付方式"} style={{backgroundColor:'white',marginTop:'1px',padding:'15px',display:'flex',justifyContent:'space-between'}}>
-                                <div style={{fontSize:this.titleFontSize,}}>差图标-- 微信支付</div>
-                                <RadioButton name="paymentMethod"  onChange={this.paymentMethodChanged} checked={this.state.paymentMethod === this.WECHAT} value={"wechat"}   />
+                            <div debug={"支付方式"} style={{backgroundColor:'white',marginTop:'1px',padding:'10px 15px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                                <div>
+                                    <div style={{fontSize:this.titleFontSize,}}>差图标-- 微信支付</div>
+                                    <div style={{fontSize:'12px',marginTop:'5px'}}>添加商家微信,自行转账</div>
+                                </div>
+                                <RadioButton name="paymentMethod"  onChange={this.paymentMethodChanged} checked={this.state.paymentMethod === WECHAT} value={WECHAT}   />
                             </div>
-                            <div debug={"支付方式"} style={{backgroundColor:'white',marginTop:'1px',padding:'15px',display:'flex',justifyContent:'space-between'}}>
+                            <div debug={"支付方式"} style={{backgroundColor:'white',marginTop:'1px',padding:'10px 15px',display:'flex',justifyContent:'space-between'}}>
                                 <div  style={{fontSize:this.titleFontSize}}>差图标-- 货到付款</div>
-                                <RadioButton name="paymentMethod" onChange={this.paymentMethodChanged}  checked={this.state.paymentMethod === this.CASH_ON_DELIVERY} value={"cashOnDelivery"}   />
+                                <RadioButton name="paymentMethod" onChange={this.paymentMethodChanged}  checked={this.state.paymentMethod === CASH_ON_DELIVERY} value={CASH_ON_DELIVERY}   />
+                            </div>
+                            <div debug={"支付方式"} style={{backgroundColor:'white',marginTop:'1px',padding:'10px 15px',display:'flex',justifyContent:'space-between'}}>
+                                <div  style={{fontSize:this.titleFontSize}}>差图标-- 银行卡打款</div>
+                                <RadioButton name="paymentMethod" onChange={this.paymentMethodChanged}  checked={this.state.paymentMethod === BANK_CARD} value={BANK_CARD}   />
                             </div>
                         </div>
 

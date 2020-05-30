@@ -52,7 +52,7 @@ class MenuPage extends React.Component {
                     <div ref={this.carouselRef} style={{height: '20vh', width: '100%', background: 'red' }}>
                         <Carousel/>
                     </div>
-                    <div ref={this.scrollContentListRef} style={{height: '72vh', width: '100%', display: 'flex', flexDirection: 'row'}}>
+                    <div ref={this.scrollContentListRef} style={{height: '74vh', width: '100%', display: 'flex', flexDirection: 'row'}}>
                         <div style={{
                             height: '100%',
                             width: '20vw',
@@ -66,7 +66,7 @@ class MenuPage extends React.Component {
                             <MenuContent overflowProps={this.state.overflowProps}  categories={categories} cart={cart}/>
                         </div>
                     </div>
-                    <div style={{height: '8vh', width: '100%'}}>
+                    <div style={{height: '6vh', width: '100%'}}>
                         <Cart/>
 
                     </div>

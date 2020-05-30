@@ -6,3 +6,18 @@
     position: absolute;
     color: black;
 }
+
+.btn_item_count_change{
+    background-color: red; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+    font-weight: normal;
+    border-radius: 50%;
+
+}

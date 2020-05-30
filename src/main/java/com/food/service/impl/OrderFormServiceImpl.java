@@ -24,6 +24,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static com.food.model.constants.OrderConstants.DINING_METHOD;
+import static com.food.model.constants.OrderConstants.PAYMENT_METHODS;
+
 @Service
 public class OrderFormServiceImpl implements IOrderFormService {
 
@@ -62,12 +65,16 @@ public class OrderFormServiceImpl implements IOrderFormService {
         if(vo.getOrderItems().size() == 0){
             throw new UnexpectedException("订单商品列表为空！");
         }
-        if(!vo.getPaymentMethod().equals( OrderConstants
-                .PAYMENT_METHOD_CASH_ON_DELIVERY) && !vo.getPaymentMethod().equals( OrderConstants
-                .PAYMENT_METHOD_WECHAT) )
+
+        if(!PAYMENT_METHODS.contains(vo.getPaymentMethod()))
+        {
+            throw new UnexpectedException("无法识别的支付方式！");
+        }
+        if(!DINING_METHOD.contains(vo.getDiningMethod()))
         {
             throw new UnexpectedException("无法识别的订餐方式！");
         }
+
         MerchantVO merchant = merchantService.findMerchantById(vo.getMerchant_id());
 
 

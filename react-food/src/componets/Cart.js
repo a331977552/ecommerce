@@ -2,14 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import './cart.css'
-import {updateItemInCartAction,emptyCartAction} from "../data/actions/componentActionCreators";
+import shopping_cart from '../asserts/shopping_cart.svg'
+import {updateItemInCartAction, emptyCartAction} from "../data/actions/componentActionCreators";
 import CartItem from "./CartItem";
-import {
-    BrowserRouter,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import {theme} from "../utils/ColorUtil";
+
 
 class Cart extends React.Component {
 
@@ -40,8 +38,14 @@ class Cart extends React.Component {
             showCartList: false
         })
     }
+    onCheckoutClicked = (e) => {
+        this.props.history.push("/stage");
+
+    }
+
     render() {
-        const cartItems=Object.values(this.props.cartItems).filter(item => item.quantity > 0);
+        const cartItems = Object.values(this.props.cartItems).filter(item => item.quantity > 0);
+        const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         return <div style={{
             backgroundColor: '#FFFFFF',
             width: '100%',
@@ -54,13 +58,18 @@ class Cart extends React.Component {
                 <div style={{flexGrow: 1}}></div>
                 <div style={{backgroundColor: '#FFFFFF'}}
                      onClick={this.onMenuListCLick}>
-                    <div style={{display: 'flex', flexDirection: 'row', padding: '10px'}}>
-                        <p>已选产品</p>
-                        <div style={{flexGrow: '1'}}/>
-                        <button onClick={this.onEmptyCartClicked}>清空</button>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '10px'
+                    }}>
+                        <div>已选产品</div>
+                        <div style={{height: '30px'}}  onClick={this.onEmptyCartClicked}>清空</div>
                     </div>
                     <div style={{width: '100%', height: '1px', backgroundColor: '#EEEEEE'}}/>
-                    <div style={{overflow: 'auto', maxHeight: '400px',minHeight:'0px'}}>
+                    <div style={{overflow: 'auto', maxHeight: '400px', minHeight: '0px'}}>
                         {
                             cartItems.map(item => <CartItem
                                 key={item.product.id} {...item}/>
@@ -76,22 +85,34 @@ class Cart extends React.Component {
                 display: 'flex',
                 justifyContent: 'center',
                 boxSizing: 'border-box',
-                padding: '10px',
+
                 alignItems: 'center',
                 flexDirection: 'row'
             }}>
+                <div className={'shopping_cart'}>
 
-                <div>
+                    <img onClick={this.onCartDetailClick} style={{width: '100%', height: '100%'}} src={shopping_cart}/>
 
-                    <button style={{padding: 10}} onClick={this.onCartDetailClick}>查看</button>
+                    <div style={{
+
+                        borderRadius: '50%',
+                        position: 'absolute',
+                        right: '-25px',
+                        top: '-15px',
+                        backgroundColor: theme.secondary,
+                        width: '25px',
+                        height: '25px',
+                        textAlign: 'center',
+                        color: 'white'
+                    }}>{totalCount}</div>
                 </div>
-                <span style={{padding: '10px'}}>{this.props.totalPrice}</span>
-                <div style={{flexGrow: '1'}}></div>
-                <div>
-                    <button style={{padding: 10}} >
-                        {this.props.totalPrice === 0? <span>选好了</span>: <Link style={{ textDecoration: 'none' }} disabled={this.props.totalPrice === 0} to={"/stage"}>选好了</Link>}
-                       </button>
-                </div>
+                <div style={{padding: '10px'}}>{this.props.totalPrice}</div>
+                <div style={{flexGrow: '1'}}/>
+                <button style={{border:'none',height: '100%', padding: 10, backgroundColor: totalCount === 0?theme.primary_DARK:theme.primary, color: theme.textOnP}}
+                        disabled={totalCount === 0} onClick={this.onCheckoutClicked}>
+                    去结算
+                </button>
+
             </div>
         </div>
     }
@@ -109,4 +130,4 @@ const mapDispatch = (dispatch, ownProps) => {
 
 }
 
-export default connect(mapState, mapDispatch)(Cart);
+export default withRouter(connect(mapState, mapDispatch)(Cart));

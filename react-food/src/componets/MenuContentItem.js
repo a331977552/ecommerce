@@ -1,6 +1,8 @@
 import React from "react";
 import "./MenuContentItem.css"
 import {connect} from 'react-redux'
+import plusBtn_svg from '../asserts/icon_circular_mins_btn.svg'
+import minsBtn_svg from '../asserts/icon_circular_plus_btn.svg'
 import {updateItemInCartAction} from '../data/actions/componentActionCreators'
 
 class MenuContentItem extends React.Component {
@@ -43,14 +45,10 @@ class MenuContentItem extends React.Component {
                 {product.quantityRemaining <=0 ?
                     <span style={{backgroundColor: '#FEBB15', padding: '10px 20px', borderRadius: '5px'}}>已售完</span>
                     :
-                    <div style={{display: 'flex', fontSize: '20px'}}>
-                        <button style={{width: '35px', height: '35px', fontSize: '14px', fontWeight: '1000'}}
-                                onClick={this.onDecreaseClick}>—
-                        </button>
+                    <div style={{display: 'flex',alignItems:'center'}}>
+                        <img width={'100%'} height={'100%'} src={plusBtn_svg} onClick={this.onDecreaseClick} />
                         <div style={{margin: '0px 10px'}}>{cartItem.quantity}</div>
-                        <button style={{width: '40px', height: '35px', fontSize: '20px'}}
-                                onClick={this.onIncreaseClick}>+
-                        </button>
+                        <img width={'100%'} height={'100%'} src={minsBtn_svg} onClick={this.onIncreaseClick}/>
                     </div>
                 }
             </div>

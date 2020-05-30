@@ -584,493 +584,703 @@ public class MerchantExample {
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlIsNull() {
+        public Criteria andWechatPaymentCodeUrlIsNull() {
             addCriterion("wechat_payment_code_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlIsNotNull() {
+        public Criteria andWechatPaymentCodeUrlIsNotNull() {
             addCriterion("wechat_payment_code_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlEqualTo(String value) {
-            addCriterion("wechat_payment_code_url =", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlEqualTo(String value) {
+            addCriterion("wechat_payment_code_url =", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlNotEqualTo(String value) {
-            addCriterion("wechat_payment_code_url <>", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlNotEqualTo(String value) {
+            addCriterion("wechat_payment_code_url <>", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlGreaterThan(String value) {
-            addCriterion("wechat_payment_code_url >", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlGreaterThan(String value) {
+            addCriterion("wechat_payment_code_url >", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlGreaterThanOrEqualTo(String value) {
-            addCriterion("wechat_payment_code_url >=", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("wechat_payment_code_url >=", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlLessThan(String value) {
-            addCriterion("wechat_payment_code_url <", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlLessThan(String value) {
+            addCriterion("wechat_payment_code_url <", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlLessThanOrEqualTo(String value) {
-            addCriterion("wechat_payment_code_url <=", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlLessThanOrEqualTo(String value) {
+            addCriterion("wechat_payment_code_url <=", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlLike(String value) {
-            addCriterion("wechat_payment_code_url like", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlLike(String value) {
+            addCriterion("wechat_payment_code_url like", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlNotLike(String value) {
-            addCriterion("wechat_payment_code_url not like", value, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlNotLike(String value) {
+            addCriterion("wechat_payment_code_url not like", value, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlIn(List<String> values) {
-            addCriterion("wechat_payment_code_url in", values, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlIn(List<String> values) {
+            addCriterion("wechat_payment_code_url in", values, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlNotIn(List<String> values) {
-            addCriterion("wechat_payment_code_url not in", values, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlNotIn(List<String> values) {
+            addCriterion("wechat_payment_code_url not in", values, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlBetween(String value1, String value2) {
-            addCriterion("wechat_payment_code_url between", value1, value2, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlBetween(String value1, String value2) {
+            addCriterion("wechat_payment_code_url between", value1, value2, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_payment_code_urlNotBetween(String value1, String value2) {
-            addCriterion("wechat_payment_code_url not between", value1, value2, "wechat_payment_code_url");
+        public Criteria andWechatPaymentCodeUrlNotBetween(String value1, String value2) {
+            addCriterion("wechat_payment_code_url not between", value1, value2, "wechatPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlIsNull() {
+        public Criteria andWechatUrlIsNull() {
             addCriterion("wechat_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlIsNotNull() {
+        public Criteria andWechatUrlIsNotNull() {
             addCriterion("wechat_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlEqualTo(String value) {
-            addCriterion("wechat_url =", value, "wechat_url");
+        public Criteria andWechatUrlEqualTo(String value) {
+            addCriterion("wechat_url =", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlNotEqualTo(String value) {
-            addCriterion("wechat_url <>", value, "wechat_url");
+        public Criteria andWechatUrlNotEqualTo(String value) {
+            addCriterion("wechat_url <>", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlGreaterThan(String value) {
-            addCriterion("wechat_url >", value, "wechat_url");
+        public Criteria andWechatUrlGreaterThan(String value) {
+            addCriterion("wechat_url >", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlGreaterThanOrEqualTo(String value) {
-            addCriterion("wechat_url >=", value, "wechat_url");
+        public Criteria andWechatUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("wechat_url >=", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlLessThan(String value) {
-            addCriterion("wechat_url <", value, "wechat_url");
+        public Criteria andWechatUrlLessThan(String value) {
+            addCriterion("wechat_url <", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlLessThanOrEqualTo(String value) {
-            addCriterion("wechat_url <=", value, "wechat_url");
+        public Criteria andWechatUrlLessThanOrEqualTo(String value) {
+            addCriterion("wechat_url <=", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlLike(String value) {
-            addCriterion("wechat_url like", value, "wechat_url");
+        public Criteria andWechatUrlLike(String value) {
+            addCriterion("wechat_url like", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlNotLike(String value) {
-            addCriterion("wechat_url not like", value, "wechat_url");
+        public Criteria andWechatUrlNotLike(String value) {
+            addCriterion("wechat_url not like", value, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlIn(List<String> values) {
-            addCriterion("wechat_url in", values, "wechat_url");
+        public Criteria andWechatUrlIn(List<String> values) {
+            addCriterion("wechat_url in", values, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlNotIn(List<String> values) {
-            addCriterion("wechat_url not in", values, "wechat_url");
+        public Criteria andWechatUrlNotIn(List<String> values) {
+            addCriterion("wechat_url not in", values, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlBetween(String value1, String value2) {
-            addCriterion("wechat_url between", value1, value2, "wechat_url");
+        public Criteria andWechatUrlBetween(String value1, String value2) {
+            addCriterion("wechat_url between", value1, value2, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andWechat_urlNotBetween(String value1, String value2) {
-            addCriterion("wechat_url not between", value1, value2, "wechat_url");
+        public Criteria andWechatUrlNotBetween(String value1, String value2) {
+            addCriterion("wechat_url not between", value1, value2, "wechatUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlIsNull() {
+        public Criteria andAlipayUrlIsNull() {
             addCriterion("alipay_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlIsNotNull() {
+        public Criteria andAlipayUrlIsNotNull() {
             addCriterion("alipay_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlEqualTo(String value) {
-            addCriterion("alipay_url =", value, "alipay_url");
+        public Criteria andAlipayUrlEqualTo(String value) {
+            addCriterion("alipay_url =", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlNotEqualTo(String value) {
-            addCriterion("alipay_url <>", value, "alipay_url");
+        public Criteria andAlipayUrlNotEqualTo(String value) {
+            addCriterion("alipay_url <>", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlGreaterThan(String value) {
-            addCriterion("alipay_url >", value, "alipay_url");
+        public Criteria andAlipayUrlGreaterThan(String value) {
+            addCriterion("alipay_url >", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlGreaterThanOrEqualTo(String value) {
-            addCriterion("alipay_url >=", value, "alipay_url");
+        public Criteria andAlipayUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("alipay_url >=", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlLessThan(String value) {
-            addCriterion("alipay_url <", value, "alipay_url");
+        public Criteria andAlipayUrlLessThan(String value) {
+            addCriterion("alipay_url <", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlLessThanOrEqualTo(String value) {
-            addCriterion("alipay_url <=", value, "alipay_url");
+        public Criteria andAlipayUrlLessThanOrEqualTo(String value) {
+            addCriterion("alipay_url <=", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlLike(String value) {
-            addCriterion("alipay_url like", value, "alipay_url");
+        public Criteria andAlipayUrlLike(String value) {
+            addCriterion("alipay_url like", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlNotLike(String value) {
-            addCriterion("alipay_url not like", value, "alipay_url");
+        public Criteria andAlipayUrlNotLike(String value) {
+            addCriterion("alipay_url not like", value, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlIn(List<String> values) {
-            addCriterion("alipay_url in", values, "alipay_url");
+        public Criteria andAlipayUrlIn(List<String> values) {
+            addCriterion("alipay_url in", values, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlNotIn(List<String> values) {
-            addCriterion("alipay_url not in", values, "alipay_url");
+        public Criteria andAlipayUrlNotIn(List<String> values) {
+            addCriterion("alipay_url not in", values, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlBetween(String value1, String value2) {
-            addCriterion("alipay_url between", value1, value2, "alipay_url");
+        public Criteria andAlipayUrlBetween(String value1, String value2) {
+            addCriterion("alipay_url between", value1, value2, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_urlNotBetween(String value1, String value2) {
-            addCriterion("alipay_url not between", value1, value2, "alipay_url");
+        public Criteria andAlipayUrlNotBetween(String value1, String value2) {
+            addCriterion("alipay_url not between", value1, value2, "alipayUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlIsNull() {
+        public Criteria andAlipayPaymentCodeUrlIsNull() {
             addCriterion("alipay_payment_code_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlIsNotNull() {
+        public Criteria andAlipayPaymentCodeUrlIsNotNull() {
             addCriterion("alipay_payment_code_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlEqualTo(String value) {
-            addCriterion("alipay_payment_code_url =", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlEqualTo(String value) {
+            addCriterion("alipay_payment_code_url =", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlNotEqualTo(String value) {
-            addCriterion("alipay_payment_code_url <>", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlNotEqualTo(String value) {
+            addCriterion("alipay_payment_code_url <>", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlGreaterThan(String value) {
-            addCriterion("alipay_payment_code_url >", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlGreaterThan(String value) {
+            addCriterion("alipay_payment_code_url >", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlGreaterThanOrEqualTo(String value) {
-            addCriterion("alipay_payment_code_url >=", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("alipay_payment_code_url >=", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlLessThan(String value) {
-            addCriterion("alipay_payment_code_url <", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlLessThan(String value) {
+            addCriterion("alipay_payment_code_url <", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlLessThanOrEqualTo(String value) {
-            addCriterion("alipay_payment_code_url <=", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlLessThanOrEqualTo(String value) {
+            addCriterion("alipay_payment_code_url <=", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlLike(String value) {
-            addCriterion("alipay_payment_code_url like", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlLike(String value) {
+            addCriterion("alipay_payment_code_url like", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlNotLike(String value) {
-            addCriterion("alipay_payment_code_url not like", value, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlNotLike(String value) {
+            addCriterion("alipay_payment_code_url not like", value, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlIn(List<String> values) {
-            addCriterion("alipay_payment_code_url in", values, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlIn(List<String> values) {
+            addCriterion("alipay_payment_code_url in", values, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlNotIn(List<String> values) {
-            addCriterion("alipay_payment_code_url not in", values, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlNotIn(List<String> values) {
+            addCriterion("alipay_payment_code_url not in", values, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlBetween(String value1, String value2) {
-            addCriterion("alipay_payment_code_url between", value1, value2, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlBetween(String value1, String value2) {
+            addCriterion("alipay_payment_code_url between", value1, value2, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAlipay_payment_code_urlNotBetween(String value1, String value2) {
-            addCriterion("alipay_payment_code_url not between", value1, value2, "alipay_payment_code_url");
+        public Criteria andAlipayPaymentCodeUrlNotBetween(String value1, String value2) {
+            addCriterion("alipay_payment_code_url not between", value1, value2, "alipayPaymentCodeUrl");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberIsNull() {
+        public Criteria andBankCardNumberIsNull() {
             addCriterion("bank_card_number is null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberIsNotNull() {
+        public Criteria andBankCardNumberIsNotNull() {
             addCriterion("bank_card_number is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberEqualTo(String value) {
-            addCriterion("bank_card_number =", value, "bank_card_number");
+        public Criteria andBankCardNumberEqualTo(String value) {
+            addCriterion("bank_card_number =", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberNotEqualTo(String value) {
-            addCriterion("bank_card_number <>", value, "bank_card_number");
+        public Criteria andBankCardNumberNotEqualTo(String value) {
+            addCriterion("bank_card_number <>", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberGreaterThan(String value) {
-            addCriterion("bank_card_number >", value, "bank_card_number");
+        public Criteria andBankCardNumberGreaterThan(String value) {
+            addCriterion("bank_card_number >", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberGreaterThanOrEqualTo(String value) {
-            addCriterion("bank_card_number >=", value, "bank_card_number");
+        public Criteria andBankCardNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("bank_card_number >=", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberLessThan(String value) {
-            addCriterion("bank_card_number <", value, "bank_card_number");
+        public Criteria andBankCardNumberLessThan(String value) {
+            addCriterion("bank_card_number <", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberLessThanOrEqualTo(String value) {
-            addCriterion("bank_card_number <=", value, "bank_card_number");
+        public Criteria andBankCardNumberLessThanOrEqualTo(String value) {
+            addCriterion("bank_card_number <=", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberLike(String value) {
-            addCriterion("bank_card_number like", value, "bank_card_number");
+        public Criteria andBankCardNumberLike(String value) {
+            addCriterion("bank_card_number like", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberNotLike(String value) {
-            addCriterion("bank_card_number not like", value, "bank_card_number");
+        public Criteria andBankCardNumberNotLike(String value) {
+            addCriterion("bank_card_number not like", value, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberIn(List<String> values) {
-            addCriterion("bank_card_number in", values, "bank_card_number");
+        public Criteria andBankCardNumberIn(List<String> values) {
+            addCriterion("bank_card_number in", values, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberNotIn(List<String> values) {
-            addCriterion("bank_card_number not in", values, "bank_card_number");
+        public Criteria andBankCardNumberNotIn(List<String> values) {
+            addCriterion("bank_card_number not in", values, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberBetween(String value1, String value2) {
-            addCriterion("bank_card_number between", value1, value2, "bank_card_number");
+        public Criteria andBankCardNumberBetween(String value1, String value2) {
+            addCriterion("bank_card_number between", value1, value2, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_numberNotBetween(String value1, String value2) {
-            addCriterion("bank_card_number not between", value1, value2, "bank_card_number");
+        public Criteria andBankCardNumberNotBetween(String value1, String value2) {
+            addCriterion("bank_card_number not between", value1, value2, "bankCardNumber");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameIsNull() {
+        public Criteria andBankCardNameIsNull() {
             addCriterion("bank_card_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameIsNotNull() {
+        public Criteria andBankCardNameIsNotNull() {
             addCriterion("bank_card_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameEqualTo(String value) {
-            addCriterion("bank_card_name =", value, "bank_card_name");
+        public Criteria andBankCardNameEqualTo(String value) {
+            addCriterion("bank_card_name =", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameNotEqualTo(String value) {
-            addCriterion("bank_card_name <>", value, "bank_card_name");
+        public Criteria andBankCardNameNotEqualTo(String value) {
+            addCriterion("bank_card_name <>", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameGreaterThan(String value) {
-            addCriterion("bank_card_name >", value, "bank_card_name");
+        public Criteria andBankCardNameGreaterThan(String value) {
+            addCriterion("bank_card_name >", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameGreaterThanOrEqualTo(String value) {
-            addCriterion("bank_card_name >=", value, "bank_card_name");
+        public Criteria andBankCardNameGreaterThanOrEqualTo(String value) {
+            addCriterion("bank_card_name >=", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameLessThan(String value) {
-            addCriterion("bank_card_name <", value, "bank_card_name");
+        public Criteria andBankCardNameLessThan(String value) {
+            addCriterion("bank_card_name <", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameLessThanOrEqualTo(String value) {
-            addCriterion("bank_card_name <=", value, "bank_card_name");
+        public Criteria andBankCardNameLessThanOrEqualTo(String value) {
+            addCriterion("bank_card_name <=", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameLike(String value) {
-            addCriterion("bank_card_name like", value, "bank_card_name");
+        public Criteria andBankCardNameLike(String value) {
+            addCriterion("bank_card_name like", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameNotLike(String value) {
-            addCriterion("bank_card_name not like", value, "bank_card_name");
+        public Criteria andBankCardNameNotLike(String value) {
+            addCriterion("bank_card_name not like", value, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameIn(List<String> values) {
-            addCriterion("bank_card_name in", values, "bank_card_name");
+        public Criteria andBankCardNameIn(List<String> values) {
+            addCriterion("bank_card_name in", values, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameNotIn(List<String> values) {
-            addCriterion("bank_card_name not in", values, "bank_card_name");
+        public Criteria andBankCardNameNotIn(List<String> values) {
+            addCriterion("bank_card_name not in", values, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameBetween(String value1, String value2) {
-            addCriterion("bank_card_name between", value1, value2, "bank_card_name");
+        public Criteria andBankCardNameBetween(String value1, String value2) {
+            addCriterion("bank_card_name between", value1, value2, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_nameNotBetween(String value1, String value2) {
-            addCriterion("bank_card_name not between", value1, value2, "bank_card_name");
+        public Criteria andBankCardNameNotBetween(String value1, String value2) {
+            addCriterion("bank_card_name not between", value1, value2, "bankCardName");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateIsNull() {
+        public Criteria andBankCardDateIsNull() {
             addCriterion("bank_card_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateIsNotNull() {
+        public Criteria andBankCardDateIsNotNull() {
             addCriterion("bank_card_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateEqualTo(String value) {
-            addCriterion("bank_card_date =", value, "bank_card_date");
+        public Criteria andBankCardDateEqualTo(String value) {
+            addCriterion("bank_card_date =", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateNotEqualTo(String value) {
-            addCriterion("bank_card_date <>", value, "bank_card_date");
+        public Criteria andBankCardDateNotEqualTo(String value) {
+            addCriterion("bank_card_date <>", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateGreaterThan(String value) {
-            addCriterion("bank_card_date >", value, "bank_card_date");
+        public Criteria andBankCardDateGreaterThan(String value) {
+            addCriterion("bank_card_date >", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateGreaterThanOrEqualTo(String value) {
-            addCriterion("bank_card_date >=", value, "bank_card_date");
+        public Criteria andBankCardDateGreaterThanOrEqualTo(String value) {
+            addCriterion("bank_card_date >=", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateLessThan(String value) {
-            addCriterion("bank_card_date <", value, "bank_card_date");
+        public Criteria andBankCardDateLessThan(String value) {
+            addCriterion("bank_card_date <", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateLessThanOrEqualTo(String value) {
-            addCriterion("bank_card_date <=", value, "bank_card_date");
+        public Criteria andBankCardDateLessThanOrEqualTo(String value) {
+            addCriterion("bank_card_date <=", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateLike(String value) {
-            addCriterion("bank_card_date like", value, "bank_card_date");
+        public Criteria andBankCardDateLike(String value) {
+            addCriterion("bank_card_date like", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateNotLike(String value) {
-            addCriterion("bank_card_date not like", value, "bank_card_date");
+        public Criteria andBankCardDateNotLike(String value) {
+            addCriterion("bank_card_date not like", value, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateIn(List<String> values) {
-            addCriterion("bank_card_date in", values, "bank_card_date");
+        public Criteria andBankCardDateIn(List<String> values) {
+            addCriterion("bank_card_date in", values, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateNotIn(List<String> values) {
-            addCriterion("bank_card_date not in", values, "bank_card_date");
+        public Criteria andBankCardDateNotIn(List<String> values) {
+            addCriterion("bank_card_date not in", values, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateBetween(String value1, String value2) {
-            addCriterion("bank_card_date between", value1, value2, "bank_card_date");
+        public Criteria andBankCardDateBetween(String value1, String value2) {
+            addCriterion("bank_card_date between", value1, value2, "bankCardDate");
             return (Criteria) this;
         }
 
-        public Criteria andBank_card_dateNotBetween(String value1, String value2) {
-            addCriterion("bank_card_date not between", value1, value2, "bank_card_date");
+        public Criteria andBankCardDateNotBetween(String value1, String value2) {
+            addCriterion("bank_card_date not between", value1, value2, "bankCardDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameIsNull() {
+            addCriterion("username is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameIsNotNull() {
+            addCriterion("username is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameEqualTo(String value) {
+            addCriterion("username =", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameNotEqualTo(String value) {
+            addCriterion("username <>", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameGreaterThan(String value) {
+            addCriterion("username >", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("username >=", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameLessThan(String value) {
+            addCriterion("username <", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameLessThanOrEqualTo(String value) {
+            addCriterion("username <=", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameLike(String value) {
+            addCriterion("username like", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameNotLike(String value) {
+            addCriterion("username not like", value, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameIn(List<String> values) {
+            addCriterion("username in", values, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameNotIn(List<String> values) {
+            addCriterion("username not in", values, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameBetween(String value1, String value2) {
+            addCriterion("username between", value1, value2, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsernameNotBetween(String value1, String value2) {
+            addCriterion("username not between", value1, value2, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordIsNull() {
+            addCriterion("password is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordIsNotNull() {
+            addCriterion("password is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordEqualTo(String value) {
+            addCriterion("password =", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotEqualTo(String value) {
+            addCriterion("password <>", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordGreaterThan(String value) {
+            addCriterion("password >", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordGreaterThanOrEqualTo(String value) {
+            addCriterion("password >=", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLessThan(String value) {
+            addCriterion("password <", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLessThanOrEqualTo(String value) {
+            addCriterion("password <=", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordLike(String value) {
+            addCriterion("password like", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotLike(String value) {
+            addCriterion("password not like", value, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordIn(List<String> values) {
+            addCriterion("password in", values, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotIn(List<String> values) {
+            addCriterion("password not in", values, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBetween(String value1, String value2) {
+            addCriterion("password between", value1, value2, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordNotBetween(String value1, String value2) {
+            addCriterion("password not between", value1, value2, "password");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIsNull() {
+            addCriterion("role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIsNotNull() {
+            addCriterion("role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleEqualTo(String value) {
+            addCriterion("role =", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotEqualTo(String value) {
+            addCriterion("role <>", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleGreaterThan(String value) {
+            addCriterion("role >", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleGreaterThanOrEqualTo(String value) {
+            addCriterion("role >=", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleLessThan(String value) {
+            addCriterion("role <", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleLessThanOrEqualTo(String value) {
+            addCriterion("role <=", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleLike(String value) {
+            addCriterion("role like", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotLike(String value) {
+            addCriterion("role not like", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIn(List<String> values) {
+            addCriterion("role in", values, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotIn(List<String> values) {
+            addCriterion("role not in", values, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleBetween(String value1, String value2) {
+            addCriterion("role between", value1, value2, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotBetween(String value1, String value2) {
+            addCriterion("role not between", value1, value2, "role");
             return (Criteria) this;
         }
     }

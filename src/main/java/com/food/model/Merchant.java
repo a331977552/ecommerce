@@ -17,19 +17,25 @@ public class Merchant implements Serializable {
 
     private String phone;
 
-    private String wechat_payment_code_url;
+    private String wechatPaymentCodeUrl;
 
-    private String wechat_url;
+    private String wechatUrl;
 
-    private String alipay_url;
+    private String alipayUrl;
 
-    private String alipay_payment_code_url;
+    private String alipayPaymentCodeUrl;
 
-    private String bank_card_number;
+    private String bankCardNumber;
 
-    private String bank_card_name;
+    private String bankCardName;
 
-    private String bank_card_date;
+    private String bankCardDate;
+
+    private String username;
+
+    private String password;
+
+    private String role;
 
     private static final long serialVersionUID = 1L;
 
@@ -89,59 +95,83 @@ public class Merchant implements Serializable {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getWechat_payment_code_url() {
-        return wechat_payment_code_url;
+    public String getWechatPaymentCodeUrl() {
+        return wechatPaymentCodeUrl;
     }
 
-    public void setWechat_payment_code_url(String wechat_payment_code_url) {
-        this.wechat_payment_code_url = wechat_payment_code_url == null ? null : wechat_payment_code_url.trim();
+    public void setWechatPaymentCodeUrl(String wechatPaymentCodeUrl) {
+        this.wechatPaymentCodeUrl = wechatPaymentCodeUrl == null ? null : wechatPaymentCodeUrl.trim();
     }
 
-    public String getWechat_url() {
-        return wechat_url;
+    public String getWechatUrl() {
+        return wechatUrl;
     }
 
-    public void setWechat_url(String wechat_url) {
-        this.wechat_url = wechat_url == null ? null : wechat_url.trim();
+    public void setWechatUrl(String wechatUrl) {
+        this.wechatUrl = wechatUrl == null ? null : wechatUrl.trim();
     }
 
-    public String getAlipay_url() {
-        return alipay_url;
+    public String getAlipayUrl() {
+        return alipayUrl;
     }
 
-    public void setAlipay_url(String alipay_url) {
-        this.alipay_url = alipay_url == null ? null : alipay_url.trim();
+    public void setAlipayUrl(String alipayUrl) {
+        this.alipayUrl = alipayUrl == null ? null : alipayUrl.trim();
     }
 
-    public String getAlipay_payment_code_url() {
-        return alipay_payment_code_url;
+    public String getAlipayPaymentCodeUrl() {
+        return alipayPaymentCodeUrl;
     }
 
-    public void setAlipay_payment_code_url(String alipay_payment_code_url) {
-        this.alipay_payment_code_url = alipay_payment_code_url == null ? null : alipay_payment_code_url.trim();
+    public void setAlipayPaymentCodeUrl(String alipayPaymentCodeUrl) {
+        this.alipayPaymentCodeUrl = alipayPaymentCodeUrl == null ? null : alipayPaymentCodeUrl.trim();
     }
 
-    public String getBank_card_number() {
-        return bank_card_number;
+    public String getBankCardNumber() {
+        return bankCardNumber;
     }
 
-    public void setBank_card_number(String bank_card_number) {
-        this.bank_card_number = bank_card_number == null ? null : bank_card_number.trim();
+    public void setBankCardNumber(String bankCardNumber) {
+        this.bankCardNumber = bankCardNumber == null ? null : bankCardNumber.trim();
     }
 
-    public String getBank_card_name() {
-        return bank_card_name;
+    public String getBankCardName() {
+        return bankCardName;
     }
 
-    public void setBank_card_name(String bank_card_name) {
-        this.bank_card_name = bank_card_name == null ? null : bank_card_name.trim();
+    public void setBankCardName(String bankCardName) {
+        this.bankCardName = bankCardName == null ? null : bankCardName.trim();
     }
 
-    public String getBank_card_date() {
-        return bank_card_date;
+    public String getBankCardDate() {
+        return bankCardDate;
     }
 
-    public void setBank_card_date(String bank_card_date) {
-        this.bank_card_date = bank_card_date == null ? null : bank_card_date.trim();
+    public void setBankCardDate(String bankCardDate) {
+        this.bankCardDate = bankCardDate == null ? null : bankCardDate.trim();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 }

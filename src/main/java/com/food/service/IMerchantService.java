@@ -5,6 +5,7 @@ import com.food.model.vo.MerchantVO;
 public interface IMerchantService {
 
 
+     MerchantVO findByUsername(String username);
      MerchantVO addMerchant(MerchantVO vo);
      void updateMerchant(MerchantVO vo);
      void removeMerchant(MerchantVO vo);

@@ -3,12 +3,16 @@ package com.food.service.impl;
 import com.food.exception.UnexpectedException;
 import com.food.mappers.MerchantMapper;
 import com.food.model.Merchant;
+import com.food.model.MerchantExample;
 import com.food.model.vo.MerchantVO;
 import com.food.service.IMerchantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +34,20 @@ public class MerchantServiceImpl implements IMerchantService {
         Merchant merchant  = new Merchant();
         BeanUtils.copyProperties(vo,merchant);
         return merchant;
+    }
+
+    @Override
+    public MerchantVO findByUsername(@NotNull(message = "用户名为空！") @NotEmpty(message = "用户名为空！") String username) {
+        MerchantExample example =new MerchantExample();
+        example.createCriteria().andUsernameEqualTo(username.trim());
+        List<Merchant> merchants = merchantMapper.selectByExample(example);
+        if(merchants.size()>1)
+            throw new UnexpectedException("服务器异常, multiple username occurred");
+        Merchant merchant = merchants.stream().findFirst().orElse(null);
+        if(merchant == null)
+            return null;
+        MerchantVO vo = convertToVO(merchant);
+        return  vo;
     }
 
     @Override
