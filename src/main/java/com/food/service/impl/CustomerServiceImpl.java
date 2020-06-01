@@ -7,8 +7,11 @@ import com.food.model.CustomerExample;
 import com.food.model.vo.CustomerVO;
 import com.food.service.ICustomerService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,5 +107,22 @@ public class CustomerServiceImpl implements ICustomerService {
             throw new UnexpectedException("duplicate customers");
         Customer customer = customers.stream().findFirst().orElse(null);
         return convertToVo(customer);
+    }
+
+
+
+    @Override
+    public CustomerVO loadUserByUsername(@NotNull(message = "用户名为空！") @NotEmpty(message = "用户名为空！")String username) throws UsernameNotFoundException {
+        CustomerExample example =new CustomerExample();
+        System.out.println("loadUserByUsername -----------");
+       /* example.createCriteria().andUsernameEqualTo(username.trim());
+        List<Merchant> merchants = mapper.selectByExample(example);
+        if(merchants.size()>1)
+            throw new UnexpectedException("服务器异常, multiple username occurred");
+        Merchant merchant = merchants.stream().findFirst().orElse(null);
+        if(merchant == null)
+            return null;
+        MerchantVO vo = convertToVO(merchant);*/
+        return  null;
     }
 }

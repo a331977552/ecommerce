@@ -1,5 +1,6 @@
 package com.food.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,35 +42,42 @@ public class MerchantVO  implements UserDetails {
     private String bank_card_date;
 
     private String username;
-
+    @JsonIgnore
     private String password;
-
+    @JsonIgnore
     private String role;
 
+    public void setAuthorities() {
+        this.authorities = Set.of(new SimpleGrantedAuthority(getRole()));
+    }
+    @JsonIgnore
     private Set<SimpleGrantedAuthority> authorities;
     public MerchantVO(){
 
-        authorities = Set.of(new SimpleGrantedAuthority(getRole()));
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return authorities;
     }
-
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

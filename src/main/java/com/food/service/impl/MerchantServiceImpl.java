@@ -8,6 +8,8 @@ import com.food.model.vo.MerchantVO;
 import com.food.service.IMerchantService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +30,7 @@ public class MerchantServiceImpl implements IMerchantService {
     MerchantVO convertToVO(Merchant merchant){
         MerchantVO vo  = new MerchantVO();
         BeanUtils.copyProperties(merchant,vo);
+        vo.setAuthorities();
         return vo;
     }
     Merchant convertToDAO(MerchantVO vo){
@@ -48,6 +51,14 @@ public class MerchantServiceImpl implements IMerchantService {
             return null;
         MerchantVO vo = convertToVO(merchant);
         return  vo;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        MerchantVO byUsername = findByUsername(username);
+        if(byUsername ==null )
+            throw  new UsernameNotFoundException("用户名不存在!");
+        return byUsername;
     }
 
     @Override

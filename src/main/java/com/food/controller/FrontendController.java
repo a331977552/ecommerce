@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/user/home")
-public class HomeController {
+@RequestMapping("/api/ui")
+public class FrontendController {
 
 
     final ICategoryService categoryService;
@@ -26,14 +26,14 @@ public class HomeController {
 
     final IProductService productService;
 
-    public HomeController(ICategoryService categoryService, IMerchantService merchantService, IProductService productService) {
+    public FrontendController(ICategoryService categoryService, IMerchantService merchantService, IProductService productService) {
         this.categoryService = categoryService;
         this.merchantService = merchantService;
         this.productService = productService;
     }
 
-    @PostMapping("/{merchantId}")
-    public ResponseEntity<HomeVO> indexInfo(@PathVariable(value = "merchantId") Integer id) {
+    @PostMapping("/merchant/{merchantId}")
+    public ResponseEntity<HomeVO> homeView(@PathVariable(value = "merchantId") Integer id) {
         List<CategoryVO> all = categoryService.getAllByMerchantId(id);
         all.forEach(vo -> vo.setProducts(productService.getProductsByCategoryId(vo.getId())));
         MerchantVO merchant = merchantService.findMerchantById(id);

@@ -1,10 +1,11 @@
 package com.food.service;
 
 import com.food.model.vo.CustomerVO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface ICustomerService {
+public interface ICustomerService  extends UserDetailsService {
 
     CustomerVO addUser(CustomerVO Customer);
     void updateUserSelective(CustomerVO Customer);

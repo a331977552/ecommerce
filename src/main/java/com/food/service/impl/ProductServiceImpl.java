@@ -93,8 +93,14 @@ public class ProductServiceImpl implements IProductService {
 //        CRUDUtils.updateSelectively(repository,product);
     }
 
+    @Transactional
     @Override
     public void deleteProductById(Integer id) {
+        CategoryProductExample example = new CategoryProductExample();
+        example.createCriteria().andProduct_idEqualTo(id);
+        int i = categoryProductMapper.deleteByExample(example);
+        if(i == 0)
+            throw new UnexpectedException("cannot delete this product. code "+ 30000);
         mapper.deleteByPrimaryKey(id);
     }
 

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+public class JWTAdminAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
+    public JWTAdminAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
@@ -26,12 +26,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws IOException, ServletException {
 
         String tokenHeader = request.getHeader(JWTUtil.TOKEN_HEADER);
+
+        System.out.println("JWTUserAuthorizationFilter "+tokenHeader);
         // 如果请求头中没有Authorization信息则直接放行了
         if (tokenHeader == null || !tokenHeader.startsWith(JWTUtil.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
         // 如果请求头中有token，则进行解析，并且设置认证信息
+        System.out.println("JWTUserAuthorizationFilter  after "+getAuthentication(tokenHeader));
+
         SecurityContextHolder.getContext().setAuthentication(getAuthentication(tokenHeader));
         super.doFilterInternal(request, response, chain);
     }

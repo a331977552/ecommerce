@@ -6,6 +6,7 @@ import com.food.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/img")
+@RequestMapping("/api/img")
 
 public class ImgController {
 
@@ -26,6 +27,7 @@ public class ImgController {
 @Autowired
 IImgService service;
 
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<ImgVO> uploadImg(@RequestParam(value="img",required=true) MultipartFile file) throws IOException {
         //todo upload file

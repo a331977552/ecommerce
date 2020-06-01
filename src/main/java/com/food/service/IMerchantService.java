@@ -1,8 +1,9 @@
 package com.food.service;
 
 import com.food.model.vo.MerchantVO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface IMerchantService {
+public interface IMerchantService extends UserDetailsService {
 
 
      MerchantVO findByUsername(String username);

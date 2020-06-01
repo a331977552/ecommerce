@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class ErrorDetails {
 
-    private Date date;
+    private long timestamp;
     private String title;
     private String detail;
     private int status;
@@ -22,6 +22,13 @@ public class ErrorDetails {
     public static ErrorDetails badRequest(String title, String detail, String path){
         return  new ErrorDetails(new Date(),title,detail,path,400);
     }
+    public static ErrorDetails forbidden(String title, String detail, String path){
+        return  new ErrorDetails(new Date(),title,detail,path,403);
+    }
+    public static ErrorDetails unauthorized(String title, String detail, String path){
+        return  new ErrorDetails(new Date(),title,detail,path,401);
+    }
+
 
     public static ErrorDetails badRequest(String title, String detail){
         return  new ErrorDetails(new Date(),title,detail,null,400);
@@ -32,7 +39,7 @@ public class ErrorDetails {
     }
 
     public ErrorDetails(String title, String detail, String path,int status) {
-        this.date=new Date();
+        this.timestamp=System.currentTimeMillis();
         this.title = title;
         this.detail = detail;
         this.status = status;
@@ -40,7 +47,7 @@ public class ErrorDetails {
     }
 
     public ErrorDetails(Date date, String title, String detail,  String path,int status) {
-        this.date = date;
+        this.timestamp=System.currentTimeMillis();
         this.title = title;
         this.detail = detail;
         this.status = status;

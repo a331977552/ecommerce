@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export function httpInitData(merchantId,success,failed) {
-    axios.post("/api/user/home/"+merchantId, {}).then((response) => {
+    axios.post("/api/ui/merchant/"+merchantId, {}).then((response) => {
         if (response.status >= 200 && response.status < 300) {
             success(response.data);
         }else{
@@ -33,7 +33,7 @@ export function httpOrdering(orderData,success,failed) {
      phoneNumber: "213213213213213"
      *
      */
-    axios.post("/api/user/order", postData).then((response) => {
+    axios.post("/api/order/place", postData).then((response) => {
         if (response.status >= 200 && response.status < 300) {
             success(response.data);
         }else{

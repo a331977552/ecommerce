@@ -29,6 +29,7 @@ public class FoodApplication implements WebMvcConfigurer {
     @Value("${img.root.directory}")
     String rootDic;
 
+
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         SpringApplication.run(FoodApplication.class,args);
     }

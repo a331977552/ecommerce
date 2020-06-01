@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 
 
@@ -25,15 +26,21 @@ public class ProductController {
 //    public ProductController(ProductService service) {
 //        this.service = service;
 //    }
+
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
     public ProductVO addProduct(@Valid @RequestBody ProductVO product){
 
         return service.addProduct(product);
     }
     @PostMapping("/update")
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     public void updateProduct(@Valid @RequestBody ProductVO Product){
         service.updateProduct(Product);
     }
+
+
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
 
     @PostMapping("/delete/{id}")
     public void deleteProduct(@PathVariable("id") Integer id){

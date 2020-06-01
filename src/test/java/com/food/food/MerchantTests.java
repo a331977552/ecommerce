@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,6 +52,10 @@ public class MerchantTests {
         vo.setBank_card_name("xianghua huang");
         vo.setBank_card_number("4128 2421 1242 1221");
         vo.setPhone("+44 2131231");
+        vo.setRole("MERCHANT");
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(11);
+        vo.setPassword(bCryptPasswordEncoder.encode("a123321"));
+        vo.setUsername("a123321");
         service.updateMerchant(vo);
     }
     @Test

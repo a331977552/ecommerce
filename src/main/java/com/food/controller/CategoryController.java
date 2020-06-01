@@ -5,6 +5,7 @@ import com.food.service.ICategoryService;
 import com.food.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cate")
+@RequestMapping("/api/cate")
 public class CategoryController {
 
 
@@ -28,17 +29,22 @@ public class CategoryController {
 //    public CategoryController(CategoryService service) {
 //        this.service = service;
 //    }
+
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<CategoryVO> addCategory(@Valid @RequestBody CategoryVO Category){
 
         return ResponseEntity.ok(service.addCategory(Category));
     }
+
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/update")
     public ResponseEntity<CategoryVO> updateCategory(@Valid @RequestBody CategoryVO Category){
         service.updateCategory(Category);
         return  ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/delete/{id}")
     public ResponseEntity<CategoryVO> deleteCategory(@PathVariable("id") Integer id){
 
