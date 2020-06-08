@@ -4,7 +4,7 @@ import {} from "../actionCreators/commonActionCreator";
 const initialState = {
 }
 
-export default function productReducer(state = initialState, action) {
+export default function homeReducer(state = initialState, action) {
     const payload = action.payload;
     switch (action.type) {
         default:

@@ -57,11 +57,11 @@ public class ProductServiceImpl implements IProductService {
         categoryIds.forEach(id-> categoryProductMapper.insert(new CategoryProduct(product.getId(),id)));
         List<ImgVO> imgs = productVO.getImgs();
         //insert img
-        List<ImgVO> imgsWithId= imgs.stream().map(vo-> imgService.addImg(vo)).collect(Collectors.toList());
-        //add mapping for img and product
-        imgsWithId.forEach(vo->productImgsMapper.insert(new ProductImg(product.getId(),vo.getId())));
 
-        return convertToVO(product,categoryIds,imgsWithId);
+        //add mapping for img and product
+        imgs.forEach(vo->productImgsMapper.insert(new ProductImg(product.getId(),vo.getId())));
+
+        return convertToVO(product,categoryIds,imgs);
     }
     Product convertToDAO(ProductVO vo){
         Product product = new Product();

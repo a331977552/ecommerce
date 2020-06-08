@@ -27,7 +27,6 @@ public class MerchantController {
         String token = request.getHeader(JWTUtil.TOKEN_HEADER).replace(JWTUtil.TOKEN_PREFIX, "");
         String username = JWTUtil.getUsername(token);
         String role = JWTUtil.getUserRole(token);
-        System.out.println(role);
         MerchantVO byUsername = service.findByUsername(username);
         return ResponseEntity.ok(byUsername);
     }

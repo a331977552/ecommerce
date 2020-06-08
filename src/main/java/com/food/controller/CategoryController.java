@@ -3,6 +3,7 @@ package com.food.controller;
 import com.food.model.vo.CategoryVO;
 import com.food.service.ICategoryService;
 import com.food.service.IProductService;
+import com.food.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -32,14 +33,16 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<CategoryVO> addCategory(@Valid @RequestBody CategoryVO Category){
-
-        return ResponseEntity.ok(service.addCategory(Category));
+    public ResponseEntity<CategoryVO> addCategory(HttpServletRequest request, @RequestBody CategoryVO category){
+        String token = request.getHeader(JWTUtil.TOKEN_HEADER).replace(JWTUtil.TOKEN_PREFIX, "");
+        Integer id = JWTUtil.getID(token);
+        category.setMerchant_id(id);
+        return ResponseEntity.ok(service.addCategory(category));
     }
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/update")
-    public ResponseEntity<CategoryVO> updateCategory(@Valid @RequestBody CategoryVO Category){
+    public ResponseEntity<CategoryVO> updateCategory(@RequestBody CategoryVO Category){
         service.updateCategory(Category);
         return  ResponseEntity.ok().build();
     }

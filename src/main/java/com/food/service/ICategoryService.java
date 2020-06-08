@@ -18,5 +18,10 @@ public interface ICategoryService {
     List<CategoryVO> getAll();
     List<CategoryVO> getAll(CategoryVO example);
 
+    /**
+     * only category, no products returned.
+     * @param merchantId
+     * @return
+     */
     List<CategoryVO> getAllByMerchantId(Integer merchantId);
 }

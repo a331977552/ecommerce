@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const SERVER_ERROR = 500;
 const NOT_FOUND = 404;
+const BAD_REQUEST = 400;
 const FORBIDDEN = 403;
 const UNAUTHORIZED = 401;
 const REDIRECT = 302;
@@ -20,6 +21,7 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use((response) => {
     return Promise.resolve(response);
 }, (error) => {
+    console.log(error);
     const response = error.response;
     if (error.response) {
         switch (error.response.status) {
@@ -33,6 +35,8 @@ axios.interceptors.response.use((response) => {
                 return Promise.reject({message: 'redirected: ' + 302, response});
             case UNAUTHORIZED:
                 return Promise.reject({message: 'unauthorized: ' + UNAUTHORIZED, response: response.data});
+            case BAD_REQUEST:
+                return Promise.reject({message: response.data.detail, response: response.data});
             default:
                 return Promise.reject({message: 'unrecognized error', response});
         }

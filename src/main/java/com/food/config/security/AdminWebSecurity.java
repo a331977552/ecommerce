@@ -52,18 +52,19 @@ public class AdminWebSecurity extends WebSecurityConfigurerAdapter {
                 "/api/cate/update/**",
                 "/api/cate/delete/**",
                 "/api/img/add/**",
-                "/api/merchant"
+                "/api/merchant",
+                "/api/shop/**"
                 ).hasAnyRole("MERCHANT","ADMIN").antMatchers("/auth/manage/merchantManagement").hasRole("ADMIN")
                 // 其他都放行了
                 .anyRequest().permitAll()
                 .and()
                 .addFilter(new JWTAdminAuthenticationFilter(authenticationManager(),adminLoginUrl))
-                .addFilter(new JWTAdminAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAdminAuthorizationFilter(authenticationManager(),new CustomHttp403ForbiddenEntryPoint()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling()//.accessDeniedHandler(new CustomAccessDeniedHandler())
-                .authenticationEntryPoint(new CustomHttp403ForbiddenEntryPoint());
+                .exceptionHandling();//.accessDeniedHandler(new CustomAccessDeniedHandler())
+//                .authenticationEntryPoint(new CustomHttp403ForbiddenEntryPoint());
     }
 
 

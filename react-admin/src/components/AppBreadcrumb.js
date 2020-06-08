@@ -1,33 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-import {bindActionCreators} from "redux";
 import {Breadcrumb} from "antd";
+import {findDataByPathname} from "../data/MenuData";
 
 class AppBreadcrumb extends Component {
- render() {
-     const items = this.props.selectedKey.split('/');
-     items.shift();
 
+    render() {
+        const data = findDataByPathname(this.props.location.pathname);
+        const items = data.breadCrumb;
 
-  return (
-       <Breadcrumb style={{margin: '8px 0'}}>
-           {
-               items.map(item=><Breadcrumb.Item key={item}>{item===''?'Home':item}</Breadcrumb.Item>)
-           }
-       </Breadcrumb>
-  );
- }
-}
-function mapState(state) {
-
- return state.menuReducer;
+        return (
+            <Breadcrumb style={{margin: '8px 0'}}>
+                {
+                    items.map(item => <Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>)
+                }
+            </Breadcrumb>
+        );
+    }
 }
 
-const mapDispatch = (dispatch, ownProps) => {
-    return bindActionCreators({
-        //emptyCart: emptyCartAction
-    }, dispatch);
-}
-
-export default withRouter(connect(mapState,mapDispatch)(AppBreadcrumb));
+export default withRouter(AppBreadcrumb);

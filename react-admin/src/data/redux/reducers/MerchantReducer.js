@@ -7,10 +7,11 @@ const initialState = {
 
 export default function merchantReducer(state = initialState, action) {
     const payload = action.payload;
+
     switch (action.type) {
         case Merchant_constants.SIGN_IN:
             localStorage.setItem('merchant',JSON.stringify(payload.merchant))
-            localStorage.setItem('token',JSON.stringify(payload.token))
+            localStorage.setItem('token',payload.token)
             return  {...state,merchant:payload.merchant,token:payload.token}
         case Merchant_constants.UPDATE:
             return  {...state,merchant:payload}
@@ -19,7 +20,7 @@ export default function merchantReducer(state = initialState, action) {
             localStorage.removeItem('token')
             return  {}
         default:
-            return {...state}
+            return state
     }
 
 }

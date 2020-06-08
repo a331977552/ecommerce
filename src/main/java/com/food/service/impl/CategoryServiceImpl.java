@@ -54,19 +54,16 @@ public class CategoryServiceImpl implements ICategoryService {
 
     Category convertToDAO(CategoryVO vo){
         Category category=new Category();
-        BeanUtils.copyProperties(vo,category,"products");
+        BeanUtils.copyProperties(vo,category,"products","merchant");
         return category;
     }
 
     @Override
     public CategoryVO addCategory(CategoryVO vo) {
-        Optional.ofNullable(vo.getMerchant()).orElseThrow(()->new UnexpectedException("null merchant!"));
-        Integer id = vo.getMerchant().getId();
-        Optional.ofNullable(id).orElseThrow(()->new UnexpectedException("null merchant id !"));
-
-        MerchantVO merchant = merchantService.findMerchantById(id);
-        Optional.ofNullable(merchant).orElseThrow(()->new UnexpectedException("merchant with id "+ id +" doesn't exist"));
-
+        vo.setId(null);
+        Integer merchant_id = vo.getMerchant_id();
+        MerchantVO merchant = merchantService.findMerchantById(merchant_id);
+        Optional.ofNullable(merchant).orElseThrow(()->new UnexpectedException("merchant with id "+ merchant +" doesn't exist"));
         Category category = convertToDAO(vo);
         mapper.insert(category);
         vo.setId(category.getId());

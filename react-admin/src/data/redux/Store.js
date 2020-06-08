@@ -1,21 +1,36 @@
 import { createStore,applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
-import { combineReducers } from 'redux'
+import { combineReducers,compose } from 'redux'
 import merchantReducer from './reducers/MerchantReducer'
-import carouselReducer from './reducers/CarouselReducer'
-import productReducer from './reducers/ProductReducer'
-import orderReducer from './reducers/OrderReducer'
-import categoryReducer from './reducers/CategoryReducer'
+import carouselReducer from './reducers/marketing/CarouselReducer'
+import productListReducer from './reducers/shop/ProductListReducer'
+import orderReducer from './reducers/order/OrderReducer'
+import categoryReducer from './reducers/shop/CategoryReducer'
 import menuReducer from "./reducers/MenuReducer";
+import statisticsReducer from "./reducers/statistics/StatisticsReducer";
+import homeReducer from "./reducers/HomeReducer";
+import advertiseReducer from "./reducers/marketing/AdvertiseReducer";
+import adminMerchantReducer from "./reducers/admin/AdminMerchantReducer";
+import adminUserReducer from "./reducers/admin/AdminUserReducer";
+import productAddingReducer from "./reducers/shop/ProductAddingReducer";
+
 const rootReducer = combineReducers({
     merchantReducer,
     carouselReducer,
-    productReducer,
+    productListReducer,
     orderReducer,
     categoryReducer,
-    menuReducer
+    menuReducer,
+    statisticsReducer,
+    homeReducer,
+    advertiseReducer,
+    adminMerchantReducer,
+    adminUserReducer,
+    productAddingReducer
 })
 
-const store = createStore(rootReducer,applyMiddleware(thunk));
+const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+// const store = createStore(rootReducer,applyMiddleware(thunk));
 
 export  default  store;

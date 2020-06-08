@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import './HomePage.css'
-import {Layout} from 'antd';
+import {Layout, Spin} from 'antd';
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
 import AppLeftMenu from "../components/AppLeftMenu";
@@ -28,9 +28,9 @@ class MainPage extends Component {
     };
 
 
+
+
     render() {
-        if (!this.props.merchant)
-            return null;
         return (
             <Layout style={{minHeight: '100vh'}}>
                 <Sider
@@ -54,38 +54,39 @@ class MainPage extends Component {
                     </Header>
                     <Content style={{margin: '16px 16px 0'}}>
                         <AppBreadcrumb/>
-                        <div style={{padding: 24, minHeight: 720, backgroundColor: '#fff'}}>
-                            <Switch>
-                                <Route path="/shop/productAdd">
-                                    <ProductAddContent/>
-                                </Route>
-                                <Route path="/shop/productEdit">
-                                    <ProductEditContent/>
-                                </Route>
-                                <Route path="/shop/categoryEdit">
-                                    <CategoryEditContent/>
-                                </Route>
-                                <Route path="/order/orderEdit">
-                                    <OrderEditContent/>
-                                </Route>
-                                <Route path="/statis/overview">
-                                    <StatisOverviewContent/>
-                                </Route>
-                                <Route path="/marketing/ad">
-                                    <AdvertiseContent/>
-                                </Route>
-                                <Route path="/admin/merchant">
-                                    <MerchantContent/>
-                                </Route>
-                                <Route path="/admin/user">
-                                    <UserContent/>
-                                </Route>
-                                <Route path="/" exact={true}>
-                                    <HomeContent/>
-                                </Route>
+                        <div debug={'content'} style={{padding: 24, minHeight: 720, backgroundColor: '#fff'}}>
+                                <Switch>
+                                    <Route path="/shop/productAdd" exact={true}>
+                                        <ProductAddContent/>
+                                    </Route>
+                                    <Route path="/shop/productEdit" exact={true}>
+                                        <ProductEditContent/>
+                                    </Route>
+                                    <Route path="/shop/categoryEdit" exact={true}>
+                                        <CategoryEditContent/>
+                                    </Route>
+                                    <Route path="/order/orderEdit" exact={true}>
+                                        <OrderEditContent/>
+                                    </Route>
+                                    <Route path="/statis/overview" exact={true}>
+                                        <StatisOverviewContent/>
+                                    </Route>
+                                    <Route path="/marketing/ad" exact={true}>
+                                        <AdvertiseContent/>
+                                    </Route>
+                                    <Route path="/admin/merchant" exact={true}>
+                                        <MerchantContent/>
+                                    </Route>
+                                    <Route path="/admin/user" exact={true}>
+                                        <UserContent/>
+                                    </Route>
+                                    <Route path="/"  exact={true}>
+                                        <HomeContent/>
+                                    </Route>
 
-                                <Redirect from='*' to='/notFound' />
-                            </Switch>
+                                    <Redirect from='*' to='/notFound'/>
+                                </Switch>
+
                         </div>
                     </Content>
                     <Footer>
@@ -98,7 +99,7 @@ class MainPage extends Component {
 }
 
 function mapState(state) {
-    return {...state.merchantReducer};
+    return state.merchantReducer;
 }
 
 const mapDispatch = (dispatch, ownProps) => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
+import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
 class UserContent extends Component {
 
 
@@ -24,4 +25,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }, dispatch);
 }
 
-export default withRouter(connect(mapState,mapDispatch)(UserContent));
+export default withRouter(connect(mapState,mapDispatch)(WithContentLoadingHOC(UserContent)));

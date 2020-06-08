@@ -24,12 +24,12 @@ public class ImgController {
 
     @Value("${img.root.directory}")
     String rootDic;
-@Autowired
-IImgService service;
+    @Autowired
+    IImgService service;
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<ImgVO> uploadImg(@RequestParam(value="img",required=true) MultipartFile file) throws IOException {
+    public ResponseEntity<ImgVO> uploadImg(@RequestParam(value="img") MultipartFile file) throws IOException {
         //todo upload file
         String originalFilename = file.getOriginalFilename();
         int dot = originalFilename.lastIndexOf('.');

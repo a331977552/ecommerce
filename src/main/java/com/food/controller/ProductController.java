@@ -1,5 +1,6 @@
 package com.food.controller;
 
+import com.food.model.vo.MerchantVO;
 import com.food.model.vo.ProductNameVM;
 import com.food.model.vo.ProductVO;
 import com.food.service.IProductService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +32,8 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
     public ProductVO addProduct(@Valid @RequestBody ProductVO product){
-
+        MerchantVO principal = (MerchantVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        product.setMerchant_id(principal.getId());
         return service.addProduct(product);
     }
     @PostMapping("/update")

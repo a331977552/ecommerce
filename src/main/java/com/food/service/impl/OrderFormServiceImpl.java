@@ -61,7 +61,7 @@ public class OrderFormServiceImpl implements IOrderFormService {
 
     @Transactional
     @Override
-    public OrderResultVO createOrder(OrderVO vo) {
+    public OrderResultVO createOrder(ClientOrderVO vo) {
         if(vo.getOrderItems().size() == 0){
             throw new UnexpectedException("订单商品列表为空！");
         }

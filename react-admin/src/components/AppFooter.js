@@ -1,7 +1,26 @@
 import React, {Component} from 'react';
-import {Button} from "antd";
+import {Button,message} from "antd";
 
 class AppFooter extends Component {
+
+    copyToClipboard = (e) => {
+        const supported = document.queryCommandSupported('copy');
+        if(!supported)
+            return;
+        const textField = document.createElement('textarea');
+        textField.innerText = e.target.innerText;
+        document.body.appendChild(textField);
+        textField.select();
+        textField.setSelectionRange(0, 99); /*For mobile devices*/
+        document.execCommand('copy');
+        textField.remove();
+        e.target.focus();
+        message.success("Copied!");
+    };
+    componentWillUnmount() {
+        message.destroy();
+    }
+
     render() {
         return (
             <div style={{width: '100%', textAlign: 'center'}}>

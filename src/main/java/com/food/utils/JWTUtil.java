@@ -31,33 +31,37 @@ public class JWTUtil {
      * @param role
      * @return
      */
-    public static String createToken(String username, String role) {
-
+    public static String createToken(String username, String key,Integer id,String role) {
         Algorithm algorithm = Algorithm.HMAC256(APP_SECRET_KEY);
         return JWT.create()
                 .withIssuer(ISSUER)
                 .withSubject(username)
                 .withClaim("role", role)
                 .withClaim("username", username)
+                .withClaim(key,  id+"")
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRITION))
                 .sign(algorithm);
     }
 
-    public static Map<String, Claim> checkJWT(String token) {
-        try {
+    public static Map<String, Claim> checkJWT(String token) throws JWTVerificationException{
             Algorithm algorithm = Algorithm.HMAC256(APP_SECRET_KEY);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer(ISSUER)
                     .build(); //Reusable verifier instance
             return verifier.verify(token).getClaims();
-        } catch (JWTVerificationException exception) {
-            //Invalid signature/claims
-            exception.printStackTrace();
-            return null;
-        }
-    }
 
+    }
+    /**
+     * 获取用户名
+     *
+     * @param token
+     * @return
+     */
+    public static Integer getID(String token) {
+        //doesn't verify
+        return Integer.parseInt(JWT.decode(token).getClaim("merchantId").asString());
+    }
     /**
      * 获取用户名
      *
@@ -95,22 +99,17 @@ public class JWTUtil {
     }
 
     public static void main(String[] args) {
-        String name = "username ---";
+        String name = "a123321";
         String role = "role adim";
-        String token = createToken(name, role);
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMTIzMzIxIiwicm9sZSI6IlJPTEVfTUVSQ0hBTlQiLCJtZXJjaGFudElkIjoiMSIsImlzcyI6Imh1YW5nIiwiZXhwIjoxNTkxODU0OTk1LCJpYXQiOjE1OTEyNTAxOTUsInVzZXJuYW1lIjoiYTEyMzMyMSJ9.T1yyLiUMfEa_1piAIQG6Fc4xhQLb-OQXF7rzLqDi2wA\n";//createToken(name, "merchantId",123,role);
         System.out.println(token);
 
         Map<String, Claim> stringClaimMap = checkJWT(token);
+        System.out.println(stringClaimMap);
 
-        stringClaimMap.entrySet().stream().forEach(e->{
-
-            String key = e.getKey();
-            String s = e.getValue().asString();
-
-            System.out.println("----  ： "+  key+"  "+s);
-        });
-
-        Map<String, Claim> allClaim = getAllClaim(token);
+        String token1 = createToken("a123321", "merchantId", 1, "role_merchant");
+        checkJWT(token1);
+        Map<String, Claim> allClaim = getAllClaim(token1);
         allClaim.entrySet().stream().forEach(e->{
 
             String key = e.getKey();
@@ -118,9 +117,6 @@ public class JWTUtil {
 
             System.out.println("####  ： "+  key+"  "+s);
         });
-        System.out.println(getUsername(token));
-        System.out.println(getUserRole(token));
-        System.out.println(isExpiration(token));
 
     }
 

@@ -1,6 +1,5 @@
 package com.food.controller.advicer;
 
-import com.food.utils.BaseEntityException;
 import com.food.utils.ErrorDetails;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.TypeMismatchException;
@@ -15,8 +14,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -76,20 +73,5 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     return ResponseEntity.badRequest().body(ErrorDetails.badRequest("http request method not supported",ex.getMessage(), request.getDescription(true)));
   }
 
-  @ExceptionHandler(value
-          = { BaseEntityException.class})
-  @ResponseBody
-  protected ResponseEntity<ErrorDetails> handleConflict(
-          BaseEntityException ex, WebRequest request) {
-    String message;
-    try {
-      message  = messageSource.getMessage(ex.getTitle(), ex.getArgs(), LocaleContextHolder.getLocale());
-    } catch (NoSuchMessageException e) {
-
-      message="fix me:  no localized message:  "+ ex.getMessage();
-    }
-
-    return ResponseEntity.badRequest().body(ErrorDetails.badRequest(ex.getTitle(),message, request.getDescription(true)));
-  }
 
 }

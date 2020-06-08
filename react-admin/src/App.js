@@ -8,10 +8,8 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
-import merchantReducer from "./data/redux/reducers/MerchantReducer";
-import {httpGetMerchantIfTokenValid} from "./data/http/HttpRequest";
 import {merchantSignIn} from "./data/redux/actionCreators/commonActionCreator";
-
+import NotFound404Page from "./pages/NotFound404Page";
 class App extends Component {
 
 
@@ -23,21 +21,20 @@ class App extends Component {
         }
     }
 
+
     render() {
+        const {token, merchant} = this.props;
         return (<Switch>
                 <Route path="/login">
                     <LoginPage/>
                 </Route>
                 <Route path='/notFound' >
-                    <div>
-                        page not found
-                    </div>
+                <NotFound404Page/>
                 </Route>
-                <Route path="/" >
+                {token && merchant && < Route path="/" >
                     <MainPage/>
-                </Route>
-
-
+                    </Route>
+                }
             </Switch>
         );
     }
@@ -50,7 +47,7 @@ function mapState(state) {
 const mapDispatch = (dispatch, ownProps) => {
     return bindActionCreators({
         merchantSignIn: merchantSignIn
-    }, dispatch);
+}, dispatch);
 }
 
 export default withRouter(connect(mapState, mapDispatch)(App));

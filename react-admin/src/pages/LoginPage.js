@@ -24,20 +24,7 @@ class LoginPage extends Component {
             }
         });
     };
-    copyToClipboard = (e) => {
-        const supported = document.queryCommandSupported('copy');
-        if(!supported)
-            return;
-        const textField = document.createElement('textarea');
-        textField.innerText = e.target.innerText;
-        document.body.appendChild(textField);
-        textField.select();
-        textField.setSelectionRange(0, 99); /*For mobile devices*/
-        document.execCommand('copy');
-        textField.remove();
-        e.target.focus();
-        alert('Copied!')
-    };
+  
 
     render() {
         return (

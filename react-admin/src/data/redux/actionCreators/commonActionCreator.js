@@ -5,19 +5,39 @@ export const Merchant_constants = {
         UPDATE:'UPDATE'
 }
 export const Menu_constants = {
-    MENU_SELECTED:'MENU_SELECTED'
+    MENU_SELECTED:'MENU_SELECTED',
+    ON_CONTENT_LOADING_ERROR:'ON_CONTENT_LOADING_ERROR',
+    ON_CONTENT_RETRY:'ON_CONTENT_RETRY',
+    ON_CONTENT_SUCCESS:'ON_CONTENT_SUCCESS'
 
 }
 
 
-export function selectMenu(pathname) {
-
+export function selectMenu() {
     return {
-        type:Menu_constants.MENU_SELECTED,
-        payload:pathname
+        type:Menu_constants.MENU_SELECTED
     }
-
 }
+export function onContentRetry(datapath) {
+    return {
+        type:Menu_constants.ON_CONTENT_RETRY,
+        payload:datapath
+    }
+}
+
+export function onContentLoadingError(datapath) {
+    return {
+        type:Menu_constants.ON_CONTENT_LOADING_ERROR,
+        payload:datapath
+    }
+}
+export function onContentLoadingSuccess(data) {
+    return {
+        type:Menu_constants.ON_CONTENT_SUCCESS,
+        payload:data
+    }
+}
+
 
 
 

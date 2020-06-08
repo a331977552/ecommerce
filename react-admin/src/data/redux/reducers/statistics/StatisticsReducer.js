@@ -1,10 +1,11 @@
 
-import {} from "../actionCreators/commonActionCreator";
+
+import {} from "../../actionCreators/commonActionCreator";
 
 const initialState = {
 }
 
-export default function orderReducer(state = initialState, action) {
+export default function statisticsReducer(state = initialState, action) {
     const payload = action.payload;
     switch (action.type) {
         default:

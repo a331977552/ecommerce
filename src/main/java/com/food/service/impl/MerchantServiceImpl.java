@@ -86,9 +86,6 @@ public class MerchantServiceImpl implements IMerchantService {
 
     @Override
     public MerchantVO findMerchantById(Integer id) {
-
-
-
         return  convertToVO(Optional.ofNullable(merchantMapper.selectByPrimaryKey(id)).orElseThrow(()->new UnexpectedException("商户id "+id+" 不存在")));
     }
 }

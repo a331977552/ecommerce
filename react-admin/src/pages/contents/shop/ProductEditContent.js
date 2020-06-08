@@ -2,21 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
-
+import { Table } from 'antd';
+import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
 class ProductEditContent extends Component {
 
 
 
  render() {
+     console.log(this.props)
   return (
    <div>
-       ProductEditContent
+
    </div>
   );
  }
 }
-function mapState(state) {
- return { };
+function mapState(state,props) {
+ return {};
 }
 
 const mapDispatch = (dispatch, ownProps) => {
@@ -25,4 +27,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }, dispatch);
 }
 
-export default withRouter(connect(mapState,mapDispatch)(ProductEditContent));
+export default withRouter(connect(mapState,mapDispatch)(WithContentLoadingHOC(ProductEditContent)));

@@ -2,7 +2,7 @@ package com.food.controller;
 
 
 import com.food.model.vo.OrderResultVO;
-import com.food.model.vo.OrderVO;
+import com.food.model.vo.ClientOrderVO;
 import com.food.service.IOrderFormService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<OrderResultVO> indexInfo(@RequestBody OrderVO order) {
+    public ResponseEntity<OrderResultVO> indexInfo(@RequestBody ClientOrderVO order) {
         OrderResultVO order1 = orderFormService.createOrder(order);
         return ResponseEntity.ok(order1);
     }
