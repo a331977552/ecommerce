@@ -10,8 +10,7 @@ import {httpAddProduct} from "../../../data/http/HttpRequest";
 class ProductAddContent extends Component {
 
     form = React.createRef();
-    state = {
-    };
+
     goToCategoryAdding = (e) => {
         this.props.history.push("/shop/categoryEdit");
     };
@@ -85,8 +84,6 @@ class ProductAddContent extends Component {
                         <Cascader showSearch={{matchInputWidth: true}} options={this.props.categories}
                                   onChange={this.onChange} placeholder="请选择种类"/>
                     </Form.Item>
-
-
                     <Form.Item name={'weight'} label="重量(克)" extra={"商品重量, 可不填"}
                                rules={[{type: 'number', min: 0, max: 999999}]}>
                         <InputNumber placeholder={"商品重量"}/>

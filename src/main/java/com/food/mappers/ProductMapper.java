@@ -2,6 +2,7 @@ package com.food.mappers;
 
 import com.food.model.Product;
 import com.food.model.ProductExample;
+import com.food.model.vo.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Product record);
+    List<Product> selectAll(@Param("example") ProductExample example,@Param("page") Page page);
 
     int insertSelective(Product record);
 

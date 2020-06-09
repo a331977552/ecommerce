@@ -10,8 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -47,8 +45,10 @@ public class ProductTests {
     }
     @Test
     public void getAllProducts() throws Exception {
-
-        Page<ProductVO> categoryById = service.getAll(PageRequest.of(0,10));
+        ProductVO vo=new ProductVO();
+        vo.setMerchant_id(1);
+        vo.setName("邵");
+        com.food.model.vo.Page<ProductVO> categoryById = service.getAll(vo,com.food.model.vo.Page.of(0,5,"price"));
         ObjectMapper mapper=new ObjectMapper();
         String s = mapper.writeValueAsString(categoryById);
 

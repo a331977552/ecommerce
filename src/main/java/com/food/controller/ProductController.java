@@ -1,13 +1,12 @@
 package com.food.controller;
 
 import com.food.model.vo.MerchantVO;
+import com.food.model.vo.Page;
 import com.food.model.vo.ProductNameVM;
 import com.food.model.vo.ProductVO;
 import com.food.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +63,15 @@ public class ProductController {
         return service.getAllProductNames();
     }
     @PostMapping("/findAll/{page}")
-    public Page<ProductVO> getAllProductByPage(@PathVariable(name="page") Integer page){
-        return service.getAll(PageRequest.of(page,pageSize));
+    public Page<ProductVO> getAllProductByPage(@PathVariable(name="page") Integer page,@PathVariable(name="page") String orderBy){
+        Page<ProductVO> of = Page.of(page, pageSize, orderBy);
+        MerchantVO principal = (MerchantVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ProductVO vo =new ProductVO();
+        if(!principal.getRole().equals("ROLE_ADMIN")) {
+            vo.setMerchant_id(principal.getId());
+        }
+
+        return service.getAll(vo,of);
     }
 
     @PostMapping("/findByExample")

@@ -14,9 +14,8 @@ import com.food.service.IProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -172,15 +171,28 @@ public class ProductServiceImpl implements IProductService {
         }).collect(Collectors.toList());
     }
 
-    //TODO pageable
     @Override
-    public Page<ProductVO> getAll(Pageable page) {
-//        Page<Product> all = repository.findAll(page);
-//        List<ProductVO> productVOS = getProductVOS(all.getContent());
+    public com.food.model.vo.Page<ProductVO> getAll(ProductVO example,com.food.model.vo.Page<ProductVO> page) {
+        ProductExample example1 = new ProductExample();
+        ProductExample.Criteria criteria = example1.createCriteria();
+        if(example.getMerchant_id()!=null)
+            criteria.andMerchant_idEqualTo(example.getMerchant_id());
+        example1.setOrderByClause(page.getOrderBy());
+        if(!StringUtils.isEmpty(example.getName())){
+            criteria.andNameLike("%"+example.getName()+"%");
+        }
 
-        return  null;
-//        return all.map(this::convertToVO);
+        List<Product> products = mapper.selectAll(example1,page);
+        System.out.println(products);
+
+//        convertToVO();
+//[Product(id=185, create_date=Sun May 17 20:06:22 CST 2020, description=一锅邵三鲜,地道绍兴菜14, hot=null, name=邵三鲜14, price=12.00, priceprev1=null, priceprev2=null, quantity_remaining=111, sales_volume=58, status=ON_SALE, update_date=Sun May 17 20:06:22 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=245, create_date=Sun May 17 20:06:23 CST 2020, description=44, hot=null, name=黄酒布丁44, price=12.00, priceprev1=null, priceprev2=null, quantity_remaining=344, sales_volume=438, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=217, create_date=Sun May 17 20:06:23 CST 2020, description=大名鼎鼎绍兴标签30, hot=null, name=油炸臭豆腐30, price=13.00, priceprev1=null, priceprev2=null, quantity_remaining=96, sales_volume=988, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=165, create_date=Sun May 17 20:06:22 CST 2020, description=国际烹饪大师黄启云先生倾心打造,花雕浸醉,匀指美味4, hot=null, name=花雕醉龙虾大份4, price=13.00, priceprev1=null, priceprev2=null, quantity_remaining=552, sales_volume=723, status=ON_SALE, update_date=Sun May 17 20:06:22 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=193, create_date=Sun May 17 20:06:23 CST 2020, description=国际烹饪大师黄启云先生倾心打造,花雕浸醉,匀指美味18, hot=null, name=花雕醉龙虾大份18, price=14.00, priceprev1=null, priceprev2=null, quantity_remaining=814, sales_volume=107, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null)]
+
+//        convertToVO()
+//        page.setItems();
+        return null;
     }
+
 
     //TODO select by example
     @Override
