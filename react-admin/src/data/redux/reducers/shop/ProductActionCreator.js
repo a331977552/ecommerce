@@ -4,9 +4,14 @@ export const Product_constants = {
     ADD_PRODUCT : "ADD_PRODUCT",
     UPDATE_PRODUCT : "UPDATE_PRODUCT",
 
-    REFRESH_PRODUCT_LIST_SUCCEED:'REFRESH_PRODUCT_LIST_SUCCEED',
-    REFRESH_PRODUCT_LIST_FAILED:'REFRESH_PRODUCT_LIST_FAILED',
-    REFRESH_PRODUCT_LIST_RETRY:'REFRESH_PRODUCT_LIST_RETRY',
+    ON_PRODUCT_LIST_INIT_SUCCEED:'ON_PRODUCT_LIST_INIT_SUCCEED',
+    ON_PRODUCT_LIST_INIT_FAILED:'ON_PRODUCT_LIST_INIT_FAILED',
+    ON_PRODUCT_LIST_INIT_RETRY:'ON_PRODUCT_LIST_INIT_RETRY',
+
+    ON_PRODUCT_LIST_REFRESHING_LOADING:'ON_PRODUCT_LIST_REFRESHING_LOADING',
+    ON_PRODUCT_LIST_REFRESHING__FAILED:'ON_PRODUCT_LIST_REFRESHING__FAILED',
+    ON_PRODUCT_LIST_REFRESHING_SUCCEED:'ON_PRODUCT_LIST_REFRESHING_SUCCEED',
+
 
     PRODUCT_ADD_SUCCEED:'PRODUCT_ADD_SUCCEED',
     PRODUCT_ADD_FAILED:'PRODUCT_ADD_FAILED',
@@ -14,12 +19,33 @@ export const Product_constants = {
 
 }
 
-export function refreshProductList(data) {
+export function LoadingProductListSucceed(data) {
     return {
-        type:Product_constants.REFRESH_PRODUCT_LIST_SUCCEED,
+        type:Product_constants.ON_PRODUCT_LIST_INIT_SUCCEED,
         payload:data
     }
 }
+
+
+export function onProductListRefreshing(data) {
+    return {
+        type:Product_constants.ON_PRODUCT_LIST_REFRESHING_LOADING,
+        payload:data
+    }
+}
+export function onProductListRefreshingSucceed(data) {
+    return {
+        type:Product_constants.ON_PRODUCT_LIST_REFRESHING_SUCCEED,
+        payload:data
+    }
+}
+export function onProductListRefreshingFailed(data) {
+    return {
+        type:Product_constants.ON_PRODUCT_LIST_REFRESHING__FAILED,
+        payload:data
+    }
+}
+
 
 export function onProductAddInitFailed(data) {
     return {
@@ -42,15 +68,15 @@ export function onProductAddInitRetry(data) {
 }
 
 
-export function onProductRefreshFailed(data) {
+export function onProductLoadingFailed(data) {
     return {
-        type:Product_constants.REFRESH_PRODUCT_LIST_FAILED,
+        type:Product_constants.ON_PRODUCT_LIST_INIT_FAILED,
         payload:data
     }
 }
-export function onProductRefreshRetry(data) {
+export function onProductLoadingRetry(data) {
     return {
-        type:Product_constants.REFRESH_PRODUCT_LIST_RETRY,
+        type:Product_constants.ON_PRODUCT_LIST_INIT_RETRY,
         payload:data
     }
 }

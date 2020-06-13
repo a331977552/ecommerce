@@ -27,13 +27,14 @@ class AppLeftMenu extends Component {
     render() {
         const {pathname} = this.props.location;
         return (
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]}
+            <Menu theme="dark" mode="inline"
                   defaultOpenKeys={[pathname.substring(0, pathname.lastIndexOf('/'))]}
+                  selectedKeys={[pathname]}
                   onSelect={this.handleClick}>
                 {
                     menuData.map(node=>{
                         return node.children.length === 0?
-                            <Menu.Item  key={node.routerPath}>{node.title}</Menu.Item>
+                            <Menu.Item   key={node.routerPath}>{node.title}</Menu.Item>
                             :
                             <SubMenu   key={node.routerPath} title={node.title}>
                                 {

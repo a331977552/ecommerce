@@ -143,7 +143,8 @@
     <if test="example.orderByClause != null">
       order by ${example.orderByClause}
     </if>
-    limit ${page.pageSize} offset ${page.currentPage}
+
+    limit ${page.pageSize} offset ${page.offset}
   </select>
 
 

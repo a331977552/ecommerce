@@ -17,7 +17,6 @@ class ProductAddContent extends Component {
 
     onChange = (e) => {
 
-
     };
     onFinish = (e) => {
         httpAddProduct(e,(response)=>{

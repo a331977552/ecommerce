@@ -30,14 +30,15 @@ public class ProductController {
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
-    public ProductVO addProduct(@Valid @RequestBody ProductVO product){
+    public ProductVO addProduct(@Valid @RequestBody ProductVO product) {
         MerchantVO principal = (MerchantVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         product.setMerchant_id(principal.getId());
         return service.addProduct(product);
     }
+
     @PostMapping("/update")
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
-    public void updateProduct(@Valid @RequestBody ProductVO Product){
+    public void updateProduct(@Valid @RequestBody ProductVO Product) {
         service.updateProduct(Product);
     }
 
@@ -45,41 +46,45 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
 
     @PostMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable("id") Integer id){
-
+    public void deleteProduct(@PathVariable("id") Integer id) {
         service.deleteProductById(id);
-
     }
+
     @PostMapping("/get/{id}")
-    public ProductVO getProduct(@PathVariable("id") Integer id){
+    public ProductVO getProduct(@PathVariable("id") Integer id) {
         return service.getProductById(id);
     }
+
     @PostMapping("/findAll")
-    public List<ProductVO> getAllProduct(){
+    public List<ProductVO> getAllProduct() {
         return service.getAll();
     }
+
     @PostMapping("/findAllNames")
-    public List<ProductNameVM> getAllProductNames(){
+    public List<ProductNameVM> getAllProductNames() {
         return service.getAllProductNames();
     }
-    @PostMapping("/findAll/{page}")
-    public Page<ProductVO> getAllProductByPage(@PathVariable(name="page") Integer page,@PathVariable(name="page") String orderBy){
-        Page<ProductVO> of = Page.of(page, pageSize, orderBy);
-        MerchantVO principal = (MerchantVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ProductVO vo =new ProductVO();
-        if(!principal.getRole().equals("ROLE_ADMIN")) {
-            vo.setMerchant_id(principal.getId());
-        }
 
-        return service.getAll(vo,of);
+    @PostMapping("/findAll/{page}/{pageSize}")
+    public Page<ProductVO> getAllProductByPage(@PathVariable(name = "page") Integer page,
+                                               @PathVariable(name = "pageSize") Integer pageSize,
+                                               @RequestParam(name = "orderBy",required = false) String order,
+                                               @RequestParam(name = "by",required = false) String by,
+                                               @RequestParam(name = "mId") Integer merchantId,@RequestBody(required =false) ProductVO example) {
+        Page<ProductVO> of = Page.of(page == null ? 0 : page, pageSize == null ? this.pageSize : pageSize, order,by);
+        if(example ==null)
+            example =new ProductVO();
+        example.setMerchant_id(merchantId);
+        return service.getAll(example, of);
     }
 
     @PostMapping("/findByExample")
-    public List<ProductVO> getAllProduct(@RequestBody ProductVO  product){
+    public List<ProductVO> getAllProduct(@RequestBody ProductVO product) {
         return service.getAll(product);
     }
+
     @PostMapping("/findByCategoryId/{id}")
-    public List<ProductVO> getAllProduct(@PathVariable Integer id){
+    public List<ProductVO> getAllProduct(@PathVariable Integer id) {
         return service.getProductsByCategoryId(id);
     }
 

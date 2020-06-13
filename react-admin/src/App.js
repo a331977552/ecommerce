@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import {merchantSignIn} from "./data/redux/actionCreators/commonActionCreator";
 import NotFound404Page from "./pages/NotFound404Page";
+import {Spin} from "antd";
 class App extends Component {
 
 
@@ -19,11 +20,17 @@ class App extends Component {
         if (!token || !merchant) {
             this.props.history.replace("/login")
         }
+        //todo INITIAL loading
+
+        console.log(this.props)
     }
 
 
     render() {
-        const {token, merchant} = this.props;
+        console.log(this.props)
+        const {token, merchant, location} = this.props;
+
+
         return (<Switch>
                 <Route path="/login">
                     <LoginPage/>

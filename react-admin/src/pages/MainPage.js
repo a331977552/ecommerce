@@ -19,6 +19,13 @@ import StatisOverviewContent from "./contents/statistic/StatisOverviewContent";
 import AdvertiseContent from "./contents/marketing/AdvertiseContent";
 import MerchantContent from "./contents/admin/MerchantContent";
 import UserContent from "./contents/admin/UserContent";
+import CategoryReducer from "../data/redux/reducers/shop/CategoryReducer";
+import {
+    onCategoryRefreshFailed,
+    onCategoryRefreshRetry,
+    refreshCategoryList
+} from "../data/redux/reducers/shop/CategoryActionCreator";
+import {httpCategoryList} from "../data/http/HttpRequest";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -27,11 +34,21 @@ class MainPage extends Component {
         collapsed: false,
     };
 
+    componentDidMount() {
+        httpCategoryList(()=>{
+
+        },()=>{
+
+        });
+
+    }
 
 
 
     render() {
+
         return (
+
             <Layout style={{minHeight: '100vh'}}>
                 <Sider
                     breakpoint="lg"
@@ -99,11 +116,16 @@ class MainPage extends Component {
 }
 
 function mapState(state) {
-    return state.merchantReducer;
+    return {...state.categoryReducer};
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({
+        refreshCategoryList,
+        onCategoryRefreshFailed,
+        onCategoryRefreshRetry
+
+    }, dispatch);
 }
 
 export default withRouter(connect(mapState, mapDispatch)(MainPage));

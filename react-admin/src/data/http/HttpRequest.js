@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getUser, pageUtil} from "../../utils/UserDataUtils";
 
 
 
@@ -18,6 +19,9 @@ export function httpGetContent(url,success, failed) {
 export function httpUpdateCategory(category,success, failed) {
     axios.post('/api/cate/update',category).then(success).catch(failed)
 }
+export function httpCategoryList(success, failed) {
+    axios.post('/api/shop/categoryList').then(success).catch(failed)
+}
 export function httpDeleteCategory(categoryId,success, failed) {
     axios.post(`/api/cate/delete/${categoryId}`).then(success).catch(failed)
 }
@@ -29,6 +33,14 @@ export function httpAddCategory(category,success, failed) {
 export function httpAddProduct(product,success, failed) {
     axios.post("/api/product/add",product).then(success).catch(failed)
 }
+
+export function httpListProduct(pagination,orderBy,by,example={}, success, failed,final) {
+    // dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+getUser().id+'&orderBy=price',
+        axios.post(`/api/product/findAll/${pagination.current-1}/${pagination.pageSize}?mId=${getUser().id}&orderBy=${orderBy?orderBy:'update_date'}&by=${by}`,example).then(success).catch(failed).finally(final)
+}
+
+
+
 
 
 

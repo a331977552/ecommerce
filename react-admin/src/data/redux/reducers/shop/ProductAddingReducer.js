@@ -10,7 +10,6 @@ const initialState = {
 export default function productAddingReducer(state = initialState, action) {
     const payload = action.payload;
     switch (action.type) {
-
         case Product_constants.PRODUCT_ADD_SUCCEED:
             return {...state, categories:buildTreeDataSortedByPriority(payload.data),contentLoading: false,success: true};
         case Product_constants.PRODUCT_ADD_FAILED:

@@ -1,9 +1,10 @@
 package com.food.service;
 
-        import com.food.model.vo.ProductNameVM;
-        import com.food.model.vo.ProductVO;
+import com.food.model.vo.Page;
+import com.food.model.vo.ProductNameVM;
+import com.food.model.vo.ProductVO;
 
-        import java.util.List;
+import java.util.List;
 
 public interface IProductService {
 
@@ -19,7 +20,7 @@ public interface IProductService {
 
     long countProductsByCategoryId(Integer id);
     List<ProductVO> getAll();
-    com.food.model.vo.Page<ProductVO> getAll(ProductVO example,com.food.model.vo.Page<ProductVO> page);
+    com.food.model.vo.Page<ProductVO> getAll(ProductVO example, Page<ProductVO> page);
     List<ProductVO> getAll(ProductVO product);
 
 

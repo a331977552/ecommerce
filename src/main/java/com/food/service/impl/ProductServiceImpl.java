@@ -5,9 +5,7 @@ import com.food.mappers.CategoryProductMapper;
 import com.food.mappers.ProductImgMapper;
 import com.food.mappers.ProductMapper;
 import com.food.model.*;
-import com.food.model.vo.ImgVO;
-import com.food.model.vo.ProductNameVM;
-import com.food.model.vo.ProductVO;
+import com.food.model.vo.*;
 import com.food.service.ICategoryService;
 import com.food.service.IImgService;
 import com.food.service.IProductService;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -163,34 +162,68 @@ public class ProductServiceImpl implements IProductService {
     public List<ProductVO> getAll() {
         ProductExample example = new ProductExample();
         List<Product> products = mapper.selectByExample(example);
-        return products.stream().map(product -> {
-            CategoryProductExample example1 = new CategoryProductExample();
-            example1.createCriteria().andProduct_idEqualTo(product.getId());
-            List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example1);
-            return convertToVO(product, categoryProducts.stream().map(CategoryProduct::getCategory_id).collect(Collectors.toList()), imgService.findImgsByProductId(product.getId()));
-        }).collect(Collectors.toList());
+        return products.stream().map(this::setImgsAndCategory).collect(Collectors.toList());
+    }
+
+    ProductVO setImgsAndCategory(Product product) {
+        CategoryProductExample example1 = new CategoryProductExample();
+        example1.createCriteria().andProduct_idEqualTo(product.getId());
+        List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(example1);
+        List<CategoryVO> collect = categoryProducts.stream().map(cp -> categoryService.getCategoryById(cp.getCategory_id())).collect(Collectors.toList());
+        List<ProductVO.InnerCategoryVO> innerCategoryVOS = collect.stream().map(cateVo -> new ProductVO.InnerCategoryVO(cateVo.getId(), cateVo.getTitle())).collect(Collectors.toList());
+        ProductVO vo = convertToVO(product, categoryProducts.stream().map(CategoryProduct::getCategory_id).collect(Collectors.toList()), imgService.findImgsByProductId(product.getId()));
+        vo.setCategories(innerCategoryVOS);
+        return vo;
     }
 
     @Override
-    public com.food.model.vo.Page<ProductVO> getAll(ProductVO example,com.food.model.vo.Page<ProductVO> page) {
+    public Page<ProductVO> getAll(ProductVO example, Page<ProductVO> page) {
         ProductExample example1 = new ProductExample();
         ProductExample.Criteria criteria = example1.createCriteria();
+
         if(example.getMerchant_id()!=null)
+        {
             criteria.andMerchant_idEqualTo(example.getMerchant_id());
-        example1.setOrderByClause(page.getOrderBy());
+        }
+        if(!StringUtils.isEmpty(example.getStatus())){
+            criteria.andStatusEqualTo(example.getStatus().trim());
+        }
+
+        Field[] fields = ProductVO.class.getDeclaredFields();
+        //prevent sql injection
+        if(page.getOrderBy()!=null  && !page.getOrderBy().trim().equals("")){
+            String orderBy = page.getOrderBy().trim();
+            boolean foundField = List.of(fields).stream().anyMatch(field -> orderBy.equals(field.getName()));
+            if(!foundField)
+            {
+                throw new UnexpectedException("stop it!");
+            }
+        } else{
+            page.setOrderBy("priority");
+        }
+
+        if(page.getBy()== null || !page.getBy().equals("desc") ||!page.getBy().equals("asc")){
+            page.setBy("asc");
+        }
+        example1.setOrderByClause(page.getOrderBy() +" "+ page.getBy());
         if(!StringUtils.isEmpty(example.getName())){
             criteria.andNameLike("%"+example.getName()+"%");
         }
+        long l = mapper.countByExample(example1);
+        page.setTotalElements((int) l);
+        page.setTotalPages((int) ((l+page.getPageSize()-1)/page.getPageSize()));
 
+        page.setCurrentPage(page.getCurrentPage()<= 0 ?0:page.getCurrentPage()>=page.getTotalPages()? page.getTotalPages()-1:page.getCurrentPage());
+
+        page.setOffset(page.getCurrentPage()*page.getPageSize());
+        page.setFirst(page.getCurrentPage() == 0);
+        page.setLast( page.getCurrentPage()+1 == page.getTotalPages());
         List<Product> products = mapper.selectAll(example1,page);
-        System.out.println(products);
-
-//        convertToVO();
-//[Product(id=185, create_date=Sun May 17 20:06:22 CST 2020, description=一锅邵三鲜,地道绍兴菜14, hot=null, name=邵三鲜14, price=12.00, priceprev1=null, priceprev2=null, quantity_remaining=111, sales_volume=58, status=ON_SALE, update_date=Sun May 17 20:06:22 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=245, create_date=Sun May 17 20:06:23 CST 2020, description=44, hot=null, name=黄酒布丁44, price=12.00, priceprev1=null, priceprev2=null, quantity_remaining=344, sales_volume=438, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=217, create_date=Sun May 17 20:06:23 CST 2020, description=大名鼎鼎绍兴标签30, hot=null, name=油炸臭豆腐30, price=13.00, priceprev1=null, priceprev2=null, quantity_remaining=96, sales_volume=988, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=165, create_date=Sun May 17 20:06:22 CST 2020, description=国际烹饪大师黄启云先生倾心打造,花雕浸醉,匀指美味4, hot=null, name=花雕醉龙虾大份4, price=13.00, priceprev1=null, priceprev2=null, quantity_remaining=552, sales_volume=723, status=ON_SALE, update_date=Sun May 17 20:06:22 CST 2020, merchant_id=1, weight=null, priority=null, discount=null), Product(id=193, create_date=Sun May 17 20:06:23 CST 2020, description=国际烹饪大师黄启云先生倾心打造,花雕浸醉,匀指美味18, hot=null, name=花雕醉龙虾大份18, price=14.00, priceprev1=null, priceprev2=null, quantity_remaining=814, sales_volume=107, status=ON_SALE, update_date=Sun May 17 20:06:23 CST 2020, merchant_id=1, weight=null, priority=null, discount=null)]
-
-//        convertToVO()
-//        page.setItems();
-        return null;
+        page.setEmpty(products.size() == 0);
+        //plus one , current page in view layer should start from 1
+        List<ProductVO> collect1 = products.stream().map(this::setImgsAndCategory).collect(Collectors.toList());
+        page.setItems(collect1);
+        return page;
     }
 
 

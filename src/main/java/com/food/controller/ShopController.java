@@ -32,7 +32,7 @@ public class ShopController {
     }
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
-    @PostMapping("/shop/categoryEdit")
+    @PostMapping({"/shop/categoryEdit","/shop/categoryList"})
     public ResponseEntity<List<CategoryVO>> categoryEdit(HttpServletRequest request) {
         String token = request.getHeader(JWTUtil.TOKEN_HEADER).replace(JWTUtil.TOKEN_PREFIX, "");
         Integer id = JWTUtil.getID(token);

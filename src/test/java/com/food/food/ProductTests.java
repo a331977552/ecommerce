@@ -48,11 +48,17 @@ public class ProductTests {
         ProductVO vo=new ProductVO();
         vo.setMerchant_id(1);
         vo.setName("邵");
-        com.food.model.vo.Page<ProductVO> categoryById = service.getAll(vo,com.food.model.vo.Page.of(0,5,"price"));
+        com.food.model.vo.Page<ProductVO> categoryById = service.getAll(vo,com.food.model.vo.Page.of(1,5,"price","desc"));
+        com.food.model.vo.Page<ProductVO> categoryById2 = service.getAll(vo,com.food.model.vo.Page.of(2,5,"price","desc"));
+        com.food.model.vo.Page<ProductVO> categoryById3 = service.getAll(vo,com.food.model.vo.Page.of(-1,5,"price","desc"));
         ObjectMapper mapper=new ObjectMapper();
         String s = mapper.writeValueAsString(categoryById);
+        String s2 = mapper.writeValueAsString(categoryById2);
+        String s3 = mapper.writeValueAsString(categoryById3);
 
         System.out.println(s);
+        System.out.println(s2);
+        System.out.println(s3);
 
     }
     @Test
@@ -83,7 +89,7 @@ public class ProductTests {
                 product.setSales_volume(random.nextInt(999));
                 Merchant merchant=new Merchant();
 //                merchant.setId(category);
-//
+////
 //                product.setName(names[nameIndex]+ index);
 //                product.setm(merchant);
 //                product.setStatus(Product.Status.ON_SALE);

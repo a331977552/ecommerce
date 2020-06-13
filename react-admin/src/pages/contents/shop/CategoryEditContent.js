@@ -168,7 +168,7 @@ class CategoryEditContent extends Component {
 
 
     render() {
-        const newData = [...this.props.treeData];
+        const newData = [...this.props.categoryTreeData];
         this.state.addingData && newData.unshift(this.state.addingData);
         return (
             <div>

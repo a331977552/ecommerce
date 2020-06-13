@@ -1,5 +1,5 @@
 import HomeReducer from "./redux/reducers/HomeReducer";
-import ProductReducer from "./redux/reducers/shop/ProductListReducer";
+import ProductListReducer from "./redux/reducers/shop/ProductListReducer";
 import CategoryReducer from "./redux/reducers/shop/CategoryReducer";
 import OrderReducer from "./redux/reducers/order/OrderReducer";
 import statisticsReducer from "./redux/reducers/statistics/StatisticsReducer";
@@ -13,8 +13,15 @@ import {
     onCategoryRefreshRetry,
     refreshCategoryList
 } from "./redux/reducers/shop/CategoryActionCreator";
-import {onProductAddInitSuccess, onProductAddInitFailed, onProductAddInitRetry
+import {
+    onProductAddInitSuccess,
+    onProductAddInitFailed,
+    onProductAddInitRetry,
+    LoadingProductListSucceed,
+    onProductLoadingFailed,
+    onProductLoadingRetry
 } from "./redux/reducers/shop/ProductActionCreator";
+import {getUser, pageUtil} from "../utils/UserDataUtils";
 
 const menuData = [
     {
@@ -48,9 +55,14 @@ const menuData = [
                 routerPath: '/shop/productEdit',
                 title: '商品编辑',
                 breadCrumb: ['店铺管理', '商品编辑'],
-                dataPath: '/api/shop/productEdit',
+                dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+(getUser()||{}).id,
                 children: [],
-                reducer: ProductReducer
+                reducer: ProductListReducer,
+                actions: {
+                    success: LoadingProductListSucceed,
+                    failed: onProductLoadingFailed,
+                    retry: onProductLoadingRetry
+                }
             },
             {
                 routerPath: '/shop/categoryEdit',

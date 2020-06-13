@@ -13,7 +13,7 @@ export default function WithContentLoadingHOC(WrappedContent) {
         if(reducer)
         {
             //cached
-            return {...state[reducer],dataPath:data.dataPath};
+            return {...state[reducer],dataPath:state[reducer].dataPath?state[reducer].dataPath:data.dataPath};
         }else{
             return {contentLoading: false,success: true}
         }

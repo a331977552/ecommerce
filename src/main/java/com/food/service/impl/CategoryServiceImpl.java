@@ -126,7 +126,6 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public List<CategoryVO> getAll() {
         List<Category> categories = mapper.selectByExample(new CategoryExample());
-
         return convertToVOs(categories);
     }
 

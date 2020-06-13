@@ -3,16 +3,18 @@ import {Category_constants} from "./CategoryActionCreator";
 
 const initialState = {
     contentLoading:true,
-    success:false
+    success:false,
+    categoryTreeData:[],
+    categories:[]
 }
 
 export default function categoryReducer(state = initialState, action) {
     const payload = action.payload;
     switch (action.type) {
         case Category_constants.REFRESH_CATEGORY_SUCCEED:
-            return {...payload,contentLoading:false,success:true,treeData:buildTreeDataSortedByPriority(payload.data)};
+            return {...payload,contentLoading:false,success:true,categoryTreeData:buildTreeDataSortedByPriority(payload.data),categories:payload.data};
         case Category_constants.UPDATE_CATEGORY:
-            return {...state,...payload,treeData:buildTreeDataSortedByPriority(payload.data,payload.latestInsertId)};
+            return {...state,...payload,categoryTreeData:buildTreeDataSortedByPriority(payload.data,payload.latestInsertId)};
         default:
             return state
     }
