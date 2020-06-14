@@ -5,6 +5,7 @@ const initialState = {
     success: false,
     orderBy:'update_date',
     by:'desc',
+    data:{items:[]},
     example:{status:"IN_STOCK"},
     pagination:{},
     previousState:null
@@ -38,9 +39,20 @@ export default function productListReducer(state = initialState, action) {
             return {...state.previousState};
         case Product_constants.ON_PRODUCT_LIST_REFRESHING_SUCCEED:
             return {...state,previousState:null, pagination: getPagination(payload.data),data: payload.data,dataPath: payload.dataPath};
+
+        case Product_constants.UPDATE_PRODUCT:
+            return {...state,data:{...state.data,items:updateProduct(state.data.items,payload)}};
+
         default:
             return state
     }
+}
+function updateProduct(items,target) {
+    console.log(items)
+    const newItems = [...items];
+    const targetIndex= newItems.findIndex(item=>item.id === target.id);
+    newItems[targetIndex] = target;
+    return newItems;
 }
 
 function getPagination(data) {

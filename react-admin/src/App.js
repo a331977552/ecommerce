@@ -20,18 +20,18 @@ class App extends Component {
         if (!token || !merchant) {
             this.props.history.replace("/login")
         }
-        //todo INITIAL loading
-
-        console.log(this.props)
     }
 
 
     render() {
         console.log(this.props)
         const {token, merchant, location} = this.props;
+        if (!token || !merchant ) {
+         if(location.pathname !== '/login')
+             return <Spin/>
+        }
 
-
-        return (<Switch>
+        return (<div style={{height:'100vh'}}><Switch>
                 <Route path="/login">
                     <LoginPage/>
                 </Route>
@@ -42,7 +42,7 @@ class App extends Component {
                     <MainPage/>
                     </Route>
                 }
-            </Switch>
+            </Switch></div>
         );
     }
 }

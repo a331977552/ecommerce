@@ -82,13 +82,28 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void updateAllProducts(Iterable<ProductVO> products) {
 
-//        repository.saveAll(products);
     }
 
+    @Transactional
     @Override
-    public void updateProduct(ProductVO product) {
+    public void updateProduct(ProductVO example) {
+        int i = mapper.updateByPrimaryKey(convertToDAO(example));
+        if(i!=0){
+            Integer productId = example.getId();
+            //delete product
+            CategoryProductExample cp =new CategoryProductExample();
+            cp.createCriteria().andProduct_idEqualTo(productId);
+            ProductImgExample pi= new ProductImgExample();
+            pi.createCriteria().andProduct_idEqualTo(productId);
 
-//        CRUDUtils.updateSelectively(repository,product);
+            categoryProductMapper.deleteByExample(cp);
+            example.getCategoryIds().forEach(cateId->categoryProductMapper.insert(new CategoryProduct(productId,cateId)));
+
+            productImgsMapper.deleteByExample(pi);
+            example.getImgs().forEach(imgVO ->productImgsMapper.insert(new ProductImg(productId,imgVO.getId())));
+        }else {
+            throw new UnexpectedException("产品 "+example.getId()+"更新失败! ");
+        }
     }
 
     @Transactional

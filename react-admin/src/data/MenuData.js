@@ -42,14 +42,9 @@ const menuData = [
             routerPath: '/shop/productAdd',
             title: '商品添加',
             breadCrumb: ['店铺管理', '商品添加'],
-            dataPath: '/api/shop/categoryEdit',
             children: [],
-            reducer: ProductAddingReducer,
-            actions: {
-                success: onProductAddInitSuccess,
-                failed: onProductAddInitFailed,
-                retry: onProductAddInitRetry
-                }
+            reducer: CategoryReducer,
+            actions: {}
             },
             {
                 routerPath: '/shop/productEdit',
@@ -146,7 +141,7 @@ const menuData = [
                 reducer: adminUserReducer
             }]
     }
-]
+];
 
 const data404 = {
     routerPath: '/notFound',
@@ -154,8 +149,8 @@ const data404 = {
     breadCrumb: ['页面无法找到'],
     dataPath: null,
     children: []
-}
-const foundedPath = {}
+};
+const foundedPath = {};
 
 export function findDataByPathname(routerPath) {
     if (foundedPath[routerPath]) {

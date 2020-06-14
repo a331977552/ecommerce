@@ -8,7 +8,7 @@ import {httpListProduct} from "../../../data/http/HttpRequest";
 import {getRandomInt} from "../../../utils/UserDataUtils";
 import {
     onProductListRefreshing, onProductListRefreshingFailed,
-    onProductListRefreshingSucceed
+    onProductListRefreshingSucceed, updateProduct
 } from "../../../data/redux/reducers/shop/ProductActionCreator";
 import ProductEditModal from "./components/ProductEditModal";
 
@@ -80,7 +80,7 @@ class ProductEditContent extends Component {
             title: '种类',
             dataIndex: 'categories',
             editable: true,
-            render: (record, row, index) => <span>{record.map(cate => <Tag
+            render: (record, row, index) => <span>{record.map(cate => <Tag  key={cate.id}
                 color={this.tagColors[getRandomInt(this.tagColors.length)]}>{cate.title}</Tag>)}</span>
         },
 
@@ -139,7 +139,7 @@ class ProductEditContent extends Component {
             dataIndex: 'imgs',
             editable: true,
             //TODO
-            render: (record, row, index) => <div style={{display: 'flex'}}>{record.map(img => <img width={'100px'}
+            render: (record, row, index) => <div style={{display: 'flex'}}>{record.map(img => <img key={img.id} width={'100px'}
                                                                                                    height={'100px'}
                                                                                                    src={img.url}
                                                                                                    alt={''}/>)}</div>,
@@ -190,7 +190,6 @@ class ProductEditContent extends Component {
             message.error(failed.message);
             this.props.onProductListRefreshingFailed();
         });
-
     }
 
     onSearch = (value) => {
@@ -201,22 +200,19 @@ class ProductEditContent extends Component {
         const {orderBy, by, example} = this.props;
         this.refreshData({orderBy, by, example, pagination})
     }
-    onEditingConfirmed = (e) => {
-
-
+    onEditingConfirmed = (finalProduct) => {
+        this.props.updateProduct(finalProduct);
+        this.setState({editingModalVisibility:false,editingProduct:null})
     }
     onEditCanceled = (e) => {
             this.setState({editingModalVisibility:false,editingProduct:null})
     }
 
 
-
-
     render() {
-        console.log(this.props)
+        console.log(this.props);
         const {pagination, data, example} = this.props;
         const {editingProduct} = this.state;
-
         const {items} = data;
         return (
             <div>
@@ -254,10 +250,12 @@ class ProductEditContent extends Component {
                 </div>
                 <Modal  title="商品编辑"
                         visible={this.state.editingModalVisibility}
-                        onOk={this.onEditingConfirmed}
                         onCancel={this.onEditCanceled}
-                        >
-                    <ProductEditModal editingProduct />
+                        width={800}
+                        maskClosable={false}
+                        footer={null}
+                >
+                    {this.state.editingModalVisibility&&<ProductEditModal onEditCanceled={this.onEditCanceled} onEditingConfirmed={this.onEditingConfirmed} product={{...editingProduct}} categories={this.props.categories}  categoryTreeData={this.props.categoryTreeData} />}
                 </Modal>
             </div>
         );
@@ -265,14 +263,15 @@ class ProductEditContent extends Component {
 }
 
 function mapState(state, props) {
-    return {};
+    return {categories:state.categoryReducer.categories,categoryTreeData:state.categoryReducer.categoryTreeData};
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     return bindActionCreators({
         onProductListRefreshing,
         onProductListRefreshingSucceed,
-        onProductListRefreshingFailed
+        onProductListRefreshingFailed,
+        updateProduct
 
     }, dispatch);
 }

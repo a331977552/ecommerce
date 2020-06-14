@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getUser, pageUtil} from "../../utils/UserDataUtils";
+import {getUser} from "../../utils/UserDataUtils";
 
 
 
@@ -32,6 +32,9 @@ export function httpAddCategory(category,success, failed) {
 
 export function httpAddProduct(product,success, failed) {
     axios.post("/api/product/add",product).then(success).catch(failed)
+}
+export function httpUpdateProduct(product,success, failed) {
+    axios.post("/api/product/update",product).then(success).catch(failed)
 }
 
 export function httpListProduct(pagination,orderBy,by,example={}, success, failed,final) {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import './HomePage.css'
-import {Layout, Spin} from 'antd';
+import {Layout, message} from 'antd';
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
 import AppLeftMenu from "../components/AppLeftMenu";
@@ -26,29 +26,43 @@ import {
     refreshCategoryList
 } from "../data/redux/reducers/shop/CategoryActionCreator";
 import {httpCategoryList} from "../data/http/HttpRequest";
+import {RetryResult} from "../components/RetryResult";
+import CenteredLoading from "../components/CentredLoading";
 
 const {Header, Content, Footer, Sider} = Layout;
 
 class MainPage extends Component {
     state = {
-        collapsed: false,
+        collapsed: false
     };
 
     componentDidMount() {
-        httpCategoryList(()=>{
+        this.loadingData();
+    }
+    onRetryClicked = (e) => {
+        this.props.onCategoryRefreshRetry();
+        this.loadingData();
+    }
 
-        },()=>{
-
+    loadingData = (e) => {
+        httpCategoryList((response)=>{
+            this.props.refreshCategoryList({data:response.data});
+        },(failed)=>{
+            message.error(failed.message);
+            this.props.onCategoryRefreshFailed();
         });
-
     }
 
 
 
+
     render() {
-
+        if(this.props.contentLoading)
+            return <CenteredLoading/>
+        if(!this.props.success){
+            return <RetryResult onRetryClicked={this.onRetryClicked} />
+        }
         return (
-
             <Layout style={{minHeight: '100vh'}}>
                 <Sider
                     breakpoint="lg"
@@ -116,6 +130,7 @@ class MainPage extends Component {
 }
 
 function mapState(state) {
+    console.log(state)
     return {...state.categoryReducer};
 }
 
@@ -124,7 +139,6 @@ const mapDispatch = (dispatch, ownProps) => {
         refreshCategoryList,
         onCategoryRefreshFailed,
         onCategoryRefreshRetry
-
     }, dispatch);
 }
 

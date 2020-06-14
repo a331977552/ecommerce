@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
  *          CLOSED
  */
 @Data
+@ToString
 public class ProductVO {
     private Integer id;
 

@@ -27,21 +27,16 @@ class ProductAddContent extends Component {
         });
     };
 
-    onUploadFinished = (ids) => {
-
-    };
 
 
     render() {
-        if (this.props.categories.length === 0)
+        if (this.props.categoryTreeData.length === 0)
             return (<Result
                 status="warning"
                 title="提示"
                 subTitle="请先添加种类,再添加商品"
                 extra={<Button type="primary" onClick={this.goToCategoryAdding}>去添加种类</Button>}
             />);
-
-
         return (
             <div>
                 <Form
@@ -80,7 +75,7 @@ class ProductAddContent extends Component {
                     </Form.Item>
 
                     <Form.Item name={['categoryIds']} label="种类" extra={"商品种类, 目前仅支持单层级"} rules={[{required: true}]}>
-                        <Cascader showSearch={{matchInputWidth: true}} options={this.props.categories}
+                        <Cascader showSearch={{matchInputWidth: true}} options={this.props.categoryTreeData}
                                   onChange={this.onChange} placeholder="请选择种类"/>
                     </Form.Item>
                     <Form.Item name={'weight'} label="重量(克)" extra={"商品重量, 可不填"}
@@ -90,10 +85,11 @@ class ProductAddContent extends Component {
                     <Form.Item name={['description']} label="描述" rules={[{required: true}]}>
                         <Input.TextArea rows={4}/>
                     </Form.Item>
-                    <Form.Item label="图片上传" name={['imgs']} valuePropName={'onUploadFinished'}
-                               trigger={'onUploadFinished'} extra={"默认第一张会作为封面"}
+                    <Form.Item label="图片上传" name={['imgs']}  valuePropName={'imgIdList'}
+                               trigger={'imgIdList'} extra={"默认第一张会作为封面"}
+                               hasFeedback={true} validateTrigger={'imgIdList'}
                                rules={[{required: true, message: '请至少上传一张图片'}]}>
-                        <PicUpload onUploadFinished={this.onUploadFinished}/>
+                        <PicUpload />
                     </Form.Item>
 
 

@@ -5,7 +5,7 @@ import {bindActionCreators} from "redux";
 import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
 import {Form, Input, Popconfirm, Table, message, InputNumber, Button} from "antd";
 import {deleteCategory, updateCategory} from "../../../data/redux/reducers/shop/CategoryActionCreator";
-import {httpAddCategory, httpDeleteCategory, httpGetContent, httpUpdateCategory} from "../../../data/http/HttpRequest";
+import {httpAddCategory, httpDeleteCategory, httpUpdateCategory} from "../../../data/http/HttpRequest";
 
 class CategoryEditContent extends Component {
 
