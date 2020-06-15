@@ -1,7 +1,5 @@
 package com.food.utils;
 
-import org.aspectj.util.FileUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -16,9 +14,6 @@ public class FileUtils {
         }else{
             suffix = "21321421321.jpg".substring(dot);
         }
-
-
-
     }
 
     public static File createFolder(String folder){
@@ -41,7 +36,7 @@ public class FileUtils {
         String folder4 = s.substring(8, 10);
         String folder5 = s.substring(10, 12);
         String folder6 = s.substring(12, 14);
-        return "/" + folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4 + "/" + folder5 + "/" + folder6;
+        return folder1 +File.separator + folder2 + File.separator + folder3 + File.separator + folder4 + File.separator + folder5 + File.separator + folder6;
 
     }
 

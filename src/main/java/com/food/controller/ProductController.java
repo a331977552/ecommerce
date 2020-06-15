@@ -75,6 +75,7 @@ public class ProductController {
         if(example ==null)
             example =new ProductVO();
         example.setMerchant_id(merchantId);
+        System.out.println("123  " +order+ by);
         return service.getAll(example, of);
     }
 

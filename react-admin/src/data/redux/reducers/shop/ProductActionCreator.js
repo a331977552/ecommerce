@@ -3,6 +3,7 @@ export const Product_constants = {
     DELETE_PRODUCT : "DELETE_PRODUCT",
     ADD_PRODUCT : "ADD_PRODUCT",
     UPDATE_PRODUCT : "UPDATE_PRODUCT",
+    UPDATE_PRODUCT_STATUS : "UPDATE_PRODUCT_STATUS",
 
     ON_PRODUCT_LIST_INIT_SUCCEED:'ON_PRODUCT_LIST_INIT_SUCCEED',
     ON_PRODUCT_LIST_INIT_FAILED:'ON_PRODUCT_LIST_INIT_FAILED',
@@ -81,9 +82,9 @@ export function onProductLoadingRetry(data) {
     }
 }
 
-export function deleteProduct(data) {
+export function addProduct(data) {
     return {
-        type:Product_constants.DELETE_PRODUCT,
+        type:Product_constants.ADD_PRODUCT,
         payload:data
     }
 }
@@ -91,5 +92,18 @@ export function updateProduct(data) {
     return {
         type:Product_constants.UPDATE_PRODUCT,
         payload:data
+    }
+}
+export function updateProductStatus(data) {
+    return {
+        type:Product_constants.UPDATE_PRODUCT_STATUS,
+        payload:data
+    }
+}
+
+export function deleteProduct(product) {
+    return {
+        type:Product_constants.DELETE_PRODUCT,
+        payload:product
     }
 }

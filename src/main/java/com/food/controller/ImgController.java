@@ -3,6 +3,7 @@ package com.food.controller;
 import com.food.model.vo.ImgVO;
 import com.food.service.IImgService;
 import com.food.utils.FileUtils;
+import com.food.utils.ImgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,21 @@ public class ImgController {
 
     @Value("${img.root.directory}")
     String rootDic;
+
+    @Value("${img.root.url}")
+    String rootUrl;
+
+    @Value("${img.root.thumbnail.w}")
+    int thumbnailW;
+    @Value("${img.root.thumbnail.h}")
+    int thumbnailH;
+
     @Autowired
     IImgService service;
 
     @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<ImgVO> uploadImg(@RequestParam(value="img") MultipartFile file) throws IOException {
-        //todo upload file
         String originalFilename = file.getOriginalFilename();
         int dot = originalFilename.lastIndexOf('.');
         String suffix ;
@@ -43,14 +52,19 @@ public class ImgController {
         String folder = FileUtils.generateFileDirectory();
         File dic = FileUtils.createFolder(rootDic+folder);
         String fileName = UUID.randomUUID().toString().replace("-", "") + suffix;
-        file.transferTo(new File(dic,fileName));
+        File targetDest = new File(dic, fileName);
+        file.transferTo(targetDest);
         ImgVO img = new ImgVO();
         img.setFile_name(fileName);
-        img.setUrl(folder+"/"+fileName);
-//        img.setFullUrl(dic+"/"+fileName);
+        img.setUrl(rootUrl+File.separator+folder+File.separator+fileName);
+        String thumbnailFileName = ImgUtil.createThumbnail(targetDest, thumbnailW, thumbnailH, false);
+        img.setThumbnail_url(rootUrl+File.separator+folder+File.separator+thumbnailFileName);
+
         ImgVO addedImg = service.addImg(img);
+
         return ResponseEntity.ok(addedImg);
     }
+
 
 
 }

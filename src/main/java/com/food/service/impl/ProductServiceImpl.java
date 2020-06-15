@@ -17,9 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,13 +51,11 @@ public class ProductServiceImpl implements IProductService {
         List<Integer> categoryIds = productVO.getCategoryIds();
         //map product into  categories
         categoryIds.forEach(id-> categoryProductMapper.insert(new CategoryProduct(product.getId(),id)));
-        List<ImgVO> imgs = productVO.getImgs();
-        //insert img
 
-        //add mapping for img and product
-        imgs.forEach(vo->productImgsMapper.insert(new ProductImg(product.getId(),vo.getId())));
+        productVO.getImgs().forEach(vo->productImgsMapper.insert(new ProductImg(product.getId(),vo.getId())));
+        List<ImgVO> imgsByProductId = imgService.findImgsByProductId(product.getId());
 
-        return convertToVO(product,categoryIds,imgs);
+        return convertToVO(product,categoryIds,imgsByProductId);
     }
     Product convertToDAO(ProductVO vo){
         Product product = new Product();
@@ -71,6 +67,10 @@ public class ProductServiceImpl implements IProductService {
         BeanUtils.copyProperties(save,productVO);
         productVO.setCategoryIds(categoriesId);
         productVO.setImgs(imgVOS);
+        List<CategoryVO> categoryByIds = categoryService.getCategoryByIds(categoriesId);
+        List<ProductVO.InnerCategoryVO> collect = categoryByIds.stream().map(ci -> new ProductVO.InnerCategoryVO(ci.getId(), ci.getTitle())).collect(Collectors.toList());
+        productVO.setCategories(collect);
+
         return productVO;
     }
 
@@ -87,10 +87,11 @@ public class ProductServiceImpl implements IProductService {
     @Transactional
     @Override
     public void updateProduct(ProductVO example) {
+        example.setUpdate_date(new Date());
         int i = mapper.updateByPrimaryKey(convertToDAO(example));
         if(i!=0){
             Integer productId = example.getId();
-            //delete product
+            //delete product and category connection
             CategoryProductExample cp =new CategoryProductExample();
             cp.createCriteria().andProduct_idEqualTo(productId);
             ProductImgExample pi= new ProductImgExample();
@@ -112,6 +113,9 @@ public class ProductServiceImpl implements IProductService {
         CategoryProductExample example = new CategoryProductExample();
         example.createCriteria().andProduct_idEqualTo(id);
         int i = categoryProductMapper.deleteByExample(example);
+        ProductImgExample productImgExample =new ProductImgExample();
+        productImgExample.createCriteria().andProduct_idEqualTo(id);
+        productImgsMapper.deleteByExample(productImgExample);
         if(i == 0)
             throw new UnexpectedException("cannot delete this product. code "+ 30000);
         mapper.deleteByPrimaryKey(id);
@@ -214,16 +218,31 @@ public class ProductServiceImpl implements IProductService {
                 throw new UnexpectedException("stop it!");
             }
         } else{
-            page.setOrderBy("priority");
+            page.setOrderBy("update_date");
         }
-
-        if(page.getBy()== null || !page.getBy().equals("desc") ||!page.getBy().equals("asc")){
-            page.setBy("asc");
-        }
-        example1.setOrderByClause(page.getOrderBy() +" "+ page.getBy());
+        page.setBy(Optional.ofNullable(page.getBy()).orElse("desc").trim());
+        example1.setOrderByClause(page.getOrderBy().trim() +" "+ page.getBy().trim());
         if(!StringUtils.isEmpty(example.getName())){
             criteria.andNameLike("%"+example.getName()+"%");
         }
+        if(example.getCategoryIds() !=null && example.getCategoryIds().size() > 0){
+            CategoryProductExample cpe =new CategoryProductExample();
+            cpe.createCriteria().andCategory_idIn(example.getCategoryIds());
+            List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(cpe);
+            if(categoryProducts.size() > 0)
+                criteria.andIdIn(categoryProducts.stream().map(CategoryProduct::getProduct_id).collect(Collectors.toList()));
+            else {
+                page.setItems(Collections.emptyList());
+                page.setTotalElements(0);
+                page.setTotalPages(0);
+                page.setCurrentPage(0);
+                page.setOffset(0);
+                page.setFirst(true);
+                page.setLast(true);
+                return page;
+            }
+        }
+
         long l = mapper.countByExample(example1);
         page.setTotalElements((int) l);
         page.setTotalPages((int) ((l+page.getPageSize()-1)/page.getPageSize()));

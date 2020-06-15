@@ -19,10 +19,17 @@ public class Img implements Serializable {
 
     private String full_url;
 
-    private String size;
-
     private String url;
 
+    private String thumbnail_url;
+
+    private Float thumbnail_width;
+
+    private Float thumbnail_height;
+
+    private Float width;
+
+    private Float height;
     private static final long serialVersionUID = 1L;
 
 }

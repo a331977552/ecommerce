@@ -2,68 +2,44 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
-import {Button, Form, Popconfirm, Table, message, Tag, Radio, Input, Row, Modal} from 'antd';
-import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
-import {httpListProduct} from "../../../data/http/HttpRequest";
-import {getRandomInt} from "../../../utils/UserDataUtils";
 import {
+    Button,
+    Form,
+    Popconfirm,
+    Table,
+    message,
+    Tag,
+    Radio,
+    Input,
+    Row,
+    Modal,
+    Cascader, Select
+} from 'antd';
+import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
+import {httpListProduct, httpUpdateProduct, httpDeleteProduct} from "../../../data/http/HttpRequest";
+import {
+    deleteProduct,
     onProductListRefreshing, onProductListRefreshingFailed,
-    onProductListRefreshingSucceed, updateProduct
+    onProductListRefreshingSucceed, updateProduct, updateProductStatus
 } from "../../../data/redux/reducers/shop/ProductActionCreator";
 import ProductEditModal from "./components/ProductEditModal";
 
 class ProductEditContent extends Component {
-
-    tagColors = [
-        " magenta",
-        " red",
-        " volcano",
-        " gold",
-        " lime",
-        " cyan",
-        " blue",
-        " geekblue",
-    ]
-
-
     state = {
-        editingModalVisibility:false,
-        editingProduct:null
+        editingModalVisibility: false,
+        editingProduct: null
     }
     onProductAddClicked = (e) => {
         this.props.history.push("/shop/productAdd")
     }
-    /**
-     *
-     * categoryIds: (2) [15, 3]
-     create_date: "2020-05-17T12:06:22.973+0000"
-     description: "一锅邵三鲜,地道绍兴菜14"
-     discount: null
-     hot: null
-     id: 185
-     imgs: Array(1)
-     0: {id: 186, file_name: null, full_url: null, size: null, url: "https://i.picsum.photos/id/14/300/200.jpg"}
-     length: 1
-     __proto__: Array(0)
-     merchant_id: 1
-     name: "邵三鲜14"
-     price: 12
-     priceprev1: null
-     priceprev2: null
-     priority: null
-     quantity_remaining: 111
-     sales_volume: 58
-     status: "ON_SALE"
-     update_date: "2020-05-17T12:06:22.973+0000"
-     weight: null
-     *
-     *
-     * @type {({dataIndex: string, editable: boolean, title: string, render: (function(*, *, *): *)}|{dataIndex: string, editable: boolean, width: string, title: string, render: (function(*, *, *): *)}|{dataIndex: string, width: string, title: string, render: (function(*, *=): *)})[]}
-     */
-
-
-
     columns = [
+        {
+            title: '索引',
+            dataIndex: 'index',
+            width:'50px',
+            editable: false,
+            render: (text, row, index) => index + 1
+        },
         {
             title: '商品名称',
             dataIndex: 'name',
@@ -80,10 +56,8 @@ class ProductEditContent extends Component {
             title: '种类',
             dataIndex: 'categories',
             editable: true,
-            render: (record, row, index) => <span>{record.map(cate => <Tag  key={cate.id}
-                color={this.tagColors[getRandomInt(this.tagColors.length)]}>{cate.title}</Tag>)}</span>
+            render: (record, row, index) => <span>{record.map(cate => <Tag key={cate.id} >{cate.title}</Tag>)}</span>
         },
-
         {
             title: '排名',
             dataIndex: 'priority',
@@ -106,7 +80,7 @@ class ProductEditContent extends Component {
             title: '状态',
             dataIndex: 'status',
             editable: true,
-            render: (text, row, index) => (text)
+            render: (text, row, index) => (text === 'IN_STOCK' ? '上架中' : '已下架')
         },
         {
             title: '创建日期',
@@ -132,16 +106,15 @@ class ProductEditContent extends Component {
             editable: true,
             render: (text, row, index) => (text)
         },
-
         {
             width: '100px',
             title: '图片',
             dataIndex: 'imgs',
             editable: true,
-            //TODO
-            render: (record, row, index) => <div style={{display: 'flex'}}>{record.map(img => <img key={img.id} width={'100px'}
+            render: (record, row, index) => <div style={{display: 'flex'}}>{record.map(img => <img key={img.id}
+                                                                                                   width={'100px'}
                                                                                                    height={'100px'}
-                                                                                                   src={img.url}
+                                                                                                   src={img.thumbnail_url || img.url}
                                                                                                    alt={''}/>)}</div>,
         },
         {
@@ -153,35 +126,61 @@ class ProductEditContent extends Component {
                        onClick={() => this.onEditProduct(record)}>
                         编辑
                     </a>
-                    <Popconfirm title="确定要删除吗?" onConfirm={() => this.delete(record.id)}>
+                    <Popconfirm title="确定要删除吗?" onConfirm={() => this.delete(record)}>
                       <a disabled={this.state.editingProduct !== null}>删除</a>
                     </Popconfirm>
+                      <a style={{marginLeft: '16px'}} disabled={this.state.editingProduct !== null}
+                         onClick={() => this.changeProductStatus(record)}>{record.status === 'IN_STOCK' ? '下架' : '上架'}</a>
                     </span>
             }
         }
     ]
 
     onEditProduct = (product) => {
-        this.setState({editingModalVisibility:true,
-            editingProduct:product
+        this.setState({
+            editingModalVisibility: true,
+            editingProduct: product
         })
     }
 
 
+    changeProductStatus = (product) => {
+        const finalProduct = {...product, status: product.status === 'IN_STOCK' ? 'OUT_OF_STOCK' : 'IN_STOCK'};
+        httpUpdateProduct(finalProduct, (response) => {
+            this.props.updateProductStatus(finalProduct);
+            message.success((product.status === 'IN_STOCK' ? '下架' : '上架') + "商品 " + finalProduct.name + " 成功!");
+        }, fail => {
+            message.error(fail.message);
+        });
+    }
 
 
-
-    onStatusChanged = (e) => {
+    onFilterStatusChanged = (e) => {
         const {orderBy, by} = this.props;
         const example = {...this.props.example, status: e.target.value};
         const pagination = {current: 1, pageSize: this.props.pagination.pageSize};
         this.refreshData({orderBy, by, example, pagination})
     }
+    delete = (product) => {
+        httpDeleteProduct(product.id, () => {
+            this.props.deleteProduct({...product});
+            message.success("删除成功！");
+        }, (fail) => {
+            message.error(fail.message);
+        });
+    };
 
-    refreshData = ({orderBy = this.props.orderBy, by = this.props.by, example = this.props.example, pagination = this.props.pagination}) => {
-        this.props.onProductListRefreshing({orderBy, by, example});
+
+    refreshData = ({orderBy = this.props.orderBy, by = this.props.by, example = this.props.example, pagination = this.props.pagination, resetPage = false}) => {
+        this.props.onProductListRefreshing({orderBy, by, example: {...example}, pagination: {...pagination}});
+        if (example.categoryIds[0] === -1)
+            example.categoryIds = [];
+        if (resetPage) {
+            pagination = {...pagination, current: 1}
+        }
+
         message.loading("loading", 0);
-        httpListProduct(pagination, 'priority', 'desc', example, (res) => {
+        httpListProduct(pagination, orderBy, by, example, (res) => {
             this.props.onProductListRefreshingSucceed({dataPath: res.config.url, data: res.data});
             message.destroy();
             message.success("加载成功！");
@@ -193,41 +192,69 @@ class ProductEditContent extends Component {
     }
 
     onSearch = (value) => {
-        this.refreshData({example: {...this.props.example,name: value}, pagination: {...this.props.pagination, current: 1}});
+        this.refreshData({example: {...this.props.example, name: value}, resetPage: true});
     }
 
     handleTableChange = (pagination, filters, sorter) => {
-        const {orderBy, by, example} = this.props;
-        this.refreshData({orderBy, by, example, pagination})
+        this.refreshData({pagination})
     }
     onEditingConfirmed = (finalProduct) => {
         this.props.updateProduct(finalProduct);
-        this.setState({editingModalVisibility:false,editingProduct:null})
+        this.setState({editingModalVisibility: false, editingProduct: null})
     }
     onEditCanceled = (e) => {
-            this.setState({editingModalVisibility:false,editingProduct:null})
+        this.setState({editingModalVisibility: false, editingProduct: null})
+    }
+    onCategoryChange = (categoryIds) => {
+        const {example: temp} = this.props;
+        const example = {...temp, categoryIds};
+        this.refreshData({example, resetPage: true});
+    }
+    onSorterChange = (orderBy) => {
+        this.refreshData({orderBy, resetPage: true});
+    }
+    onByChanged = (e) => {
+        this.refreshData({by: e.target.value, resetPage: true});
     }
 
 
     render() {
-        console.log(this.props);
-        const {pagination, data, example} = this.props;
+        const {pagination, data, example, sorter, orderBy, by, categoryTreeData} = this.props;
         const {editingProduct} = this.state;
         const {items} = data;
+        const categories = [{id: -1, value: -1, label: '所有种类'}, ...categoryTreeData];
         return (
             <div>
                 <Row>
-                    <Button style={{marginRight: '50px'}} onClick={this.onProductAddClicked}>添加商品</Button>
-                    <Form.Item label={"筛选商品:"}>
-                        <Radio.Group style={{marginRight: '50px'}} onChange={this.onStatusChanged}
+                    <Button style={{marginRight: '40px'}} onClick={this.onProductAddClicked}>添加商品</Button>
+                    <Form.Item style={{marginRight: '40px'}} label={"筛选商品:"}>
+                        <Radio.Group style={{marginRight: '40px'}} onChange={this.onFilterStatusChanged}
                                      value={example.status}>
+                            <Radio.Button value="">所有商品</Radio.Button>
                             <Radio.Button value="IN_STOCK">已上架商品</Radio.Button>
                             <Radio.Button value="OUT_OF_STOCK">已下架商品</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item label={"排序:"}>
-
+                    <Form.Item style={{marginRight: '40px'}} label="种类">
+                        <Cascader showSearch={{matchInputWidth: true}} options={categories} value={example.categoryIds}
+                                  onChange={this.onCategoryChange} placeholder="请选择种类"/>
                     </Form.Item>
+
+                    <Form.Item style={{marginRight: '40px'}} label={"排序:"}>
+                        <Select style={{width: 200}} value={orderBy} onChange={this.onSorterChange}>
+                            {
+                                sorter.map(item => <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>)
+                            }
+                        </Select>
+                    </Form.Item>
+                    <Form.Item style={{marginRight: '40px'}} label={"大小:"}>
+                        <Radio.Group style={{marginRight: '40px'}} onChange={this.onByChanged}
+                                     value={by}>
+                            <Radio.Button value="desc">大->小</Radio.Button>
+                            <Radio.Button value="asc">小->大</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+
                     <Form.Item label={"搜索:"}>
                         <Input.Search placeholder="商品名称" style={{width: 300}} enterButton onSearch={this.onSearch}/>
                     </Form.Item>
@@ -248,14 +275,17 @@ class ProductEditContent extends Component {
                         />
                     </Form>
                 </div>
-                <Modal  title="商品编辑"
-                        visible={this.state.editingModalVisibility}
-                        onCancel={this.onEditCanceled}
-                        width={800}
-                        maskClosable={false}
-                        footer={null}
+                <Modal title="商品编辑"
+                       visible={this.state.editingModalVisibility}
+                       onCancel={this.onEditCanceled}
+                       width={800}
+                       maskClosable={false}
+                       footer={null}
                 >
-                    {this.state.editingModalVisibility&&<ProductEditModal onEditCanceled={this.onEditCanceled} onEditingConfirmed={this.onEditingConfirmed} product={{...editingProduct}} categories={this.props.categories}  categoryTreeData={this.props.categoryTreeData} />}
+                    {this.state.editingModalVisibility &&
+                    <ProductEditModal onEditCanceled={this.onEditCanceled} onEditingConfirmed={this.onEditingConfirmed}
+                                      product={{...editingProduct}} categories={this.props.categories}
+                                      categoryTreeData={this.props.categoryTreeData}/>}
                 </Modal>
             </div>
         );
@@ -263,7 +293,7 @@ class ProductEditContent extends Component {
 }
 
 function mapState(state, props) {
-    return {categories:state.categoryReducer.categories,categoryTreeData:state.categoryReducer.categoryTreeData};
+    return {categories: state.categoryReducer.categories, categoryTreeData: state.categoryReducer.categoryTreeData};
 }
 
 const mapDispatch = (dispatch, ownProps) => {
@@ -271,7 +301,9 @@ const mapDispatch = (dispatch, ownProps) => {
         onProductListRefreshing,
         onProductListRefreshingSucceed,
         onProductListRefreshingFailed,
-        updateProduct
+        updateProduct,
+        updateProductStatus,
+        deleteProduct
 
     }, dispatch);
 }

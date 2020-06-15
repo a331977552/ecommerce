@@ -304,76 +304,6 @@ public class ImgExample {
             return (Criteria) this;
         }
 
-        public Criteria andSizeIsNull() {
-            addCriterion("size is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeIsNotNull() {
-            addCriterion("size is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeEqualTo(String value) {
-            addCriterion("size =", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeNotEqualTo(String value) {
-            addCriterion("size <>", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeGreaterThan(String value) {
-            addCriterion("size >", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeGreaterThanOrEqualTo(String value) {
-            addCriterion("size >=", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeLessThan(String value) {
-            addCriterion("size <", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeLessThanOrEqualTo(String value) {
-            addCriterion("size <=", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeLike(String value) {
-            addCriterion("size like", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeNotLike(String value) {
-            addCriterion("size not like", value, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeIn(List<String> values) {
-            addCriterion("size in", values, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeNotIn(List<String> values) {
-            addCriterion("size not in", values, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeBetween(String value1, String value2) {
-            addCriterion("size between", value1, value2, "size");
-            return (Criteria) this;
-        }
-
-        public Criteria andSizeNotBetween(String value1, String value2) {
-            addCriterion("size not between", value1, value2, "size");
-            return (Criteria) this;
-        }
-
         public Criteria andUrlIsNull() {
             addCriterion("url is null");
             return (Criteria) this;
@@ -441,6 +371,316 @@ public class ImgExample {
 
         public Criteria andUrlNotBetween(String value1, String value2) {
             addCriterion("url not between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlIsNull() {
+            addCriterion("thumbnail_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlIsNotNull() {
+            addCriterion("thumbnail_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlEqualTo(String value) {
+            addCriterion("thumbnail_url =", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotEqualTo(String value) {
+            addCriterion("thumbnail_url <>", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlGreaterThan(String value) {
+            addCriterion("thumbnail_url >", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlGreaterThanOrEqualTo(String value) {
+            addCriterion("thumbnail_url >=", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLessThan(String value) {
+            addCriterion("thumbnail_url <", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLessThanOrEqualTo(String value) {
+            addCriterion("thumbnail_url <=", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLike(String value) {
+            addCriterion("thumbnail_url like", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotLike(String value) {
+            addCriterion("thumbnail_url not like", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlIn(List<String> values) {
+            addCriterion("thumbnail_url in", values, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotIn(List<String> values) {
+            addCriterion("thumbnail_url not in", values, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlBetween(String value1, String value2) {
+            addCriterion("thumbnail_url between", value1, value2, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotBetween(String value1, String value2) {
+            addCriterion("thumbnail_url not between", value1, value2, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthIsNull() {
+            addCriterion("thumbnail_width is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthIsNotNull() {
+            addCriterion("thumbnail_width is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthEqualTo(Float value) {
+            addCriterion("thumbnail_width =", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthNotEqualTo(Float value) {
+            addCriterion("thumbnail_width <>", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthGreaterThan(Float value) {
+            addCriterion("thumbnail_width >", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthGreaterThanOrEqualTo(Float value) {
+            addCriterion("thumbnail_width >=", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthLessThan(Float value) {
+            addCriterion("thumbnail_width <", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthLessThanOrEqualTo(Float value) {
+            addCriterion("thumbnail_width <=", value, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthIn(List<Float> values) {
+            addCriterion("thumbnail_width in", values, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthNotIn(List<Float> values) {
+            addCriterion("thumbnail_width not in", values, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthBetween(Float value1, Float value2) {
+            addCriterion("thumbnail_width between", value1, value2, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_widthNotBetween(Float value1, Float value2) {
+            addCriterion("thumbnail_width not between", value1, value2, "thumbnail_width");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightIsNull() {
+            addCriterion("thumbnail_height is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightIsNotNull() {
+            addCriterion("thumbnail_height is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightEqualTo(Float value) {
+            addCriterion("thumbnail_height =", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightNotEqualTo(Float value) {
+            addCriterion("thumbnail_height <>", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightGreaterThan(Float value) {
+            addCriterion("thumbnail_height >", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightGreaterThanOrEqualTo(Float value) {
+            addCriterion("thumbnail_height >=", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightLessThan(Float value) {
+            addCriterion("thumbnail_height <", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightLessThanOrEqualTo(Float value) {
+            addCriterion("thumbnail_height <=", value, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightIn(List<Float> values) {
+            addCriterion("thumbnail_height in", values, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightNotIn(List<Float> values) {
+            addCriterion("thumbnail_height not in", values, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightBetween(Float value1, Float value2) {
+            addCriterion("thumbnail_height between", value1, value2, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_heightNotBetween(Float value1, Float value2) {
+            addCriterion("thumbnail_height not between", value1, value2, "thumbnail_height");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthIsNull() {
+            addCriterion("width is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthIsNotNull() {
+            addCriterion("width is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthEqualTo(Float value) {
+            addCriterion("width =", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotEqualTo(Float value) {
+            addCriterion("width <>", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthGreaterThan(Float value) {
+            addCriterion("width >", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthGreaterThanOrEqualTo(Float value) {
+            addCriterion("width >=", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthLessThan(Float value) {
+            addCriterion("width <", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthLessThanOrEqualTo(Float value) {
+            addCriterion("width <=", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthIn(List<Float> values) {
+            addCriterion("width in", values, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotIn(List<Float> values) {
+            addCriterion("width not in", values, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthBetween(Float value1, Float value2) {
+            addCriterion("width between", value1, value2, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotBetween(Float value1, Float value2) {
+            addCriterion("width not between", value1, value2, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIsNull() {
+            addCriterion("height is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIsNotNull() {
+            addCriterion("height is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightEqualTo(Float value) {
+            addCriterion("height =", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotEqualTo(Float value) {
+            addCriterion("height <>", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightGreaterThan(Float value) {
+            addCriterion("height >", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightGreaterThanOrEqualTo(Float value) {
+            addCriterion("height >=", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightLessThan(Float value) {
+            addCriterion("height <", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightLessThanOrEqualTo(Float value) {
+            addCriterion("height <=", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIn(List<Float> values) {
+            addCriterion("height in", values, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotIn(List<Float> values) {
+            addCriterion("height not in", values, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightBetween(Float value1, Float value2) {
+            addCriterion("height between", value1, value2, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotBetween(Float value1, Float value2) {
+            addCriterion("height not between", value1, value2, "height");
             return (Criteria) this;
         }
     }

@@ -10,9 +10,16 @@ public class ImgVO {
 
     private String full_url;
 
-    private String size;
-
     private String url;
 
+    private String thumbnail_url;
+
+    private Float thumbnail_width;
+
+    private Float thumbnail_height;
+
+    private Float width;
+
+    private Float height;
 
 }

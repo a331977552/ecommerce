@@ -50,7 +50,8 @@ const menuData = [
                 routerPath: '/shop/productEdit',
                 title: '商品编辑',
                 breadCrumb: ['店铺管理', '商品编辑'],
-                dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+(getUser()||{}).id,
+                dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+(getUser()||{}).id+"&orderBy=update_date&by=desc",
+
                 children: [],
                 reducer: ProductListReducer,
                 actions: {

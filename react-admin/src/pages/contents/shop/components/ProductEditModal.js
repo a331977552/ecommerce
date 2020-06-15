@@ -4,9 +4,8 @@ import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {Button, Cascader, Form, Input, InputNumber, message, notification, Select, Radio} from "antd";
 import PicUpload from "../../../../components/PicUpload";
-import {httpAddProduct, httpUpdateProduct} from "../../../../data/http/HttpRequest";
+import {httpUpdateProduct} from "../../../../data/http/HttpRequest";
 
-const { Option } = Select;
 class ProductEditModal extends Component {
     form = React.createRef();
     onFinish = (productTouched) => {

@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
-import {Button, Cascader, Form, Input, InputNumber, Result,message,notification} from "antd";
+import {Button, Cascader, Form, Input, InputNumber, Result, message, notification, Radio} from "antd";
 import PicUpload from "../../../components/PicUpload";
 import {httpAddProduct} from "../../../data/http/HttpRequest";
+import {addProduct} from "../../../data/redux/reducers/shop/ProductActionCreator";
 
 class ProductAddContent extends Component {
 
@@ -21,6 +22,8 @@ class ProductAddContent extends Component {
     onFinish = (e) => {
         httpAddProduct(e,(response)=>{
             this.form.current.resetFields();
+            console.log(response);
+            this.props.addProduct(response.data);
             notification.success({message:"添加商品成功!"});
         },fail=>{
             message.error(fail.message);
@@ -69,7 +72,7 @@ class ProductAddContent extends Component {
                                rules={[{type: 'number', min: 0, max: 999999}]}>
                         <InputNumber/>
                     </Form.Item>
-                    <Form.Item name={'priority'} label="排名" extra={"数值越小 排名越靠前 最小值为0  最大值为 999999"}
+                    <Form.Item name={'priority'} label="排名" initialValue={1} extra={"数值越小 排名越靠前 最小值为0  最大值为 999999"}
                                rules={[{type: 'number', min: 0, max: 999999}]}>
                         <InputNumber placeholder={"商品排名"}/>
                     </Form.Item>
@@ -82,12 +85,20 @@ class ProductAddContent extends Component {
                                rules={[{type: 'number', min: 0, max: 999999}]}>
                         <InputNumber placeholder={"商品重量"}/>
                     </Form.Item>
+                    <Form.Item name={'status'} label="商品状态"  initialValue={"IN_STOCK"}
+                               rules={[{required: true}]}>
+                        <Radio.Group>
+                            <Radio.Button value="IN_STOCK">上架商品</Radio.Button>
+                            <Radio.Button value="OUT_OF_STOCK">下架商品</Radio.Button>
+                        </Radio.Group>
+
+                    </Form.Item>
                     <Form.Item name={['description']} label="描述" rules={[{required: true}]}>
                         <Input.TextArea rows={4}/>
                     </Form.Item>
                     <Form.Item label="图片上传" name={['imgs']}  valuePropName={'imgIdList'}
                                trigger={'imgIdList'} extra={"默认第一张会作为封面"}
-                               hasFeedback={true} validateTrigger={'imgIdList'}
+                               hasFeedback={true}
                                rules={[{required: true, message: '请至少上传一张图片'}]}>
                         <PicUpload />
                     </Form.Item>
@@ -106,7 +117,9 @@ class ProductAddContent extends Component {
 
 
 const mapDispatch = (dispatch, ownProps) => {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({
+        addProduct
+    }, dispatch);
 }
 
 export default withRouter(connect(null, mapDispatch)(WithContentLoadingHOC(ProductAddContent)));

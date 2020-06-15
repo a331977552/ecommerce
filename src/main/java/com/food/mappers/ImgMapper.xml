@@ -5,8 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="file_name" jdbcType="VARCHAR" property="file_name" />
     <result column="full_url" jdbcType="VARCHAR" property="full_url" />
-    <result column="size" jdbcType="VARCHAR" property="size" />
     <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnail_url" />
+    <result column="thumbnail_width" jdbcType="REAL" property="thumbnail_width" />
+    <result column="thumbnail_height" jdbcType="REAL" property="thumbnail_height" />
+    <result column="width" jdbcType="REAL" property="width" />
+    <result column="height" jdbcType="REAL" property="height" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, file_name, full_url, size, url
+    id, file_name, full_url, url, thumbnail_url, thumbnail_width, thumbnail_height, width,
+    height
   </sql>
   <select id="selectByExample" parameterType="com.food.model.ImgExample" resultMap="BaseResultMap">
     select
@@ -84,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from img
     where id = #{id,jdbcType=INTEGER}
@@ -103,10 +108,14 @@
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
       select nextval('img_seq')
     </selectKey>
-    insert into img (id, file_name, full_url, 
-      size, url)
-    values (#{id,jdbcType=INTEGER}, #{file_name,jdbcType=VARCHAR}, #{full_url,jdbcType=VARCHAR}, 
-      #{size,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+    insert into img (id, file_name, full_url,
+    url, thumbnail_url, thumbnail_width,
+    thumbnail_height, width, height
+    )
+    values (#{id,jdbcType=INTEGER}, #{file_name,jdbcType=VARCHAR}, #{full_url,jdbcType=VARCHAR},
+    #{url,jdbcType=VARCHAR}, #{thumbnail_url,jdbcType=VARCHAR}, #{thumbnail_width,jdbcType=REAL},
+    #{thumbnail_height,jdbcType=REAL}, #{width,jdbcType=REAL}, #{height,jdbcType=REAL}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.Img">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
@@ -123,11 +132,23 @@
       <if test="full_url != null">
         full_url,
       </if>
-      <if test="size != null">
-        size,
-      </if>
       <if test="url != null">
         url,
+      </if>
+      <if test="thumbnail_url != null">
+        thumbnail_url,
+      </if>
+      <if test="thumbnail_width != null">
+        thumbnail_width,
+      </if>
+      <if test="thumbnail_height != null">
+        thumbnail_height,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -140,11 +161,23 @@
       <if test="full_url != null">
         #{full_url,jdbcType=VARCHAR},
       </if>
-      <if test="size != null">
-        #{size,jdbcType=VARCHAR},
-      </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail_url != null">
+        #{thumbnail_url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail_width != null">
+        #{thumbnail_width,jdbcType=REAL},
+      </if>
+      <if test="thumbnail_height != null">
+        #{thumbnail_height,jdbcType=REAL},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=REAL},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -166,11 +199,23 @@
       <if test="record.full_url != null">
         full_url = #{record.full_url,jdbcType=VARCHAR},
       </if>
-      <if test="record.size != null">
-        size = #{record.size,jdbcType=VARCHAR},
-      </if>
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbnail_url != null">
+        thumbnail_url = #{record.thumbnail_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbnail_width != null">
+        thumbnail_width = #{record.thumbnail_width,jdbcType=REAL},
+      </if>
+      <if test="record.thumbnail_height != null">
+        thumbnail_height = #{record.thumbnail_height,jdbcType=REAL},
+      </if>
+      <if test="record.width != null">
+        width = #{record.width,jdbcType=REAL},
+      </if>
+      <if test="record.height != null">
+        height = #{record.height,jdbcType=REAL},
       </if>
     </set>
     <if test="_parameter != null">
@@ -180,10 +225,14 @@
   <update id="updateByExample" parameterType="map">
     update img
     set id = #{record.id,jdbcType=INTEGER},
-      file_name = #{record.file_name,jdbcType=VARCHAR},
-      full_url = #{record.full_url,jdbcType=VARCHAR},
-      size = #{record.size,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR}
+    file_name = #{record.file_name,jdbcType=VARCHAR},
+    full_url = #{record.full_url,jdbcType=VARCHAR},
+    url = #{record.url,jdbcType=VARCHAR},
+    thumbnail_url = #{record.thumbnail_url,jdbcType=VARCHAR},
+    thumbnail_width = #{record.thumbnail_width,jdbcType=REAL},
+    thumbnail_height = #{record.thumbnail_height,jdbcType=REAL},
+    width = #{record.width,jdbcType=REAL},
+    height = #{record.height,jdbcType=REAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,11 +246,23 @@
       <if test="full_url != null">
         full_url = #{full_url,jdbcType=VARCHAR},
       </if>
-      <if test="size != null">
-        size = #{size,jdbcType=VARCHAR},
-      </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail_url != null">
+        thumbnail_url = #{thumbnail_url,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail_width != null">
+        thumbnail_width = #{thumbnail_width,jdbcType=REAL},
+      </if>
+      <if test="thumbnail_height != null">
+        thumbnail_height = #{thumbnail_height,jdbcType=REAL},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=REAL},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=REAL},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -209,9 +270,13 @@
   <update id="updateByPrimaryKey" parameterType="com.food.model.Img">
     update img
     set file_name = #{file_name,jdbcType=VARCHAR},
-      full_url = #{full_url,jdbcType=VARCHAR},
-      size = #{size,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR}
+        full_url = #{full_url,jdbcType=VARCHAR},
+        url = #{url,jdbcType=VARCHAR},
+        thumbnail_url = #{thumbnail_url,jdbcType=VARCHAR},
+        thumbnail_width = #{thumbnail_width,jdbcType=REAL},
+        thumbnail_height = #{thumbnail_height,jdbcType=REAL},
+        width = #{width,jdbcType=REAL},
+        height = #{height,jdbcType=REAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
