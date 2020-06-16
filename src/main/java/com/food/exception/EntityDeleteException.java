@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class EntityDeleteException extends BaseEntityException {
     public EntityDeleteException(String message) {
         super(message);

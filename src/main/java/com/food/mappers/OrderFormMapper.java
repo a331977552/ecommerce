@@ -17,6 +17,9 @@ public interface OrderFormMapper {
 
     int insert(OrderForm record);
 
+    //changed
+    List<OrderForm> selectAll(@Param("example") OrderFormExample example, @Param("pageSize")Integer pageSize,@Param("offset")Integer offset);
+
     int insertSelective(OrderForm record);
 
     List<OrderForm> selectByExample(OrderFormExample example);

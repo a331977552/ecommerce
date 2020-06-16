@@ -1,6 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
 public class NullProductException extends BaseEntityException {
 
     public NullProductException(String message) {

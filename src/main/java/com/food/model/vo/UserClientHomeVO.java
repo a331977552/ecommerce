@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @ToString
-public class ClientHomeVO {
+public class UserClientHomeVO {
 
     List<CategoryVO>  categories;
     MerchantVO merchant;

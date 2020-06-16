@@ -1,6 +1,6 @@
 package com.food.controller.advicer;
 
-import com.food.utils.BaseEntityException;
+import com.food.exception.BaseEntityException;
 import com.food.utils.ErrorDetails;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @ToString
-public class ClientOrderVO {
+public class UserClientOrderVO {
     @NotNull(message = "支付方法不能为空！")
     private String paymentMethod;
 

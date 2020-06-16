@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class ImgServerDownException extends BaseEntityException {
     public ImgServerDownException(String message) {
         super(message);

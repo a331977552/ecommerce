@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class NoSuchEntityException extends BaseEntityException {
     public NoSuchEntityException(String message) {
         super(message);

@@ -4,9 +4,7 @@ import com.food.exception.UnexpectedException;
 import com.food.mappers.DeliveryAddressMapper;
 import com.food.mappers.OrderFormMapper;
 import com.food.mappers.OrderItemMapper;
-import com.food.model.DeliveryAddress;
-import com.food.model.OrderForm;
-import com.food.model.OrderItem;
+import com.food.model.*;
 import com.food.model.constants.OrderConstants;
 import com.food.model.vo.*;
 import com.food.service.ICustomerService;
@@ -23,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.food.model.constants.OrderConstants.DINING_METHOD;
 import static com.food.model.constants.OrderConstants.PAYMENT_METHODS;
@@ -42,7 +41,6 @@ public class OrderFormServiceImpl implements IOrderFormService {
 
 
     public  OrderFormServiceImpl(OrderFormMapper orderFormMapper, OrderItemMapper orderItemMapper, DeliveryAddressMapper deliveryAddressMapper, IProductService productService){
-
         this.orderFormMapper = orderFormMapper;
         this.orderItemMapper = orderItemMapper;
         this.deliveryAddressMapper = deliveryAddressMapper;
@@ -52,16 +50,13 @@ public class OrderFormServiceImpl implements IOrderFormService {
     OrderItemVO convertToItemVO(OrderItem item){
         OrderItemVO vo=new OrderItemVO();
         BeanUtils.copyProperties(item,vo);
-
-
         return vo;
-
     }
 
 
     @Transactional
     @Override
-    public OrderResultVO createOrder(ClientOrderVO vo) {
+    public OrderResultVO createOrder(UserClientOrderVO vo) {
         if(vo.getOrderItems().size() == 0){
             throw new UnexpectedException("订单商品列表为空！");
         }
@@ -76,8 +71,6 @@ public class OrderFormServiceImpl implements IOrderFormService {
         }
 
         MerchantVO merchant = merchantService.findMerchantById(vo.getMerchant_id());
-
-
         CustomerVO existingCustomer = customerService.findUserByPhoneOrId(vo.getCustomer());
         if(existingCustomer == null){
             vo.getCustomer().setId(null);
@@ -191,13 +184,32 @@ public class OrderFormServiceImpl implements IOrderFormService {
     }
 
     @Override
-    public List<OrderForm> getAllOrder() {
+    public List<OrderForm> findAllOrder() {
         return null;
     }
 
     @Override
-    public List<OrderForm> getAllOrderByUserId(Integer userId) {
+    public List<OrderForm> findAllOrdersByUserId(Integer userId) {
         return null;
+    }
+
+    @Override
+    public Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId( BusinessClientOrderResultVO example, Page<BusinessClientOrderResultVO> page) {
+        MerchantVO merchant = merchantService.findMerchantById(example.getMerchant_id());
+        if(!"available".equals(merchant.getAvailability())){
+            throw  new UnexpectedException("current merchant is not available");
+        }
+        OrderFormExample ofe=new OrderFormExample();
+        ofe.createCriteria().andMerchant_idEqualTo(merchant.getId());
+        long totalElements = orderFormMapper.countByExample(ofe);
+        int offset =page.getCurrentPage()*page.getPageSize();
+        List<OrderForm> orderForms = orderFormMapper.selectAll(ofe,page.getPageSize(),offset);
+        List<BusinessClientOrderResultVO> items = orderForms.stream().map(of -> {
+            BusinessClientOrderResultVO vo = new BusinessClientOrderResultVO();
+            BeanUtils.copyProperties(of, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        return Page.buildResult(page, (int) totalElements, items);
     }
 
     @Override

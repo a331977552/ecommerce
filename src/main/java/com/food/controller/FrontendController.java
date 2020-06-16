@@ -2,7 +2,7 @@ package com.food.controller;
 
 
 import com.food.model.vo.CategoryVO;
-import com.food.model.vo.ClientHomeVO;
+import com.food.model.vo.UserClientHomeVO;
 import com.food.model.vo.MerchantVO;
 import com.food.service.ICategoryService;
 import com.food.service.IMerchantService;
@@ -33,11 +33,11 @@ public class FrontendController {
     }
 
     @PostMapping("/merchant/{merchantId}")
-    public ResponseEntity<ClientHomeVO> homeView(@PathVariable(value = "merchantId") Integer id) {
+    public ResponseEntity<UserClientHomeVO> homeView(@PathVariable(value = "merchantId") Integer id) {
         List<CategoryVO> all = categoryService.getAllByMerchantId(id);
         all.forEach(vo -> vo.setProducts(productService.getProductsByCategoryId(vo.getId())));
         MerchantVO merchant = merchantService.findMerchantById(id);
-        ClientHomeVO homeVO = new ClientHomeVO();
+        UserClientHomeVO homeVO = new UserClientHomeVO();
         homeVO.setCategories(all);
         homeVO.setMerchant(merchant);
         return ResponseEntity.ok(homeVO);

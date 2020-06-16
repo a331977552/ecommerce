@@ -1,6 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
 public class CreationException extends BaseEntityException {
     public CreationException(String message) {
         super(message);

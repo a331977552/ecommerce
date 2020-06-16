@@ -119,6 +119,7 @@ class ProductEditContent extends Component {
         },
         {
             title: '操作',
+            width:'150px',
             dataIndex: 'operation',
             render: (_, record) => {
                 return <span>
@@ -126,11 +127,13 @@ class ProductEditContent extends Component {
                        onClick={() => this.onEditProduct(record)}>
                         编辑
                     </a>
+                      <a style={{marginLeft: '16px'}} disabled={this.state.editingProduct !== null}
+                         onClick={() => this.changeProductStatus(record)}>{record.status === 'IN_STOCK' ? '下架' : '上架'}</a>
+
                     <Popconfirm title="确定要删除吗?" onConfirm={() => this.delete(record)}>
                       <a disabled={this.state.editingProduct !== null}>删除</a>
                     </Popconfirm>
-                      <a style={{marginLeft: '16px'}} disabled={this.state.editingProduct !== null}
-                         onClick={() => this.changeProductStatus(record)}>{record.status === 'IN_STOCK' ? '下架' : '上架'}</a>
+
                     </span>
             }
         }
@@ -213,8 +216,8 @@ class ProductEditContent extends Component {
     onSorterChange = (orderBy) => {
         this.refreshData({orderBy, resetPage: true});
     }
-    onByChanged = (e) => {
-        this.refreshData({by: e.target.value, resetPage: true});
+    onByChanged = (value) => {
+        this.refreshData({by: value, resetPage: true});
     }
 
 
@@ -228,7 +231,7 @@ class ProductEditContent extends Component {
                 <Row>
                     <Button style={{marginRight: '40px'}} onClick={this.onProductAddClicked}>添加商品</Button>
                     <Form.Item style={{marginRight: '40px'}} label={"筛选商品:"}>
-                        <Radio.Group style={{marginRight: '40px'}} onChange={this.onFilterStatusChanged}
+                        <Radio.Group onChange={this.onFilterStatusChanged}
                                      value={example.status}>
                             <Radio.Button value="">所有商品</Radio.Button>
                             <Radio.Button value="IN_STOCK">已上架商品</Radio.Button>
@@ -240,19 +243,17 @@ class ProductEditContent extends Component {
                                   onChange={this.onCategoryChange} placeholder="请选择种类"/>
                     </Form.Item>
 
-                    <Form.Item style={{marginRight: '40px'}} label={"排序:"}>
+                    <Form.Item style={{marginRight: '5px'}} label={"排序:"}>
                         <Select style={{width: 200}} value={orderBy} onChange={this.onSorterChange}>
-                            {
-                                sorter.map(item => <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>)
-                            }
+                            {sorter.map(item => <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>)}
                         </Select>
                     </Form.Item>
-                    <Form.Item style={{marginRight: '40px'}} label={"大小:"}>
-                        <Radio.Group style={{marginRight: '40px'}} onChange={this.onByChanged}
-                                     value={by}>
-                            <Radio.Button value="desc">大->小</Radio.Button>
-                            <Radio.Button value="asc">小->大</Radio.Button>
-                        </Radio.Group>
+                    <Form.Item style={{marginRight: '40px'}}>
+                        <Select style={{width: 100}} value={by} onChange={this.onByChanged}>
+                            <Select.Option  value='desc'>降序</Select.Option>
+                            <Select.Option  value='asc'>升序</Select.Option>
+                        </Select>
+
                     </Form.Item>
 
                     <Form.Item label={"搜索:"}>
@@ -271,6 +272,7 @@ class ProductEditContent extends Component {
                                 cell: this.EditableCell,
                             },
                         }} indentSize={40} rowKey={"id"} dataSource={items} bordered
+                            scroll={{x:true}}
                             onChange={this.handleTableChange}
                         />
                     </Form>
@@ -293,7 +295,7 @@ class ProductEditContent extends Component {
 }
 
 function mapState(state, props) {
-    return {categories: state.categoryReducer.categories, categoryTreeData: state.categoryReducer.categoryTreeData};
+    return {categoryTreeData: state.categoryReducer.categoryTreeData};
 }
 
 const mapDispatch = (dispatch, ownProps) => {

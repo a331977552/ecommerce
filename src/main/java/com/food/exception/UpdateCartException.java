@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class UpdateCartException  extends BaseEntityException {
 
     public UpdateCartException(String message) {

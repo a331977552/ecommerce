@@ -14,7 +14,7 @@ import HomeContent from "./contents/HomeContent";
 import ProductAddContent from "./contents/shop/ProductAddContent";
 import ProductEditContent from "./contents/shop/ProductEditContent";
 import CategoryEditContent from "./contents/shop/CategoryEditContent";
-import OrderEditContent from "./contents/order/OrderEditContent";
+import OrderListContent from "./contents/order/OrderListContent";
 import StatisOverviewContent from "./contents/statistic/StatisOverviewContent";
 import AdvertiseContent from "./contents/marketing/AdvertiseContent";
 import MerchantContent from "./contents/admin/MerchantContent";
@@ -97,7 +97,7 @@ class MainPage extends Component {
                                         <CategoryEditContent/>
                                     </Route>
                                     <Route path="/order/orderEdit" exact={true}>
-                                        <OrderEditContent/>
+                                        <OrderListContent/>
                                     </Route>
                                     <Route path="/statis/overview" exact={true}>
                                         <StatisOverviewContent/>

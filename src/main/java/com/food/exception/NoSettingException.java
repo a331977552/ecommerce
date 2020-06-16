@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class NoSettingException extends BaseEntityException {
 
     public NoSettingException(String message) {

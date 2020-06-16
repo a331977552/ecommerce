@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class CategoryDeleteException extends BaseEntityException {
     public CategoryDeleteException(String message) {
         super(message);

@@ -88,4 +88,12 @@ public class MerchantServiceImpl implements IMerchantService {
     public MerchantVO findMerchantById(Integer id) {
         return  convertToVO(Optional.ofNullable(merchantMapper.selectByPrimaryKey(id)).orElseThrow(()->new UnexpectedException("商户id "+id+" 不存在")));
     }
+
+    @Override
+    public boolean checkIfExist(Integer id) {
+        MerchantExample merchantExample =new MerchantExample();
+        merchantExample.createCriteria().andIdEqualTo(id);
+        long count = merchantMapper.countByExample(merchantExample);
+        return count > 0;
+    }
 }

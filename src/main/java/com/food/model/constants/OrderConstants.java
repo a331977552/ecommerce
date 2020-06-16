@@ -14,7 +14,7 @@ public class OrderConstants {
 
 
     public static final String STATUS_UNPAID="UNPAID";
-    public static final String STATUS_PAID="UNPAID";
+    public static final String STATUS_PAID="PAID";
     public static final String STATUS_SHIPPED="SHIPPED";
     public static final String STATUS_CLOSED="CLOSED";
     public static final String STATUS_REFUND="REFUND";

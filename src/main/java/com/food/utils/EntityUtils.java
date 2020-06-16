@@ -4,7 +4,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class EntityUtils {
@@ -24,4 +26,11 @@ public class EntityUtils {
     public static void copyNotNullProperties(Object source,Object target){
         BeanUtils.copyProperties(source, target,getNullPropertyNames(source));
     }
+    public static boolean containsFieldWithName(Class clazz, String fieldName){
+        if(fieldName == null || fieldName.trim().equals(""))
+            return false;
+        Field[] declaredFields = clazz.getDeclaredFields();
+        return List.of(declaredFields).stream().anyMatch(field -> fieldName.equals(field.getName()));
+    }
+
 }

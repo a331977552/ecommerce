@@ -24,7 +24,7 @@ class AppFooter extends Component {
     render() {
         return (
             <div style={{width: '100%', textAlign: 'center'}}>
-                <div ><span style={{marginRight:'20px'}}>©2020 Copyright</span>  商业合作,请联系
+                <div ><span style={{marginRight:'20px'}}>©2020 Copyright</span>  任何问题,请联系
                     <Button style={{
                         fontStyle: 'oblique',
                         fontWeight: 'bold'

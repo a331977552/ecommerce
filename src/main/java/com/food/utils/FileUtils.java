@@ -1,5 +1,7 @@
 package com.food.utils;
 
+import com.food.exception.FileSystemException;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;

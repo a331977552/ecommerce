@@ -9,6 +9,9 @@ import com.food.model.vo.*;
 import com.food.service.ICategoryService;
 import com.food.service.IImgService;
 import com.food.service.IProductService;
+import com.food.utils.EntityUtils;
+import com.food.utils.Lists;
+import com.food.utils.StringUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -197,67 +201,43 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Page<ProductVO> getAll(ProductVO example, Page<ProductVO> page) {
-        ProductExample example1 = new ProductExample();
-        ProductExample.Criteria criteria = example1.createCriteria();
+        ProductExample peExample = new ProductExample();
+        ProductExample.Criteria criteria = peExample.createCriteria();
 
         if(example.getMerchant_id()!=null)
         {
             criteria.andMerchant_idEqualTo(example.getMerchant_id());
         }
-        if(!StringUtils.isEmpty(example.getStatus())){
+        if(StringUtils.hasText(example.getStatus())){
             criteria.andStatusEqualTo(example.getStatus().trim());
         }
-
-        Field[] fields = ProductVO.class.getDeclaredFields();
         //prevent sql injection
-        if(page.getOrderBy()!=null  && !page.getOrderBy().trim().equals("")){
-            String orderBy = page.getOrderBy().trim();
-            boolean foundField = List.of(fields).stream().anyMatch(field -> orderBy.equals(field.getName()));
-            if(!foundField)
-            {
-                throw new UnexpectedException("stop it!");
-            }
-        } else{
+        String orderBy = page.getOrderBy();
+        if(StringUtils.hasText(orderBy) && !EntityUtils.containsFieldWithName(ProductVO.class,orderBy)){
+                throw new IllegalAccessError("stop it!");
+        } else {
             page.setOrderBy("update_date");
         }
-        page.setBy(Optional.ofNullable(page.getBy()).orElse("desc").trim());
-        example1.setOrderByClause(page.getOrderBy().trim() +" "+ page.getBy().trim());
-        if(!StringUtils.isEmpty(example.getName())){
-            criteria.andNameLike("%"+example.getName()+"%");
+        page.setBy(StringUtil.isOneOf(page.getBy(), "desc", "asc") ? page.getBy() : "desc");
+        peExample.setOrderByClause(page.getOrderBy().trim() +" "+ page.getBy().trim());
+
+        if(StringUtils.hasText(example.getName())){
+            criteria.andNameLike("%"+example.getName().trim()+"%");
         }
-        if(example.getCategoryIds() !=null && example.getCategoryIds().size() > 0){
+        if(Lists.hasElements(example.getCategoryIds())){
             CategoryProductExample cpe =new CategoryProductExample();
             cpe.createCriteria().andCategory_idIn(example.getCategoryIds());
             List<CategoryProduct> categoryProducts = categoryProductMapper.selectByExample(cpe);
-            if(categoryProducts.size() > 0)
+            if(Lists.hasElements(categoryProducts))
                 criteria.andIdIn(categoryProducts.stream().map(CategoryProduct::getProduct_id).collect(Collectors.toList()));
             else {
-                page.setItems(Collections.emptyList());
-                page.setTotalElements(0);
-                page.setTotalPages(0);
-                page.setCurrentPage(0);
-                page.setOffset(0);
-                page.setFirst(true);
-                page.setLast(true);
-                return page;
+                return  Page.emptyPage();
             }
         }
-
-        long l = mapper.countByExample(example1);
-        page.setTotalElements((int) l);
-        page.setTotalPages((int) ((l+page.getPageSize()-1)/page.getPageSize()));
-
-        page.setCurrentPage(page.getCurrentPage()<= 0 ?0:page.getCurrentPage()>=page.getTotalPages()? page.getTotalPages()-1:page.getCurrentPage());
-
-        page.setOffset(page.getCurrentPage()*page.getPageSize());
-        page.setFirst(page.getCurrentPage() == 0);
-        page.setLast( page.getCurrentPage()+1 == page.getTotalPages());
-        List<Product> products = mapper.selectAll(example1,page);
-        page.setEmpty(products.size() == 0);
-        //plus one , current page in view layer should start from 1
-        List<ProductVO> collect1 = products.stream().map(this::setImgsAndCategory).collect(Collectors.toList());
-        page.setItems(collect1);
-        return page;
+        long count = mapper.countByExample(peExample);
+        List<Product> products = mapper.selectAll(peExample,page);
+        List<ProductVO> items = products.stream().map(this::setImgsAndCategory).collect(Collectors.toList());
+        return Page.buildResult(page, (int) count, items);
     }
 
 

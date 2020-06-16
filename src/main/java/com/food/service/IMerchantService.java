@@ -11,5 +11,6 @@ public interface IMerchantService extends UserDetailsService {
      void updateMerchant(MerchantVO vo);
      void removeMerchant(MerchantVO vo);
      MerchantVO findMerchantById(Integer id);
+     boolean checkIfExist(Integer id);
 
 }

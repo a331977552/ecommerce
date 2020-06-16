@@ -1,6 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
 public class InvalidCustomerCreation extends BaseEntityException {
     public InvalidCustomerCreation(String message) {
         super(message);

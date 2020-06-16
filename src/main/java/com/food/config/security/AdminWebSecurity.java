@@ -53,7 +53,8 @@ public class AdminWebSecurity extends WebSecurityConfigurerAdapter {
                 "/api/cate/delete/**",
                 "/api/img/add/**",
                 "/api/merchant",
-                "/api/shop/**"
+                "/api/shop/**",
+                "/api/order/findAllOrdersByMerchant/**"
                 ).hasAnyRole("MERCHANT","ADMIN").antMatchers("/auth/manage/merchantManagement").hasRole("ADMIN")
                 // 其他都放行了
                 .anyRequest().permitAll()

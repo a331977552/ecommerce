@@ -1,6 +1,6 @@
 package com.food.utils;
 
-import com.food.utils.BaseEntityException;
+import com.food.exception.BaseEntityException;
 import com.food.exception.CustomerAlreadyExist;
 import com.food.exception.EntityDeleteException;
 import com.food.exception.NoSuchEntityException;

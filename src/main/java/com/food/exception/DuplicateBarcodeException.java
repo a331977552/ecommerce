@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class DuplicateBarcodeException extends BaseEntityException {
 
     public DuplicateBarcodeException(String message) {

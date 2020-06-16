@@ -6,7 +6,6 @@ import statisticsReducer from "./redux/reducers/statistics/StatisticsReducer";
 import advertiseReducer from "./redux/reducers/marketing/AdvertiseReducer";
 import adminMerchantReducer from "./redux/reducers/admin/AdminMerchantReducer";
 import adminUserReducer from "./redux/reducers/admin/AdminUserReducer";
-import ProductAddingReducer from "./redux/reducers/shop/ProductAddingReducer";
 
 import {
     onCategoryRefreshFailed,
@@ -14,14 +13,12 @@ import {
     refreshCategoryList
 } from "./redux/reducers/shop/CategoryActionCreator";
 import {
-    onProductAddInitSuccess,
-    onProductAddInitFailed,
-    onProductAddInitRetry,
     LoadingProductListSucceed,
     onProductLoadingFailed,
     onProductLoadingRetry
 } from "./redux/reducers/shop/ProductActionCreator";
 import {getUser, pageUtil} from "../utils/UserDataUtils";
+import {onOrderRefreshFailed, onOrderRefreshRetry, refreshOrderList} from "./redux/reducers/order/OrderActionCreator";
 
 const menuData = [
     {
@@ -83,11 +80,15 @@ const menuData = [
         children: [{
             routerPath: '/order/orderEdit',
             title: '订单编辑',
+            dataPath: '/api/order/findAllOrdersByMerchant/0/20?orderBy=create_date&by=desc',
             breadCrumb: ['订单管理', '订单编辑'],
-            dataPath: '/api/shop/categoryEdit',
             children: [],
-            reducer: OrderReducer
-
+            reducer: OrderReducer,
+            actions: {
+                success: refreshOrderList,
+                failed: onOrderRefreshFailed,
+                retry: onOrderRefreshRetry
+            }
         }]
     },
     {

@@ -1,7 +1,5 @@
 package com.food.exception;
 
-import com.food.utils.BaseEntityException;
-
 public class CustomerAlreadyExist extends BaseEntityException {
     public CustomerAlreadyExist(String message) {
         super(message);
