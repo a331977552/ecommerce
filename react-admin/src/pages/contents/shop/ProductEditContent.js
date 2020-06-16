@@ -261,7 +261,6 @@ class ProductEditContent extends Component {
                     </Form.Item>
                 </Row>
                 <div>
-
                     <Form ref={this.form} component={false}>
                         <Table
                             showSorterTooltip={true}

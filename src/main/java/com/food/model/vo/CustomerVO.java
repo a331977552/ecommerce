@@ -33,11 +33,15 @@ public class CustomerVO implements UserDetails {
     @JsonIgnore
     private Boolean auto_generated;
 
+    @JsonIgnore
     private Set<SimpleGrantedAuthority> authorities;
     public CustomerVO(){
-
-        authorities = Set.of(new SimpleGrantedAuthority(getRole()));
     }
+
+    public void setAuthorities() {
+        this.authorities = Set.of(new SimpleGrantedAuthority(getRole()));
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -33,7 +33,8 @@ export const paymentMap ={
 }
 class StagePage extends React.Component {
 
-    titleFontSize = '14px'
+    lengthOfPhoneNumber = 10;
+    titleFontSize = '14px';
     constructor(props) {
         super(props)
         this.state={
@@ -107,7 +108,6 @@ class StagePage extends React.Component {
         this.setState({
             showOrderLoading:true,
             modalIsOpen:true})
-        // this.props.ordering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment})
         httpOrdering({paymentMethod,diningMethod, customerName, phoneNumber, address, cartItems,totalPrice,merchant_id,comment},(orderResult)=>{
             console.log(orderResult);
             if(orderResult.id !== null && orderResult.id !== undefined && orderResult.order_code){
@@ -132,7 +132,7 @@ class StagePage extends React.Component {
 
     onPhoneChanged = (e) => {
         const phoneNumber = e.target.value;
-        const phoneNumberValid = phoneNumber.length >= 10;
+        const phoneNumberValid = phoneNumber.length >= this.lengthOfPhoneNumber;
         this.setState({
             phoneNumber,
             phoneNumberValid
@@ -240,7 +240,7 @@ class StagePage extends React.Component {
                                 { this.state.diningMethod === TAKE_AWAY ? '请填写送货地址' : '顾客信息'}</div>
                             <div style={{marginTop:'5px'}}>
                                 <Input valid={customerNameValid} errorMsg={'用户名不能为空'}  labelStyle={{fontSize:this.titleFontSize}}   required={true}  label={"姓名"}     placeholder={''} type={'text'}   name={'customerName'} maxLength={20} onChange={this.onCustomerNameChanged} />
-                                <Input valid={phoneNumberValid} errorMsg={'电话号码不能为空或少于6位'}  labelStyle={{fontSize:this.titleFontSize}}   required={true}  label={"电话号码"} placeholder={''} type={'number'} name={'phoneNumber'} size={16} maxLength={16} onChange={this.onPhoneChanged} />
+                                <Input valid={phoneNumberValid} errorMsg={'电话号码不能为空或少于'+this.lengthOfPhoneNumber+'位'}  labelStyle={{fontSize:this.titleFontSize}}   required={true}  label={"电话号码"} placeholder={''} type={'number'} name={'phoneNumber'} size={16} maxLength={16} onChange={this.onPhoneChanged} />
                                 { this.state.diningMethod === TAKE_AWAY &&<TextArea valid={addressValid} errorMsg={'送货地址不能为空'} labelStyle={{fontSize:this.titleFontSize}} required={true}  label={'配送地址'} placeholder={''}                 name={'address'} maxLength={200}  rows={'3'} onChange={this.onAddressChanged}/>}
                             </div>
                         </div>
