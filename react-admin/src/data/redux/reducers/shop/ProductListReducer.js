@@ -57,6 +57,7 @@ export default function productListReducer(state = initialState, action) {
             };
             return {...state, data, pagination: getPagination(data, state.example.status === '' ? 0 : -1)};
         }
+
         case Product_constants.ADD_PRODUCT: {
             const data = {...state.data, items: addProduct(state.data.items, payload)};
             return {...state, data, pagination: getPagination(data, 1)};

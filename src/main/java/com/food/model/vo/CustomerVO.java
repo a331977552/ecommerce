@@ -45,7 +45,6 @@ public class CustomerVO implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return authorities;
     }
 

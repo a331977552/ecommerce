@@ -48,10 +48,10 @@ public class OrderController {
                                                                     @PathVariable(name = "pageSize") Integer pageSize,
                                                                     @RequestParam(name = "orderBy",required = false) String order,
                                                                     @RequestParam(name = "by",required = false) String by,
-                                                                    @RequestBody(required =false) BusinessClientOrderResultVO example) {
+                                                                    @RequestBody(required =false) BusinessClientOrderQueryVO example) {
         Page<BusinessClientOrderResultVO> of = Page.of(page == null ? 0 : page, pageSize == null ? this.pageSize : pageSize, order,by);
         if(example ==null)
-            example =new BusinessClientOrderResultVO();
+            example =new BusinessClientOrderQueryVO();
         Integer merchantId = AuthorizationUtil.getMerchantId(request);
         example.setMerchant_id(merchantId);
         Page<BusinessClientOrderResultVO> result = orderFormService.findAllOrdersByMerchantId(example,of);

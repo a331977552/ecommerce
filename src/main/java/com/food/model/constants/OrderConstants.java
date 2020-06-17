@@ -16,9 +16,11 @@ public class OrderConstants {
     public static final String STATUS_UNPAID="UNPAID";
     public static final String STATUS_PAID="PAID";
     public static final String STATUS_SHIPPED="SHIPPED";
+    public static final String STATUS_COMPLETE="COMPLETE";
     public static final String STATUS_CLOSED="CLOSED";
     public static final String STATUS_REFUND="REFUND";
-    public static final List<String> PAYMENT_STATUS = List.of(STATUS_UNPAID, STATUS_PAID, STATUS_SHIPPED,STATUS_CLOSED,STATUS_REFUND);
+    public static final String STATUS_CANCEL="CANCEL";
+    public static final List<String> PAYMENT_STATUS = List.of(STATUS_UNPAID, STATUS_PAID, STATUS_SHIPPED,STATUS_COMPLETE,STATUS_CLOSED,STATUS_REFUND,STATUS_CANCEL);
 
 
 

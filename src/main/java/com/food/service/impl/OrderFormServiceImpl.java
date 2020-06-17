@@ -15,6 +15,7 @@ import com.food.utils.IDUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -194,13 +195,37 @@ public class OrderFormServiceImpl implements IOrderFormService {
     }
 
     @Override
-    public Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId( BusinessClientOrderResultVO example, Page<BusinessClientOrderResultVO> page) {
+    public Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId( BusinessClientOrderQueryVO example, Page<BusinessClientOrderResultVO> page) {
         MerchantVO merchant = merchantService.findMerchantById(example.getMerchant_id());
         if(!"available".equals(merchant.getAvailability())){
             throw  new UnexpectedException("current merchant is not available");
         }
         OrderFormExample ofe=new OrderFormExample();
-        ofe.createCriteria().andMerchant_idEqualTo(merchant.getId());
+        OrderFormExample.Criteria criteria = ofe.createCriteria();
+        criteria.andMerchant_idEqualTo(merchant.getId());
+        if(example.getStart_create_time() !=null && example.getEnd_create_time() !=null){
+            criteria.andCreate_timeBetween(example.getStart_create_time(),example.getEnd_create_time());
+        }
+        if(example.getStart_update_time() !=null && example.getEnd_update_time() !=null){
+            criteria.andUpdate_timeBetween(example.getStart_update_time(),example.getEnd_update_time());
+        }
+        if(StringUtils.hasText(example.getStatus())){
+            criteria.andStatusEqualTo(example.getStatus());
+        }
+        if(StringUtils.hasText(example.getBuyer())){
+            criteria.andBuyerLike("%"+example.getBuyer().trim()+"%");
+        }
+
+         if(StringUtils.hasText(example.getOrder_number())){
+            criteria.andOrder_numberLike("%"+example.getOrder_number().trim()+"%");
+        }
+         if(StringUtils.hasText(example.getDining_method())){
+            criteria.andDining_methodEqualTo(example.getDining_method().trim());
+        }
+
+
+
+
         long totalElements = orderFormMapper.countByExample(ofe);
         int offset =page.getCurrentPage()*page.getPageSize();
         List<OrderForm> orderForms = orderFormMapper.selectAll(ofe,page.getPageSize(),offset);

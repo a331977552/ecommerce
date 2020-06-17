@@ -4,7 +4,7 @@ import { combineReducers,compose } from 'redux'
 import merchantReducer from './reducers/MerchantReducer'
 import carouselReducer from './reducers/marketing/CarouselReducer'
 import productListReducer from './reducers/shop/ProductListReducer'
-import orderReducer from './reducers/order/OrderReducer'
+import orderListReducer from './reducers/order/OrderListReducer'
 import categoryReducer from './reducers/shop/CategoryReducer'
 import menuReducer from "./reducers/MenuReducer";
 import statisticsReducer from "./reducers/statistics/StatisticsReducer";
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     merchantReducer,
     carouselReducer,
     productListReducer,
-    orderReducer,
+    orderListReducer,
     categoryReducer,
     menuReducer,
     statisticsReducer,

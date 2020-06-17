@@ -16,7 +16,7 @@ import {
     Cascader, Select
 } from 'antd';
 import WithContentLoadingHOC from "../../../components/WithContentLoadingHOC";
-import {httpListProduct, httpUpdateProduct, httpDeleteProduct} from "../../../data/http/HttpRequest";
+import {httpListProducts, httpUpdateProduct, httpDeleteProduct} from "../../../data/http/HttpRequest";
 import {
     deleteProduct,
     onProductListRefreshing, onProductListRefreshingFailed,
@@ -127,7 +127,7 @@ class ProductEditContent extends Component {
                        onClick={() => this.onEditProduct(record)}>
                         编辑
                     </a>
-                      <a style={{marginLeft: '16px'}} disabled={this.state.editingProduct !== null}
+                      <a style={{marginRight: '16px'}} disabled={this.state.editingProduct !== null}
                          onClick={() => this.changeProductStatus(record)}>{record.status === 'IN_STOCK' ? '下架' : '上架'}</a>
 
                     <Popconfirm title="确定要删除吗?" onConfirm={() => this.delete(record)}>
@@ -183,7 +183,7 @@ class ProductEditContent extends Component {
         }
 
         message.loading("loading", 0);
-        httpListProduct(pagination, orderBy, by, example, (res) => {
+        httpListProducts(pagination, orderBy, by, example, (res) => {
             this.props.onProductListRefreshingSucceed({dataPath: res.config.url, data: res.data});
             message.destroy();
             message.success("加载成功！");

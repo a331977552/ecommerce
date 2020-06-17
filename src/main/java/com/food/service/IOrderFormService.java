@@ -2,10 +2,7 @@ package com.food.service;
 
 
 import com.food.model.OrderForm;
-import com.food.model.vo.BusinessClientOrderResultVO;
-import com.food.model.vo.OrderResultVO;
-import com.food.model.vo.Page;
-import com.food.model.vo.UserClientOrderVO;
+import com.food.model.vo.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +18,7 @@ public interface IOrderFormService {
     List<OrderForm> getOrderByIds(List<Integer> ids);
     List<OrderForm> findAllOrder();
     List<OrderForm> findAllOrdersByUserId(Integer userId);
-    Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId(BusinessClientOrderResultVO example, Page<BusinessClientOrderResultVO> page);
+    Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId(BusinessClientOrderQueryVO example, Page<BusinessClientOrderResultVO> page);
 
 
 }
