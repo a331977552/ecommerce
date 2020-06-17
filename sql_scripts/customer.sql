@@ -1,0 +1,11 @@
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (3, NULL, NULL, '12121212', '21121321332321', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (4, NULL, NULL, '12121212', '213213213213213', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (5, NULL, NULL, '12121212', '213123213213213', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (6, NULL, NULL, '12121212', '21312321321', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (7, NULL, NULL, '21321321', '12321321312', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (8, NULL, NULL, '12121212', '21321321321321', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (9, NULL, NULL, '12121212', '213213213213', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (10, NULL, NULL, '方方', '1113123123', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (11, NULL, NULL, '12121212', '123213213213', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (12, NULL, NULL, '12121212', '151654465465465', NULL, NULL, 't', NULL);
+INSERT INTO "customer"("id", "avatar", "date_of_birth", "name", "phone", "sex", "wxid", "auto_generated", "associated_merchant") VALUES (13, NULL, NULL, '12121212', '121212121212', NULL, NULL, 't', NULL);
