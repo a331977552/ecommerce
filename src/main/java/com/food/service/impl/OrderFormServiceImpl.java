@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.exception.InvalidIdException;
 import com.food.exception.UnexpectedException;
 import com.food.mappers.DeliveryAddressMapper;
 import com.food.mappers.OrderFormMapper;
@@ -18,6 +19,7 @@ import com.food.utils.CheckUpdateUtil;
 import com.food.utils.IDUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -157,29 +159,25 @@ public class OrderFormServiceImpl implements IOrderFormService {
         return orderResultVO;
     }
 
-    @Transactional
-    @Override
-    public void updateOrder(OrderForm orderForm) {
-        orderForm.setUpdate_time(new Date());
-        int i = orderFormMapper.updateByPrimaryKey(orderForm);
-        CheckUpdateUtil.test(i,"update order "+orderForm.getId()+" failed");
-    }
 
     @Override
-    public void updateAllOrders(Iterable<OrderForm> orderForms) {
-
+    public void updateOrderStatus(Integer id, String status,Integer merchantId) {
+        if (!OrderConstants.PAYMENT_STATUS.contains(status)){
+            throw new IllegalArgumentException("wrong status");
+        }
+        OrderForm order = findOrderById(id).orElseThrow(new InvalidIdException("order id: " + id + " doesn't exist"));
+        if (!order.getMerchant_id().equals(merchantId)){
+            throw new BadCredentialsException("access denied! code "+ 10000);
+        }
+        order.setStatus(status);
+        order.setUpdate_time(new Date());
+        int i = orderFormMapper.updateByPrimaryKey(order);
+        CheckUpdateUtil.test(i,"update order "+order.getId()+" failed");
     }
 
-    @Override
-    public void updateOrderSelective(OrderForm orderForm) {
-
-    }
 
 
-    @Override
-    public void deleteOrderById(Integer id) {
 
-    }
 
     @Override
     public Optional<OrderForm> findOrderById(Integer id) {
@@ -191,10 +189,6 @@ public class OrderFormServiceImpl implements IOrderFormService {
         return null;
     }
 
-    @Override
-    public List<OrderForm> findAllOrder() {
-        return null;
-    }
 
     @Override
     public List<OrderForm> findAllOrdersByUserId(Integer userId) {
