@@ -7,7 +7,7 @@ import {Button, Cascader, Col, Dropdown, Form, Input, DatePicker, Menu, Modal, P
 import {DownOutlined} from '@ant-design/icons';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import {httpListOrders} from "../../../data/http/HttpRequest";
-import {refreshOrderListFailed, refreshOrderListLoading, refreshOrderListSucceed} from "../../../data/redux/reducers/order/OrderActionCreator";
+import {refreshOrderListFailed, refreshOrderListLoading, refreshOrderListSucceed, updateExample} from "../../../data/redux/reducers/order/OrderActionCreator";
 import moment from 'moment';
 
 class OrderListContent extends Component {
@@ -30,7 +30,7 @@ class OrderListContent extends Component {
 
     statusOperationRender = (record) => (<Menu>
         {Object.keys(this.status).map(key =>
-            record.status !== key && (<Menu.Item key={key}>
+            record.status !== key && (<Menu.Item onClick={this.onStatusChanged} key={key}>
                 {this.status[key]}
             </Menu.Item>))}
     </Menu>);
@@ -133,7 +133,7 @@ class OrderListContent extends Component {
                          onClick={() => this.changeProductStatus(record)}>
                           详情
                       </a>
-                        <Dropdown trigger={['click']} overlay={this.statusOperationRender(record)}>
+                        <Dropdown trigger={['click']} overlay={this.statusOperationRender(record)} >
 
                             <a disabled={this.state.editingOrder !== null} className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                 修改状态<DownOutlined/>
@@ -143,6 +143,13 @@ class OrderListContent extends Component {
             }
         }
     ]
+    onStatusChanged = (e) => {
+        console.log(e.key)
+
+        //this.props.updateOrder();
+
+    }
+
     onOrderDateChanged = (dates, dateStrings) => {
         this.refreshData({example: {...this.props.example, start_create_time: dateStrings[0], end_create_time: dateStrings[1]}})
     };
@@ -168,11 +175,19 @@ class OrderListContent extends Component {
         });
     };
     onSearchOrderNumber = (value) => {
-            this.refreshData({example:{...this.props.example,order_number:value,buyer:null}})
+            this.refreshData({example:{...this.props.example,order_number:value}})
     };
     onSearchCustomerName = (value) => {
-            this.refreshData({example:{...this.props.example,buyer:value,order_number:null}})
+            this.refreshData({example:{...this.props.example,buyer:value}})
     };
+    onCustomerNameChanged = (e) => {
+            this.props.updateExample({...this.props.example,buyer:e.target.value});
+    }
+    onOrderNumberChanged = (e) => {
+        this.props.updateExample({...this.props.example,order_number:e.target.value});
+        // e.target.value
+    }
+
 
 
 
@@ -186,11 +201,10 @@ class OrderListContent extends Component {
         const {editingOrder} = this.state;
         const {items} = data;
         const categories = [{id: -1, value: -1, label: '所有种类'}, ...categoryTreeData];
-        console.log(example)
         return (
             <div>
                 <Row style={{marginBottom: '10px'}}>
-                    检索:
+                    检索:(检索时会按照所有检索内容合并查找, 如只需检索其中一项,请清空其他项)
                 </Row>
                 <Row>
                 <Form.Item style={{marginRight: '40px'}} label={'下单日期:'}>
@@ -202,16 +216,15 @@ class OrderListContent extends Component {
                             '这个月': [moment().startOf('month'), moment().endOf('month')],
                             '上个星期': [moment().startOf('week').subtract(1, "week"), moment().endOf('week').subtract(1, "week")],
                             '上个月': [moment().startOf('month').subtract(1, "month"), moment().endOf('month').subtract(1, 'month')],
-
                         }}
                         format={"YYYY-MM-DD HH:mm"} locale={locale} onChange={this.onOrderDateChanged}
                         value={createDatePickerDate}/>
                 </Form.Item>
                 <Form.Item style={{marginRight: '40px'}} label={<span>订单号/<span style={{color: 'red'}}>码</span></span>}>
-                    <Input.Search placeholder="10001" value={order_number} 	 required={true} type={'number'} style={{width: 200}} enterButton onSearch={this.onSearchOrderNumber}/>
+                    <Input.Search placeholder="10001" value={order_number} onChange={this.onOrderNumberChanged} 	 required={true} type={'number'} style={{width: 200}} enterButton onSearch={this.onSearchOrderNumber}/>
                 </Form.Item>
                     <Form.Item label={'顾客姓名'}>
-                        <Input.Search placeholder="张三" value={buyer} required={true}   style={{width: 200}} enterButton onSearch={this.onSearchCustomerName}/>
+                        <Input.Search placeholder="张三" value={buyer} onChange={this.onCustomerNameChanged} required={true}   style={{width: 200}} enterButton onSearch={this.onSearchCustomerName}/>
                     </Form.Item>
                 </Row>
 
@@ -245,7 +258,8 @@ const mapDispatch = (dispatch, ownProps) => {
     return bindActionCreators({
         refreshOrderListLoading,
         refreshOrderListFailed,
-        refreshOrderListSucceed
+        refreshOrderListSucceed,
+        updateExample
     }, dispatch);
 }
 

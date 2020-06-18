@@ -4,13 +4,17 @@ import com.food.exception.UnexpectedException;
 import com.food.mappers.DeliveryAddressMapper;
 import com.food.mappers.OrderFormMapper;
 import com.food.mappers.OrderItemMapper;
-import com.food.model.*;
+import com.food.model.DeliveryAddress;
+import com.food.model.OrderForm;
+import com.food.model.OrderFormExample;
+import com.food.model.OrderItem;
 import com.food.model.constants.OrderConstants;
 import com.food.model.vo.*;
 import com.food.service.ICustomerService;
 import com.food.service.IMerchantService;
 import com.food.service.IOrderFormService;
 import com.food.service.IProductService;
+import com.food.utils.CheckUpdateUtil;
 import com.food.utils.IDUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,9 +157,12 @@ public class OrderFormServiceImpl implements IOrderFormService {
         return orderResultVO;
     }
 
+    @Transactional
     @Override
     public void updateOrder(OrderForm orderForm) {
-
+        orderForm.setUpdate_time(new Date());
+        int i = orderFormMapper.updateByPrimaryKey(orderForm);
+        CheckUpdateUtil.test(i,"update order "+orderForm.getId()+" failed");
     }
 
     @Override
@@ -175,12 +182,12 @@ public class OrderFormServiceImpl implements IOrderFormService {
     }
 
     @Override
-    public Optional<OrderForm> getOrderById(Integer id) {
+    public Optional<OrderForm> findOrderById(Integer id) {
         return Optional.empty();
     }
 
     @Override
-    public List<OrderForm> getOrderByIds(List<Integer> ids) {
+    public List<OrderForm> findOrderByIds(List<Integer> ids) {
         return null;
     }
 

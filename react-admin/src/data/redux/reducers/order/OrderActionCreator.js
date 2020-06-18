@@ -2,10 +2,12 @@
 export const Order_constants = {
     ADD_ORDER : "ADD_ORDER",
     UPDATE_ORDER : "UPDATE_ORDER",
+    UPDATE_EXAMPLE : 'UPDATE_EXAMPLE',
 
     INIT_ORDER_LIST_SUCCEED:'INIT_ORDER_LIST_SUCCEED',
     INIT_ORDER_LIST_FAILED:'INIT_ORDER_LIST_FAILED',
     INIT_ORDER_LIST_RETRY:'INIT_ORDER_LIST_RETRY',
+
 
 
     REFRESH_ORDER_LIST_LOADING:'REFRESH_ORDER_LIST_LOADING',
@@ -51,6 +53,12 @@ export function refreshOrderListFailed(data) {
 export function refreshOrderListSucceed(data) {
     return {
         type:Order_constants.REFRESH_ORDER_LIST_SUCCEED,
+        payload:data
+    }
+}
+export function updateExample(data) {
+    return {
+        type:Order_constants.UPDATE_EXAMPLE,
         payload:data
     }
 }

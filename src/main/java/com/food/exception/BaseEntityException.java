@@ -1,8 +1,9 @@
 package com.food.exception;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 
-public class BaseEntityException extends RuntimeException {
+public class BaseEntityException extends RuntimeException implements Supplier<BaseEntityException> {
     private String title;
 
     private String[] args;
@@ -69,5 +70,10 @@ public class BaseEntityException extends RuntimeException {
                 "title='" + title + '\'' +
                 ", args=" + Arrays.toString(args) +
                 '}';
+    }
+
+    @Override
+    public BaseEntityException get() {
+        return this;
     }
 }

@@ -1,12 +1,16 @@
 package com.food.controller;
 
 
+import com.food.exception.InvalidIdException;
+import com.food.model.OrderForm;
+import com.food.model.constants.OrderConstants;
 import com.food.model.vo.*;
 import com.food.service.IOrderFormService;
 import com.food.utils.AuthorizationUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +61,32 @@ public class OrderController {
         Page<BusinessClientOrderResultVO> result = orderFormService.findAllOrdersByMerchantId(example,of);
         return ResponseEntity.ok(result);
     }
+
+
+
+    @PreAuthorize("hasAnyRole('MERCHANT','ADMIN')")
+    @PostMapping("/updateOrder/{orderId}")
+    public ResponseEntity<Page<BusinessClientOrderResultVO>> updateOrderStatus(HttpServletRequest request,
+                                                                               @PathVariable(name = "orderId") Integer orderId,
+                                                                                @RequestBody() String status) {
+
+        if (!OrderConstants.PAYMENT_STATUS.contains(status)){
+            throw new IllegalArgumentException("wrong status");
+        }
+
+        OrderForm order = orderFormService.findOrderById(orderId).orElseThrow(new InvalidIdException("order id: " + orderId + " doesn't exist"));
+
+        Integer merchantId = AuthorizationUtil.getMerchantId(request);
+        if (!order.getMerchant_id().equals(merchantId)){
+            throw new BadCredentialsException("access denied! code "+ 10000);
+        }
+        order.setStatus(status);
+
+        orderFormService.updateOrder(order);
+        return ResponseEntity.ok(null);
+    }
+
+
 
 
 }

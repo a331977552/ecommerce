@@ -13,12 +13,10 @@ public interface IOrderFormService {
     void updateAllOrders(Iterable<OrderForm> orderForms);
     void updateOrder(OrderForm orderForm);
     void deleteOrderById(Integer id);
-    Optional<OrderForm> getOrderById(Integer id);
+    Optional<OrderForm> findOrderById(Integer id);
     long count(OrderForm example);
-    List<OrderForm> getOrderByIds(List<Integer> ids);
+    List<OrderForm> findOrderByIds(List<Integer> ids);
     List<OrderForm> findAllOrder();
     List<OrderForm> findAllOrdersByUserId(Integer userId);
     Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId(BusinessClientOrderQueryVO example, Page<BusinessClientOrderResultVO> page);
-
-
 }

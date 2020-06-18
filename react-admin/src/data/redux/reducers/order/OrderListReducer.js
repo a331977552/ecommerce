@@ -47,6 +47,8 @@ export default function orderListReducer(state = initialState, action) {
             return {...state, contentLoading: false, success: false};
         case Order_constants.INIT_ORDER_LIST_RETRY:
             return {...state, contentLoading: true, success: false};
+        case Order_constants.UPDATE_EXAMPLE:
+            return {...state,example: payload};
 
         case Order_constants.REFRESH_ORDER_LIST_SUCCEED:
             return {...state, previousState: null, pagination: getPagination(payload.data), data: payload.data, dataPath: payload.dataPath};

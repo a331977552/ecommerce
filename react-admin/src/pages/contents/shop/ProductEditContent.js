@@ -257,7 +257,7 @@ class ProductEditContent extends Component {
                     </Form.Item>
 
                     <Form.Item label={"搜索:"}>
-                        <Input.Search placeholder="商品名称" style={{width: 300}} enterButton onSearch={this.onSearch}/>
+                        <Input.Search placeholder="商品名称"  defaultValue={example.name} style={{width: 300}} enterButton onSearch={this.onSearch}/>
                     </Form.Item>
                 </Row>
                 <div>
