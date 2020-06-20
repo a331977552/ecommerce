@@ -64,13 +64,19 @@ public class OrderController {
     @PostMapping("/updateOrder/{orderId}")
     public ResponseEntity updateOrderStatus(HttpServletRequest request,
                                             @PathVariable(name = "orderId") Integer orderId,
-                                            @RequestBody() String status) {
+                                            @RequestParam(name = "status") String status) {
         Integer merchantId = AuthorizationUtil.getMerchantId(request);
         orderFormService.updateOrderStatus(orderId,status,merchantId);
         return ResponseEntity.ok().build();
     }
 
 
-
+    //TODO check if it is relevant user or merchant. irrelevant users or merchants cannot get others order.
+    @PostMapping("/{orderId}")
+    public ResponseEntity<OrderResultVO> findOrderDetailById(HttpServletRequest request,
+                                            @PathVariable(name = "orderId") Integer orderId) {
+        OrderResultVO orderById = orderFormService.findOrderById(orderId);
+        return ResponseEntity.ok(orderById);
+    }
 
 }

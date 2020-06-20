@@ -38,17 +38,20 @@ export function httpUpdateProduct(product,success, failed) {
 }
 
 export function httpListProducts(pagination, orderBy, by, example={}, success, failed, final) {
-    // dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+getUser().id+'&orderBy=price',
         axios.post(`/api/product/findAll/${pagination.current-1}/${pagination.pageSize}?mId=${getUser().id}&orderBy=${orderBy?orderBy:'update_date'}&by=${by}`,example).then(success).catch(failed).finally(final)
 }
 export function httpDeleteProduct(id,success, failed,final) {
-    // dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+getUser().id+'&orderBy=price',
         axios.post(`/api/product/delete/${id}`).then(success).catch(failed).finally(final)
 }
 
 export function httpListOrders(pagination,orderBy,by,example={}, success, failed,final) {
-    // dataPath: '/api/product/findAll/0/'+pageUtil.getPageSize()+'?mId='+getUser().id+'&orderBy=price',
     axios.post(`/api/order/findAllOrdersByMerchant/${pagination.current-1}/${pagination.pageSize}?orderBy=${orderBy?orderBy:'update_date'}&by=${by}`,example).then(success).catch(failed).finally(final)
+}
+export function httpLUpdateOrderStatus(orderId,status, success, failed,final) {
+    axios.post(`/api/order/updateOrder/${orderId}?&status=${status}`).then(success).catch(failed).finally(final)
+}
+export function httpFindOrderDetailById(orderId,success, failed,final) {
+    axios.post(`/api/order/${orderId}`).then(success).catch(failed).finally(final)
 }
 
 

@@ -26,7 +26,7 @@ axios.interceptors.response.use((response) => {
     if (error.response) {
         switch (error.response.status) {
             case SERVER_ERROR:
-                return Promise.reject({message: 'server error: ' + 500, response});
+                return Promise.reject({message:((response.data)||{message: 'server error: ' + 500, response}).message});
             case NOT_FOUND:
                 return Promise.reject({message: 'resource not found: ' + 404, response});
             case FORBIDDEN:

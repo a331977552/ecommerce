@@ -80,7 +80,7 @@ const menuData = [
         children: [{
             routerPath: '/order/orderEdit',
             title: '订单编辑',
-            dataPath: '/api/order/findAllOrdersByMerchant/0/20?orderBy=create_date&by=desc',
+            dataPath: '/api/order/findAllOrdersByMerchant/0/20?orderBy=update_time&by=desc',
             breadCrumb: ['订单管理', '订单编辑'],
             children: [],
             reducer: OrderListReducer,

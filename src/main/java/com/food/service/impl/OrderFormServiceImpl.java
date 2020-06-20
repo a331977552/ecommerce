@@ -5,10 +5,7 @@ import com.food.exception.UnexpectedException;
 import com.food.mappers.DeliveryAddressMapper;
 import com.food.mappers.OrderFormMapper;
 import com.food.mappers.OrderItemMapper;
-import com.food.model.DeliveryAddress;
-import com.food.model.OrderForm;
-import com.food.model.OrderFormExample;
-import com.food.model.OrderItem;
+import com.food.model.*;
 import com.food.model.constants.OrderConstants;
 import com.food.model.vo.*;
 import com.food.service.ICustomerService;
@@ -16,7 +13,9 @@ import com.food.service.IMerchantService;
 import com.food.service.IOrderFormService;
 import com.food.service.IProductService;
 import com.food.utils.CheckUpdateUtil;
+import com.food.utils.EntityUtils;
 import com.food.utils.IDUtils;
+import com.food.utils.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -163,9 +162,11 @@ public class OrderFormServiceImpl implements IOrderFormService {
     @Override
     public void updateOrderStatus(Integer id, String status,Integer merchantId) {
         if (!OrderConstants.PAYMENT_STATUS.contains(status)){
-            throw new IllegalArgumentException("wrong status");
+            throw new IllegalArgumentException("wrong status: "+status);
         }
-        OrderForm order = findOrderById(id).orElseThrow(new InvalidIdException("order id: " + id + " doesn't exist"));
+
+        OrderForm form = orderFormMapper.selectByPrimaryKey(id);
+        OrderForm order = Optional.ofNullable(form).orElseThrow(new InvalidIdException("order id: " + id + " doesn't exist"));
         if (!order.getMerchant_id().equals(merchantId)){
             throw new BadCredentialsException("access denied! code "+ 10000);
         }
@@ -180,8 +181,28 @@ public class OrderFormServiceImpl implements IOrderFormService {
 
 
     @Override
-    public Optional<OrderForm> findOrderById(Integer id) {
-        return Optional.empty();
+    public OrderResultVO findOrderById(Integer id) {
+        OrderForm form = orderFormMapper.selectByPrimaryKey(id);
+        OrderResultVO orderResultVO =new OrderResultVO();
+        BeanUtils.copyProperties(form,orderResultVO);
+
+        OrderItemExample oie =new OrderItemExample();
+        oie.createCriteria().andOrder_idEqualTo(id);
+        List<OrderItemVO> orderItemVOS = orderItemMapper.selectByExample(oie).stream().map(this::convertToItemVO).collect(Collectors.toList());
+        orderResultVO.setOrderItems(orderItemVOS);
+
+        DeliveryAddress address = deliveryAddressMapper.selectByPrimaryKey(form.getDelivery_address_id());
+        DeliveryAddressVO addressVO =new DeliveryAddressVO();
+        BeanUtils.copyProperties(address,addressVO);
+        orderResultVO.setAddress(addressVO);
+
+        if(form.getUser_id() != null){
+            CustomerVO customerVO = customerService.getUserById(form.getUser_id());
+            orderResultVO.setCustomer(customerVO);
+        }
+
+
+        return  orderResultVO;
     }
 
     @Override
@@ -196,40 +217,49 @@ public class OrderFormServiceImpl implements IOrderFormService {
     }
 
     @Override
-    public Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId( BusinessClientOrderQueryVO example, Page<BusinessClientOrderResultVO> page) {
-        MerchantVO merchant = merchantService.findMerchantById(example.getMerchant_id());
+    public Page<BusinessClientOrderResultVO> findAllOrdersByMerchantId( BusinessClientOrderQueryVO clientExample, Page<BusinessClientOrderResultVO> page) {
+        MerchantVO merchant = merchantService.findMerchantById(clientExample.getMerchant_id());
         if(!"available".equals(merchant.getAvailability())){
             throw  new UnexpectedException("current merchant is not available");
         }
-        OrderFormExample ofe=new OrderFormExample();
-        OrderFormExample.Criteria criteria = ofe.createCriteria();
+        OrderFormExample ofeExample=new OrderFormExample();
+        OrderFormExample.Criteria criteria = ofeExample.createCriteria();
         criteria.andMerchant_idEqualTo(merchant.getId());
-        if(example.getStart_create_time() !=null && example.getEnd_create_time() !=null){
-            criteria.andCreate_timeBetween(example.getStart_create_time(),example.getEnd_create_time());
+        if(clientExample.getStart_create_time() !=null && clientExample.getEnd_create_time() !=null){
+            criteria.andCreate_timeBetween(clientExample.getStart_create_time(),clientExample.getEnd_create_time());
         }
-        if(example.getStart_update_time() !=null && example.getEnd_update_time() !=null){
-            criteria.andUpdate_timeBetween(example.getStart_update_time(),example.getEnd_update_time());
+        if(clientExample.getStart_update_time() !=null && clientExample.getEnd_update_time() !=null){
+            criteria.andUpdate_timeBetween(clientExample.getStart_update_time(),clientExample.getEnd_update_time());
         }
-        if(StringUtils.hasText(example.getStatus())){
-            criteria.andStatusEqualTo(example.getStatus());
-        }
-        if(StringUtils.hasText(example.getBuyer())){
-            criteria.andBuyerLike("%"+example.getBuyer().trim()+"%");
+        if(StringUtils.hasText(clientExample.getStatus())){
+            criteria.andStatusEqualTo(clientExample.getStatus());
         }
 
-         if(StringUtils.hasText(example.getOrder_number())){
-            criteria.andOrder_numberLike("%"+example.getOrder_number().trim()+"%");
+        //prevent sql injection
+        String orderBy = page.getOrderBy();
+        System.out.println(orderBy);
+        if(StringUtils.hasText(orderBy) && !EntityUtils.containsFieldWithName(BusinessClientOrderQueryVO.class,orderBy)){
+            throw new IllegalAccessError("stop it! "+ orderBy );
+        } else {
+            page.setOrderBy("update_time");
         }
-         if(StringUtils.hasText(example.getDining_method())){
-            criteria.andDining_methodEqualTo(example.getDining_method().trim());
+        page.setBy(StringUtil.isOneOf(page.getBy(), "desc", "asc") ? page.getBy() : "desc");
+        ofeExample.setOrderByClause(page.getOrderBy().trim() +" "+ page.getBy().trim());
+
+        if(StringUtils.hasText(clientExample.getBuyer())){
+            criteria.andBuyerLike("%"+clientExample.getBuyer().trim()+"%");
         }
 
+         if(StringUtils.hasText(clientExample.getOrder_number())){
+            criteria.andOrder_numberLike("%"+clientExample.getOrder_number().trim()+"%");
+        }
+         if(StringUtils.hasText(clientExample.getDining_method())){
+            criteria.andDining_methodEqualTo(clientExample.getDining_method().trim());
+        }
 
-
-
-        long totalElements = orderFormMapper.countByExample(ofe);
+        long totalElements = orderFormMapper.countByExample(ofeExample);
         int offset =page.getCurrentPage()*page.getPageSize();
-        List<OrderForm> orderForms = orderFormMapper.selectAll(ofe,page.getPageSize(),offset);
+        List<OrderForm> orderForms = orderFormMapper.selectAll(ofeExample,page.getPageSize(),offset);
         List<BusinessClientOrderResultVO> items = orderForms.stream().map(of -> {
             BusinessClientOrderResultVO vo = new BusinessClientOrderResultVO();
             BeanUtils.copyProperties(of, vo);

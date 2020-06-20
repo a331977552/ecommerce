@@ -23,5 +23,10 @@ public class OrderConstants {
     public static final List<String> PAYMENT_STATUS = List.of(STATUS_UNPAID, STATUS_PAID, STATUS_SHIPPED,STATUS_COMPLETE,STATUS_CLOSED,STATUS_REFUND,STATUS_CANCEL);
 
 
+    public static void main(String[] args) {
+        boolean cancel = PAYMENT_STATUS.contains("PAID");
+        System.out.println(cancel);
+
+    }
 
 }

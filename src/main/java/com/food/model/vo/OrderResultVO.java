@@ -28,7 +28,6 @@ public class OrderResultVO {
 
     private String payment_method;
 
-
     private String phone;
 
     private String status;

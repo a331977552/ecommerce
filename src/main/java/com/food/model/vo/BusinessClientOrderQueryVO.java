@@ -27,6 +27,8 @@ public class BusinessClientOrderQueryVO {
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date end_update_time;
+    private Date update_time;
+    private Date create_time;
 
     private String order_code;
     private String order_number;
@@ -39,6 +41,7 @@ public class BusinessClientOrderQueryVO {
     private String dining_method;
     private CustomerVO customer;
     private Integer merchant_id;
+
 
 
 }
