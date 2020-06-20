@@ -14,6 +14,8 @@ public class OrderItemVO {
     private Integer order_id;
     private Integer quantity;
     private String img;
+    private String thumbnail_url;
+
     private String product_desc;
     private String product_name;
     private BigDecimal sub_total;

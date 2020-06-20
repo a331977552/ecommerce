@@ -674,6 +674,76 @@ public class OrderItemExample {
             addCriterion("uniprice not between", value1, value2, "uniprice");
             return (Criteria) this;
         }
+
+        public Criteria andThumbnail_urlIsNull() {
+            addCriterion("thumbnail_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlIsNotNull() {
+            addCriterion("thumbnail_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlEqualTo(String value) {
+            addCriterion("thumbnail_url =", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotEqualTo(String value) {
+            addCriterion("thumbnail_url <>", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlGreaterThan(String value) {
+            addCriterion("thumbnail_url >", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlGreaterThanOrEqualTo(String value) {
+            addCriterion("thumbnail_url >=", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLessThan(String value) {
+            addCriterion("thumbnail_url <", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLessThanOrEqualTo(String value) {
+            addCriterion("thumbnail_url <=", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlLike(String value) {
+            addCriterion("thumbnail_url like", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotLike(String value) {
+            addCriterion("thumbnail_url not like", value, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlIn(List<String> values) {
+            addCriterion("thumbnail_url in", values, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotIn(List<String> values) {
+            addCriterion("thumbnail_url not in", values, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlBetween(String value1, String value2) {
+            addCriterion("thumbnail_url between", value1, value2, "thumbnail_url");
+            return (Criteria) this;
+        }
+
+        public Criteria andThumbnail_urlNotBetween(String value1, String value2) {
+            addCriterion("thumbnail_url not between", value1, value2, "thumbnail_url");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -11,6 +11,7 @@
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="sub_total" jdbcType="NUMERIC" property="sub_total" />
     <result column="uniprice" jdbcType="NUMERIC" property="uniprice" />
+    <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnail_url" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, img, order_id, product_desc, product_id, product_name, quantity, sub_total, uniprice
+    id, img, order_id, product_desc, product_id, product_name, quantity, sub_total, uniprice,
+    thumbnail_url
   </sql>
   <select id="selectByExample" parameterType="com.food.model.OrderItemExample" resultMap="BaseResultMap">
     select
@@ -88,7 +90,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from order_item
     where id = #{id,jdbcType=INTEGER}
@@ -107,14 +109,14 @@
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
       select nextval('order_item_seq')
     </selectKey>
-    insert into order_item (id, img, order_id, 
-      product_desc, product_id, product_name, 
-      quantity, sub_total, uniprice
-      )
-    values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{order_id,jdbcType=INTEGER}, 
-      #{product_desc,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, #{product_name,jdbcType=VARCHAR}, 
-      #{quantity,jdbcType=INTEGER}, #{sub_total,jdbcType=NUMERIC}, #{uniprice,jdbcType=NUMERIC}
-      )
+    insert into order_item (id, img, order_id,
+    product_desc, product_id, product_name,
+    quantity, sub_total, uniprice,
+    thumbnail_url)
+    values (#{id,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{order_id,jdbcType=INTEGER},
+    #{product_desc,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, #{product_name,jdbcType=VARCHAR},
+    #{quantity,jdbcType=INTEGER}, #{sub_total,jdbcType=NUMERIC}, #{uniprice,jdbcType=NUMERIC},
+    #{thumbnail_url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.food.model.OrderItem">
     <selectKey  order="BEFORE" keyProperty="id" resultType="int">
@@ -149,6 +151,9 @@
       <if test="uniprice != null">
         uniprice,
       </if>
+      <if test="thumbnail_url != null">
+        thumbnail_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -178,9 +183,13 @@
       <if test="uniprice != null">
         #{uniprice,jdbcType=NUMERIC},
       </if>
+      <if test="thumbnail_url != null">
+        #{thumbnail_url,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.food.model.OrderItemExample" resultType="java.lang.Long">
+
     select count(*) from order_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -216,6 +225,9 @@
       <if test="record.uniprice != null">
         uniprice = #{record.uniprice,jdbcType=NUMERIC},
       </if>
+      <if test="record.thumbnail_url != null">
+        thumbnail_url = #{record.thumbnail_url,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,14 +236,15 @@
   <update id="updateByExample" parameterType="map">
     update order_item
     set id = #{record.id,jdbcType=INTEGER},
-      img = #{record.img,jdbcType=VARCHAR},
-      order_id = #{record.order_id,jdbcType=INTEGER},
-      product_desc = #{record.product_desc,jdbcType=VARCHAR},
-      product_id = #{record.product_id,jdbcType=INTEGER},
-      product_name = #{record.product_name,jdbcType=VARCHAR},
-      quantity = #{record.quantity,jdbcType=INTEGER},
-      sub_total = #{record.sub_total,jdbcType=NUMERIC},
-      uniprice = #{record.uniprice,jdbcType=NUMERIC}
+    img = #{record.img,jdbcType=VARCHAR},
+    order_id = #{record.order_id,jdbcType=INTEGER},
+    product_desc = #{record.product_desc,jdbcType=VARCHAR},
+    product_id = #{record.product_id,jdbcType=INTEGER},
+    product_name = #{record.product_name,jdbcType=VARCHAR},
+    quantity = #{record.quantity,jdbcType=INTEGER},
+    sub_total = #{record.sub_total,jdbcType=NUMERIC},
+    uniprice = #{record.uniprice,jdbcType=NUMERIC},
+    thumbnail_url = #{record.thumbnail_url,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -263,19 +276,23 @@
       <if test="uniprice != null">
         uniprice = #{uniprice,jdbcType=NUMERIC},
       </if>
+      <if test="thumbnail_url != null">
+        thumbnail_url = #{thumbnail_url,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.food.model.OrderItem">
     update order_item
     set img = #{img,jdbcType=VARCHAR},
-      order_id = #{order_id,jdbcType=INTEGER},
-      product_desc = #{product_desc,jdbcType=VARCHAR},
-      product_id = #{product_id,jdbcType=INTEGER},
-      product_name = #{product_name,jdbcType=VARCHAR},
-      quantity = #{quantity,jdbcType=INTEGER},
-      sub_total = #{sub_total,jdbcType=NUMERIC},
-      uniprice = #{uniprice,jdbcType=NUMERIC}
+        order_id = #{order_id,jdbcType=INTEGER},
+        product_desc = #{product_desc,jdbcType=VARCHAR},
+        product_id = #{product_id,jdbcType=INTEGER},
+        product_name = #{product_name,jdbcType=VARCHAR},
+        quantity = #{quantity,jdbcType=INTEGER},
+        sub_total = #{sub_total,jdbcType=NUMERIC},
+        uniprice = #{uniprice,jdbcType=NUMERIC},
+        thumbnail_url = #{thumbnail_url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

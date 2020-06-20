@@ -22,6 +22,8 @@ public class OrderItem implements Serializable {
 
     private BigDecimal uniprice;
 
+    private String thumbnail_url;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -94,5 +96,13 @@ public class OrderItem implements Serializable {
 
     public void setUniprice(BigDecimal uniprice) {
         this.uniprice = uniprice;
+    }
+
+    public String getThumbnail_url() {
+        return thumbnail_url;
+    }
+
+    public void setThumbnail_url(String thumbnail_url) {
+        this.thumbnail_url = thumbnail_url == null ? null : thumbnail_url.trim();
     }
 }

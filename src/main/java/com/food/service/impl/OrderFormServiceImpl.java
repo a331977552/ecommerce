@@ -108,6 +108,7 @@ public class OrderFormServiceImpl implements IOrderFormService {
             item.setSub_total(subTotal);
             item.setUniprice(product.getPrice());
             item.setImg(product.getImgs().get(0).getUrl());
+            item.setImg(product.getImgs().get(0).getThumbnail_url());
             item.setProduct_desc(product.getDescription());
             item.setProduct_name(product.getName());
             quantity += item.getQuantity();
@@ -185,23 +186,21 @@ public class OrderFormServiceImpl implements IOrderFormService {
         OrderForm form = orderFormMapper.selectByPrimaryKey(id);
         OrderResultVO orderResultVO =new OrderResultVO();
         BeanUtils.copyProperties(form,orderResultVO);
-
+        //find all corresponding items.
         OrderItemExample oie =new OrderItemExample();
         oie.createCriteria().andOrder_idEqualTo(id);
         List<OrderItemVO> orderItemVOS = orderItemMapper.selectByExample(oie).stream().map(this::convertToItemVO).collect(Collectors.toList());
         orderResultVO.setOrderItems(orderItemVOS);
-
+        //find the address
         DeliveryAddress address = deliveryAddressMapper.selectByPrimaryKey(form.getDelivery_address_id());
         DeliveryAddressVO addressVO =new DeliveryAddressVO();
         BeanUtils.copyProperties(address,addressVO);
         orderResultVO.setAddress(addressVO);
-
+        //find customer
         if(form.getUser_id() != null){
             CustomerVO customerVO = customerService.getUserById(form.getUser_id());
             orderResultVO.setCustomer(customerVO);
         }
-
-
         return  orderResultVO;
     }
 
