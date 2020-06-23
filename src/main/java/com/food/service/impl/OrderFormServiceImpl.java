@@ -165,7 +165,6 @@ public class OrderFormServiceImpl implements IOrderFormService {
         if (!OrderConstants.PAYMENT_STATUS.contains(status)){
             throw new IllegalArgumentException("wrong status: "+status);
         }
-
         OrderForm form = orderFormMapper.selectByPrimaryKey(id);
         OrderForm order = Optional.ofNullable(form).orElseThrow(new InvalidIdException("order id: " + id + " doesn't exist"));
         if (!order.getMerchant_id().equals(merchantId)){
